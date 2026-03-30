@@ -1,849 +1,1379 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parella Group &mdash; Dashboard Strat&eacute;gique de Direction</title>
-<style>
-:root {
-  --bg-primary: #0f1117;
-  --bg-secondary: #1a1d28;
-  --bg-card: #222635;
-  --bg-card-hover: #2a2e3d;
-  --bg-tab: #161924;
-  --border: #2e3347;
-  --border-light: #3a3f54;
-  --text-primary: #e8e9ed;
-  --text-secondary: #9ea3b5;
-  --text-muted: #6b7190;
-  --gold: #c9a84c;
-  --gold-dim: #a68a3a;
-  --gold-bg: rgba(201,168,76,0.08);
-  --green: #4caf7c;
-  --green-bg: rgba(76,175,124,0.1);
-  --orange: #e09140;
-  --orange-bg: rgba(224,145,64,0.1);
-  --red: #d45d5d;
-  --red-bg: rgba(212,93,93,0.1);
-  --blue: #5b8cd4;
-  --blue-bg: rgba(91,140,212,0.1);
-  --purple: #9b7ed4;
-  --purple-bg: rgba(155,126,212,0.1);
-  --fc-color: #4caf7c;
-  --fc-bg: rgba(76,175,124,0.12);
-  --ip-color: #e09140;
-  --ip-bg: rgba(224,145,64,0.12);
-  --hv-color: #d45d5d;
-  --hv-bg: rgba(212,93,93,0.12);
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background:var(--bg-primary); color:var(--text-primary); line-height:1.6; }
-
-/* Header */
-.header { background:var(--bg-secondary); border-bottom:2px solid var(--gold-dim); padding:24px 32px; display:flex; justify-content:space-between; align-items:center; }
-.header-left h1 { font-size:22px; font-weight:700; letter-spacing:0.5px; }
-.header-left h1 span { color:var(--gold); }
-.header-left .subtitle { font-size:13px; color:var(--text-secondary); margin-top:4px; }
-.header-meta { font-size:12px; color:var(--text-muted); text-align:right; line-height:1.6; }
-.header-meta strong { color:var(--gold); }
-.header-meta .conf-tag { display:inline-block; padding:2px 8px; border-radius:3px; background:var(--red-bg); color:var(--red); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
-
-/* Tab bar */
-.tab-bar { display:flex; background:var(--bg-tab); border-bottom:1px solid var(--border); overflow-x:auto; -webkit-overflow-scrolling:touch; }
-.tab-bar::-webkit-scrollbar { height:3px; }
-.tab-bar::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-.tab-btn { padding:14px 22px; font-size:13px; font-weight:600; color:var(--text-muted); background:none; border:none; cursor:pointer; white-space:nowrap; border-bottom:3px solid transparent; transition:all 0.2s; user-select:none; -webkit-user-select:none; }
-.tab-btn:hover { color:var(--text-secondary); background:rgba(255,255,255,0.03); }
-.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); background:rgba(201,168,76,0.04); }
-.tab-content { display:none; padding:28px 32px 48px; max-width:1200px; margin:0 auto; }
-.tab-content.active { display:block; }
-
-/* Tab title / subtitle */
-.tab-title { font-size:24px; font-weight:700; margin-bottom:4px; }
-.tab-subtitle { font-size:14px; color:var(--text-muted); margin-bottom:28px; font-style:italic; }
-
-/* Cards */
-.card-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:16px; margin-bottom:24px; }
-.card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:20px 22px; transition:border-color 0.2s; }
-.card:hover { border-color:var(--border-light); }
-.card-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:8px; }
-.card-value { font-size:28px; font-weight:700; color:var(--gold); line-height:1.2; }
-.card-detail { font-size:13px; color:var(--text-secondary); margin-top:6px; }
-.card h3 { font-size:15px; font-weight:600; margin-bottom:10px; }
-.card p, .card li { font-size:13.5px; color:var(--text-secondary); line-height:1.65; }
-.card ul { padding-left:18px; }
-.card li { margin-bottom:4px; }
-
-/* CEO Takeaway */
-.takeaway { background:var(--gold-bg); border:1px solid var(--gold-dim); border-radius:8px; padding:20px 24px; margin-bottom:24px; }
-.takeaway-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--gold); margin-bottom:8px; }
-.takeaway p { font-size:14px; color:var(--text-primary); line-height:1.7; }
-
-/* Alerts */
-.alert { border-radius:8px; padding:16px 20px; margin-bottom:16px; font-size:13.5px; line-height:1.6; }
-.alert-green { background:var(--green-bg); border:1px solid var(--green); color:var(--green); }
-.alert-orange { background:var(--orange-bg); border:1px solid var(--orange); color:var(--orange); }
-.alert-red { background:var(--red-bg); border:1px solid var(--red); color:var(--red); }
-.alert-blue { background:var(--blue-bg); border:1px solid var(--blue); color:var(--blue); }
-.alert strong { font-weight:600; }
-
-/* Badges */
-.badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; letter-spacing:0.3px; vertical-align:middle; }
-.badge-fc { background:var(--fc-bg); color:var(--fc-color); border:1px solid rgba(76,175,124,0.25); }
-.badge-ip { background:var(--ip-bg); color:var(--ip-color); border:1px solid rgba(224,145,64,0.25); }
-.badge-hv { background:var(--hv-bg); color:var(--hv-color); border:1px solid rgba(212,93,93,0.25); }
-
-/* Tables */
-table { width:100%; border-collapse:collapse; margin-bottom:20px; font-size:13px; }
-th { background:var(--bg-tab); color:var(--text-muted); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.8px; padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); }
-td { padding:12px 14px; border-bottom:1px solid var(--border); color:var(--text-secondary); vertical-align:top; line-height:1.5; }
-tr:hover td { background:rgba(255,255,255,0.015); }
-
-/* Section headers */
-.section-header { font-size:16px; font-weight:600; margin:28px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--border); }
-.section-sub { font-size:14px; font-weight:600; margin:20px 0 10px; color:var(--gold); }
-
-/* Score cards */
-.score-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:12px; margin-bottom:24px; }
-.score-card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:16px; text-align:center; }
-.score-card .label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
-.score-card .score { font-size:24px; font-weight:700; }
-.score-high { color:var(--green); }
-.score-mid { color:var(--orange); }
-.score-low { color:var(--red); }
-.score-card .note { font-size:11px; color:var(--text-muted); margin-top:4px; }
-
-/* Timeline */
-.timeline { position:relative; padding-left:24px; margin-bottom:24px; }
-.timeline::before { content:''; position:absolute; left:6px; top:8px; bottom:8px; width:2px; background:var(--border); }
-.tl-item { position:relative; margin-bottom:20px; }
-.tl-item::before { content:''; position:absolute; left:-21px; top:6px; width:10px; height:10px; border-radius:50%; border:2px solid var(--gold); background:var(--bg-primary); }
-.tl-phase { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; padding:4px 10px; border-radius:4px; display:inline-block; }
-.tl-phase-30 { background:var(--red-bg); color:var(--red); }
-.tl-phase-60 { background:var(--orange-bg); color:var(--orange); }
-.tl-phase-90 { background:var(--blue-bg); color:var(--blue); }
-.tl-title { font-size:14px; font-weight:600; color:var(--text-primary); }
-.tl-desc { font-size:13px; color:var(--text-secondary); margin-top:2px; }
-.tl-tag { display:inline-block; font-size:10px; font-weight:600; padding:2px 6px; border-radius:3px; margin-top:4px; text-transform:uppercase; letter-spacing:0.5px; }
-.tl-tag-decide { background:var(--red-bg); color:var(--red); }
-.tl-tag-validate { background:var(--orange-bg); color:var(--orange); }
-.tl-tag-test { background:var(--blue-bg); color:var(--blue); }
-.tl-tag-deploy { background:var(--green-bg); color:var(--green); }
-
-/* Matrix */
-.matrix-2x2 { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:2px; margin-bottom:24px; border-radius:8px; overflow:hidden; }
-.matrix-header-y { grid-column:1/3; text-align:center; padding:8px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); background:var(--bg-secondary); }
-.matrix-cell { background:var(--bg-card); padding:18px; min-height:140px; }
-.matrix-cell h4 { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
-.matrix-cell ul { padding-left:16px; font-size:13px; color:var(--text-secondary); }
-.matrix-cell li { margin-bottom:4px; }
-.mc-green h4 { color:var(--green); }
-.mc-blue h4 { color:var(--blue); }
-.mc-orange h4 { color:var(--orange); }
-.mc-purple h4 { color:var(--purple); }
-
-/* Question cards */
-.q-card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:18px 20px; margin-bottom:12px; }
-.q-card .q-num { display:inline-block; width:24px; height:24px; border-radius:50%; background:var(--gold-bg); color:var(--gold); font-size:12px; font-weight:700; text-align:center; line-height:24px; margin-right:10px; }
-.q-card .q-text { font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px; }
-.q-card .q-why { font-size:12.5px; color:var(--text-muted); margin-bottom:6px; }
-.q-card .q-good { font-size:12.5px; color:var(--text-secondary); padding:8px 12px; background:var(--green-bg); border-radius:4px; }
-.q-card .q-theme { display:inline-block; font-size:10px; font-weight:600; padding:2px 6px; border-radius:3px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
-.theme-scoring { background:var(--red-bg); color:var(--red); }
-.theme-segment { background:var(--orange-bg); color:var(--orange); }
-.theme-volume { background:var(--purple-bg); color:var(--purple); }
-.theme-coverage { background:var(--blue-bg); color:var(--blue); }
-.theme-calibration { background:var(--gold-bg); color:var(--gold); }
-.theme-feedback { background:var(--green-bg); color:var(--green); }
-
-/* Verdict */
-.verdict-strip { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
-.verdict-box { border-radius:8px; padding:18px 20px; }
-.verdict-good { background:var(--green-bg); border:1px solid rgba(76,175,124,0.25); }
-.verdict-fix { background:var(--orange-bg); border:1px solid rgba(224,145,64,0.25); }
-.verdict-box h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px; }
-.verdict-good h4 { color:var(--green); }
-.verdict-fix h4 { color:var(--orange); }
-.verdict-box li { font-size:13px; color:var(--text-secondary); margin-bottom:4px; line-height:1.5; }
-.verdict-box ul { padding-left:16px; }
-
-/* Legend */
-.legend { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
-.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-muted); }
-
-/* ICP tiers */
-.icp-tier-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:6px 14px; margin:20px 0 12px; border-radius:4px; display:inline-block; }
-.icp-priority { background:var(--green-bg); color:var(--green); }
-.icp-test { background:var(--orange-bg); color:var(--orange); }
-.icp-unproven { background:var(--red-bg); color:var(--red); }
-
-/* Confidence bar */
-.conf-bar { display:flex; gap:3px; align-items:center; }
-.conf-dot { width:14px; height:6px; border-radius:2px; background:var(--border); }
-.conf-dot.filled { background:var(--gold); }
-
-/* Business model */
-.bm-flow { display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin:20px 0; }
-.bm-box { background:var(--bg-card); border:1px solid var(--border); border-radius:6px; padding:10px 16px; text-align:center; min-width:140px; }
-.bm-box .bm-label { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
-.bm-box .bm-name { font-size:13px; font-weight:600; color:var(--text-primary); margin-top:2px; }
-.bm-arrow { color:var(--gold); font-size:18px; }
-.bm-poles { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0; }
-.bm-pole { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:16px; }
-.bm-pole h4 { font-size:13px; font-weight:600; color:var(--gold); margin-bottom:8px; }
-.bm-pole ul { font-size:12.5px; color:var(--text-secondary); padding-left:14px; }
-.bm-pole li { margin-bottom:3px; }
-
-/* Footer */
-.footer { text-align:center; padding:20px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:40px; }
-
-/* Responsive */
-@media (max-width:768px) {
-  .card-grid { grid-template-columns:1fr; }
-  .verdict-strip { grid-template-columns:1fr; }
-  .score-grid { grid-template-columns:repeat(2,1fr); }
-  .bm-poles { grid-template-columns:1fr; }
-  .matrix-2x2 { grid-template-columns:1fr; }
-  .tab-btn { padding:10px 14px; font-size:12px; }
-  .tab-content { padding:20px 16px 40px; }
-  .header { padding:16px; flex-direction:column; gap:8px; }
-}
-@media print {
-  .tab-bar { display:none; }
-  .tab-content { display:block !important; page-break-after:always; }
-  body { background:#fff; color:#222; }
-  .card, .takeaway, .q-card, .score-card, .bm-pole { border-color:#ddd; background:#f9f9f9; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parella Group &mdash; Tableau de bord strat&eacute;gique V5</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg-primary:#1a1e2e;
+      --bg-secondary:#252d3d;
+      --bg-card:#2e3347;
+      --bg-hover:#3a4455;
+      --border:#3a4255;
+      --text-primary:#e8eaed;
+      --text-secondary:#b0b3b8;
+      --text-muted:#7a7d82;
+      --gold:#c9a84c;
+      --gold-dim:#9d8639;
+      --gold-bg:rgba(201,168,76,0.15);
+      --red:#ff6b6b;
+      --red-bg:rgba(255,107,107,0.15);
+      --green:#51cf66;
+      --green-bg:rgba(81,207,102,0.15);
+      --blue:#4c9aff;
+      --blue-bg:rgba(76,154,255,0.15);
+    }
+    body {
+      background:var(--bg-primary);
+      color:var(--text-primary);
+      font-family:'Segoe UI','Roboto',sans-serif;
+      font-size:14px;
+      line-height:1.6;
+    }
+    .container { max-width:1200px; margin:0 auto; padding:32px 20px; }
+    .header {
+      text-align:center;
+      margin-bottom:40px;
+      padding-bottom:32px;
+      border-bottom:1px solid var(--border);
+    }
+    .header h1 {
+      font-size:32px;
+      font-weight:700;
+      margin-bottom:8px;
+      letter-spacing:-0.5px;
+    }
+    .header p {
+      font-size:13px;
+      color:var(--text-muted);
+      letter-spacing:0.5px;
+      text-transform:uppercase;
+    }
+    .tab-nav {
+      display:flex;
+      gap:8px;
+      margin-bottom:32px;
+      flex-wrap:wrap;
+      border-bottom:1px solid var(--border);
+      padding-bottom:0;
+    }
+    .tab-btn {
+      padding:12px 16px;
+      background:transparent;
+      border:none;
+      color:var(--text-muted);
+      cursor:pointer;
+      font-size:13px;
+      font-weight:500;
+      border-bottom:3px solid transparent;
+      transition:all 0.2s ease;
+      white-space:nowrap;
+    }
+    .tab-btn:hover {
+      color:var(--text-secondary);
+    }
+    .tab-btn.active {
+      color:var(--gold);
+      border-bottom-color:var(--gold);
+    }
+    .tab-content {
+      display:none;
+    }
+    .tab-content.active {
+      display:block;
+    }
+    .section-header {
+      font-size:18px;
+      font-weight:600;
+      color:var(--text-primary);
+      margin-bottom:24px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--gold);
+    }
+    .section-subtitle {
+      font-size:12px;
+      color:var(--text-muted);
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      margin-top:-18px;
+      margin-bottom:20px;
+    }
+    .box {
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:20px;
+      margin-bottom:20px;
+    }
+    .box-title {
+      font-size:14px;
+      font-weight:600;
+      color:var(--gold);
+      margin-bottom:12px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .box p {
+      font-size:13.5px;
+      color:var(--text-secondary);
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+    .box p:last-child {
+      margin-bottom:0;
+    }
+    .alert {
+      background:rgba(255,107,107,0.1);
+      border-left:4px solid var(--red);
+      padding:16px;
+      border-radius:4px;
+      margin-bottom:20px;
+    }
+    .alert-title {
+      font-weight:600;
+      color:var(--red);
+      margin-bottom:8px;
+      font-size:13px;
+    }
+    .alert p {
+      font-size:13px;
+      color:var(--text-secondary);
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:6px;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+    th {
+      background:var(--bg-secondary);
+      color:var(--gold);
+      padding:12px 16px;
+      text-align:left;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      border-bottom:1px solid var(--border);
+    }
+    td {
+      padding:12px 16px;
+      border-bottom:1px solid rgba(58,66,85,0.3);
+      font-size:13px;
+      color:var(--text-secondary);
+    }
+    tr:last-child td {
+      border-bottom:none;
+    }
+    td.label {
+      color:var(--text-primary);
+      font-weight:500;
+    }
+    .badge {
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:4px;
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .badge-green {
+      background:var(--green-bg);
+      color:var(--green);
+    }
+    .badge-gold {
+      background:var(--gold-bg);
+      color:var(--gold);
+    }
+    .badge-blue {
+      background:var(--blue-bg);
+      color:var(--blue);
+    }
+    .badge-red {
+      background:var(--red-bg);
+      color:var(--red);
+    }
+    .grid-2 {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-bottom:20px;
+    }
+    @media(max-width:768px) {
+      .grid-2 { grid-template-columns:1fr; }
+      .tab-nav { gap:4px; }
+      .tab-btn { padding:10px 12px; font-size:12px; }
+    }
+    .vigilance-card {
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:0;
+      margin-bottom:16px;
+      overflow:hidden;
+    }
+    .vigilance-header {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:16px 20px;
+      border-bottom:1px solid var(--border);
+      background:var(--bg-secondary);
+    }
+    .vigilance-num {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--gold-bg);
+      color:var(--gold);
+      font-size:13px;
+      font-weight:700;
+      flex-shrink:0;
+    }
+    .vigilance-title {
+      font-size:15px;
+      font-weight:600;
+      color:var(--text-primary);
+      flex:1;
+    }
+    .vigilance-section {
+      padding:12px 20px;
+      border-bottom:1px solid rgba(46,51,71,0.5);
+    }
+    .vigilance-section:last-child {
+      border-bottom:none;
+    }
+    .vigilance-label {
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      color:var(--text-muted);
+      margin-bottom:4px;
+    }
+    .vigilance-section p {
+      font-size:13.5px;
+      color:var(--text-secondary);
+      line-height:1.65;
+    }
+    .vigilance-posture {
+      background:rgba(201,168,76,0.04);
+    }
+    .vigilance-posture p {
+      font-style:italic;
+    }
+    .glossary-section {
+      padding:28px 32px;
+      max-width:1200px;
+      margin:0 auto;
+      border-top:1px solid var(--border);
+      margin-top:40px;
+    }
+    .glossary-section .section-header {
+      margin-bottom:20px;
+    }
+    .glossary-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(350px, 1fr));
+      gap:10px;
+    }
+    .glossary-item {
+      font-size:12.5px;
+      color:var(--text-secondary);
+      line-height:1.5;
+      padding:8px 12px;
+      background:var(--bg-card);
+      border-radius:4px;
+    }
+    .glossary-item strong {
+      color:var(--gold);
+    }
+    a.gl-link {
+      color:var(--gold);
+      text-decoration:none;
+      border-bottom:1px dotted var(--gold-dim);
+      cursor:pointer;
+    }
+    a.gl-link:hover {
+      color:var(--text-primary);
+    }
+    .footer {
+      text-align:center;
+      padding:32px 20px;
+      color:var(--text-muted);
+      font-size:12px;
+      border-top:1px solid var(--border);
+      margin-top:40px;
+    }
+    .footer p {
+      margin:8px 0;
+    }
+    .kpi-box {
+      background:var(--bg-secondary);
+      padding:16px;
+      border-radius:6px;
+      text-align:center;
+      margin-bottom:16px;
+    }
+    .kpi-value {
+      font-size:24px;
+      font-weight:700;
+      color:var(--gold);
+      margin-bottom:4px;
+    }
+    .kpi-label {
+      font-size:12px;
+      color:var(--text-muted);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .list-item {
+      padding:12px;
+      background:var(--bg-secondary);
+      border-left:3px solid var(--gold);
+      margin-bottom:12px;
+      border-radius:4px;
+    }
+    .list-item-title {
+      font-weight:600;
+      color:var(--text-primary);
+      margin-bottom:4px;
+      font-size:13px;
+    }
+    .list-item-desc {
+      font-size:12.5px;
+      color:var(--text-secondary);
+    }
+  </style>
 </head>
 <body>
-
-<div class="header">
-  <div class="header-left">
-    <h1><span>PARELLA GROUP</span> &mdash; Dashboard Strat&eacute;gique de Direction</h1>
-    <div class="subtitle">&Eacute;tat du march&eacute;, ICPs possibles et audit du dispositif outbound</div>
-  </div>
-  <div class="header-meta">
-    Audit strat&eacute;gique &amp; &eacute;valuation outbound<br>
-    <strong>Confidentiel</strong> &middot; Mars 2026<br>
-    <span class="conf-tag">Document de travail</span>
-  </div>
-</div>
-
-<div class="tab-bar" id="tabBar">
-  <button class="tab-btn active" onclick="switchTab('ceo')" data-tab="ceo">Vue PDG</button>
-  <button class="tab-btn" onclick="switchTab('business')" data-tab="business">Business r&eacute;el</button>
-  <button class="tab-btn" onclick="switchTab('market')" data-tab="market">March&eacute;</button>
-  <button class="tab-btn" onclick="switchTab('icp')" data-tab="icp">ICPs</button>
-  <button class="tab-btn" onclick="switchTab('opportunities')" data-tab="opportunities">Opportunit&eacute;s</button>
-  <button class="tab-btn" onclick="switchTab('audit')" data-tab="audit">Audit Youno</button>
-  <button class="tab-btn" onclick="switchTab('questions')" data-tab="questions">Questions agence</button>
-  <button class="tab-btn" onclick="switchTab('plan')" data-tab="plan">Plan 30/60/90</button>
-</div>
-
-<!-- TAB 1 - VUE PDG -->
-<div class="tab-content active" id="tab-ceo">
-  <div class="tab-title">Ce que le PDG doit savoir en 3 minutes</div>
-  <div class="tab-subtitle">Faits confirm&eacute;s, hypoth&egrave;ses et implications business</div>
-
-  <div class="takeaway">
-    <div class="takeaway-label">CEO Takeaway</div>
-    <p>Le syst&egrave;me d&rsquo;outbound automatis&eacute; con&ccedil;u par Youno est techniquement solide, mais il n&rsquo;est pas calibr&eacute; sur le business r&eacute;el de Parella. Avant toute mont&eacute;e en charge, il doit &ecirc;tre recalibr&eacute; &agrave; partir des donn&eacute;es internes. Notre recommandation&nbsp;: <strong>poursuite conditionnelle</strong>.</p>
-  </div>
-
-  <div class="section-header">5 messages cl&eacute;s</div>
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-label"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
-      <h3>Parella = ~150 M&euro; de CA, 250 collaborateurs, 7 pays</h3>
-      <p>Confirm&eacute; par le communiqu&eacute; Bpifrance (septembre 2025). 40&nbsp;% du CA &agrave; l&rsquo;international. Tous les actionnaires historiques ont r&eacute;investi lors du 2nd LBO.</p>
+  <div class="container">
+    <div class="header">
+      <h1>Parella Group</h1>
+      <p>Tableau de bord strat&eacute;gique &mdash; V5</p>
     </div>
-    <div class="card">
-      <div class="card-label"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
-      <h3>Trois p&ocirc;les, huit m&eacute;tiers, une cha&icirc;ne int&eacute;gr&eacute;e</h3>
-      <p>Real Estate Services, Workspace, People &amp; Transformation. De la strat&eacute;gie immobili&egrave;re &agrave; la formation. Positionnement unique&nbsp;: 100&nbsp;% c&ocirc;t&eacute; occupant, ind&eacute;pendant.</p>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(event, 'tab1')">1. Vue PDG</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab2')">2. Business r&eacute;el</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab3')">3. March&eacute;</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab4')">4. ICPs</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab5')">5. Opportunit&eacute;s</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab6')">6. Audit du dispositif</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab7')">7. Questions agence</button>
+      <button class="tab-btn" onclick="switchTab(event, 'tab8')">8. Plan 30/60/90</button>
     </div>
-    <div class="card">
-      <div class="card-label"><span class="badge badge-ip">Interpr&eacute;tation</span></div>
-      <h3>L&rsquo;outbound Youno ne couvre qu&rsquo;un p&ocirc;le sur trois</h3>
-      <p>Le syst&egrave;me est construit autour du bail immobilier. Les p&ocirc;les Workspace et People &amp; Transformation n&rsquo;ont pas de campagnes d&eacute;di&eacute;es. Deux tiers de l&rsquo;offre sont ignor&eacute;s.</p>
+
+    <!-- TAB 1: VUE PDG -->
+    <div id="tab1" class="tab-content active">
+      <div class="section-header">Synth&egrave;se pour la Direction</div>
+      <div class="section-subtitle">Analyse &eacute;ex&eacute;cutive, opportunit&eacute;s et risques majeurs</div>
+
+      <div class="box">
+        <div class="box-title">Contexte</div>
+        <p>Parella Group, cabinet de conseil ind&eacute;pendant class&eacute; &laquo;&nbsp;Incontournable&nbsp;&raquo; par Leaders League, a demand&eacute; un audit complet de son dispositif outbound automatis&eacute; (Youno) d&eacute;ploy&eacute; par son agence partenaire. Le dispositif couvre le ciblage, le scoring, l'envoi et le nurturing de prospects sur l'offre Real Estate Services.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Synth&egrave;se pour la Direction</div>
+        <p><strong>Force majeure&nbsp;:</strong> L'architecture technique est solide, la m&eacute;thodologie est rigoureuse, le scoring est sophistiqu&eacute;. L'agence a fourni un travail de qualit&eacute; professionnelle.</p>
+        <p><strong>Vigilance critique&nbsp;:</strong> Le param&eacute;trage a &eacute;t&eacute; r&eacute;alis&eacute; sans acc&egrave;s suffisant aux donn&eacute;es business r&eacute;elles de Parella (portefeuille existant, triggers r&eacute;els de vente, positionnement multi-p&ocirc;les). Dix &eacute;carts significatifs ont &eacute;t&eacute; identifi&eacute;s entre le design et la r&eacute;alit&eacute; du march&eacute; Parella.</p>
+        <p><strong>Verdict&nbsp;:</strong> Le recalibrage demand&eacute; n'est pas une critique de la m&eacute;thode de l'agence, mais une condition sine qua non de succ&egrave;s du d&eacute;ploiement. Sans correction, le retour sur investissement sera significativement diminu&eacute;.</p>
+      </div>
+
+      <div class="section-header" style="margin-top:28px;">Trois alertes strat&eacute;giques</div>
+
+      <div class="alert">
+        <div class="alert-title">Alerte 1 : Biais sectoriel dans le scoring</div>
+        <p>Le Private Equity re&ccedil;oit 350 points de Fit Score (poids maximal), mais z&eacute;ro client PE dans le portefeuille document&eacute;. Cette pond&eacute;ration d&eacute;termine le classement de tous les prospects. Risque&nbsp;: sous-ciblage des vrais ICPs (corporate, conseil/finance, secteur public) en faveur de segments sans preuve de fit.</p>
+      </div>
+
+      <div class="alert">
+        <div class="alert-title">Alerte 2 : Mono-trigger immobilier pour une offre multi-p&ocirc;les</div>
+        <p>Le syst&egrave;me se concentre sur l'expiration de bail (+300 points). Or, Workspace (flex office, changement direction) et People &amp; Transformation (churn talents, r&eacute;organisation) g&eacute;n&egrave;rent autant de demande. L'absence de triggers diversifi&eacute;s limite le pipeline aux 30-40% du march&eacute; potentiel.</p>
+      </div>
+
+      <div class="alert">
+        <div class="alert-title">Alerte 3 : Absence de boucle de retour et d'ajustement</div>
+        <p>Aucun m&eacute;canisme de feedback loop n'est pr&eacute;vu. Les param&egrave;tres initiaux restent fig&eacute;s. Les donn&eacute;es r&eacute;elles (taux de r&eacute;ponse, objections, conversions) ne serviront pas &agrave; affiner le syst&egrave;me. Cela transforme un investissement technique en ressource bless&eacute;e.</p>
+      </div>
+
+      <div class="section-header" style="margin-top:28px;">Trois arbitrages demand&eacute;s</div>
+
+      <div class="list-item">
+        <div class="list-item-title">1. Recalibrer le scoring avant lancement</div>
+        <div class="list-item-desc">Backtest sur les 20 derniers deals sign&eacute;s. Si moins de 50% sont class&eacute;s T1, ajuster les poids. Dur&eacute;e estim&eacute;e&nbsp;: 2 semaines avec l'agence.</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">2. D&eacute;finir et int&eacute;grer les triggers non-immobiliers</div>
+        <div class="list-item-desc">Cr&eacute;er une liste de signaux sp&eacute;cifiques pour Workspace et People. Tester sur 500 prospects par p&ocirc;le. Dur&eacute;e&nbsp;: 3 semaines.</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">3. Mettre en place le reporting et la boucle de retour</div>
+        <div class="list-item-desc">Tableau de bord hebdomadaire (taux d'ouverture, r&eacute;ponse, meeting par ICP), revue mensuelle des param&egrave;tres. Dur&eacute;e&nbsp;: mise en place imm&eacute;diate, ajustements permanents.</div>
+      </div>
+
+      <div class="section-header" style="margin-top:28px;">Appr&eacute;ciation du dispositif outbound</div>
+
+      <table>
+        <tr>
+          <th>Dimension</th>
+          <th>Score</th>
+          <th>Appr&eacute;ciation</th>
+        </tr>
+        <tr>
+          <td class="label">Architecture technique</td>
+          <td><span class="badge badge-green">9/10</span></td>
+          <td>Solide, modulaire, maintenable</td>
+        </tr>
+        <tr>
+          <td class="label">M&eacute;thodologie de scoring</td>
+          <td><span class="badge badge-gold">7/10</span></td>
+          <td>Rigoureuse, mais non calibr&eacute;e sur donn&eacute;es r&eacute;elles</td>
+        </tr>
+        <tr>
+          <td class="label">Couverture ICP</td>
+          <td><span class="badge badge-red">4/10</span></td>
+          <td>Incompl&egrave;te, biais sectoriel</td>
+        </tr>
+        <tr>
+          <td class="label">Diversit&eacute; des triggers</td>
+          <td><span class="badge badge-red">3/10</span></td>
+          <td>Mono-trigger immobilier, deux p&ocirc;les non couverts</td>
+        </tr>
+        <tr>
+          <td class="label">Positionnement messaging</td>
+          <td><span class="badge badge-gold">6/10</span></td>
+          <td>Registre &laquo;&nbsp;broker immobilier&nbsp;&raquo;, manque de transformation</td>
+        </tr>
+        <tr>
+          <td class="label">Exploitation des actifs</td>
+          <td><span class="badge badge-red">2/10</span></td>
+          <td>Barom&egrave;tre, Office Papers non int&eacute;gr&eacute;s</td>
+        </tr>
+        <tr>
+          <td class="label">Capacit&eacute; op&eacute;rationnelle</td>
+          <td><span class="badge badge-red">3/10</span></td>
+          <td>Un seul r&eacute;pondant, goulot d'&eacute;tranglement</td>
+        </tr>
+        <tr>
+          <td class="label">Feedback loop</td>
+          <td><span class="badge badge-red">0/10</span></td>
+          <td>Aucun m&eacute;canisme de retour</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <div class="box-title">Recommandation globale</div>
+        <p><strong>Status&nbsp;:</strong> &laquo;&nbsp;Pr&ecirc;t pour recalibrage, pas pour lancement pleine &eacute;chelle&nbsp;&raquo;</p>
+        <p>Valider les trois arbitrages (scoring, triggers, boucle retour) sur 4 &agrave; 6 semaines avant de passer &agrave; 10K emails/mois. Un lancement pr&eacute;matur&eacute; sans correction des biais identifi&eacute;s br&ucirc;lerait le cr&eacute;dit de marque et r&eacute;duirait le retour sur investissement de 40% &agrave; 60%.</p>
+      </div>
     </div>
-    <div class="card">
-      <div class="card-label"><span class="badge badge-hv">Anomalie</span></div>
-      <h3>Private Equity = top secteur du scoring, z&eacute;ro client PE</h3>
-      <p>Le Fit Score donne 350 pts au PE. Aucun client PE n&rsquo;appara&icirc;t dans le portefeuille document&eacute;. Le scoring semble import&eacute; d&rsquo;un template, pas calibr&eacute; sur Parella.</p>
+
+    <!-- TAB 2: BUSINESS REEL -->
+    <div id="tab2" class="tab-content">
+      <div class="section-header">Activit&eacute; r&eacute;elle, structure et diff&eacute;renciation</div>
+      <div class="section-subtitle">Qui est vraiment Parella, ce qu'elle fait, et comment elle se positionne</div>
+
+      <div class="box">
+        <div class="box-title">Identit&eacute;</div>
+        <p><strong>Parella Group</strong> est un cabinet de conseil ind&eacute;pendant sp&eacute;cialis&eacute; dans la transformation des espaces de travail et de l'organisation des entreprises. Class&eacute; &laquo;&nbsp;Incontournable&nbsp;&raquo; par Leaders League, le cabinet compte 250 collaborateurs r&eacute;partis dans 7 pays (France, Belgique, Suisse, Allemagne, Pays-Bas, Royaume-Uni, Luxembourg).</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Trois p&ocirc;les m&eacute;tiers</div>
+        <p><strong>1. Real Estate Services&nbsp;:</strong> Audit et optimisation immobili&egrave;res, reconfiguration d'espaces, n&eacute;gociation bailleur, rationalisation de portefeuille, d&eacute;carnationalisation. Clients typiques&nbsp;: grandes entreprises en transformation, groupes avec portefeuille immobilier dispers&eacute;.</p>
+        <p><strong>2. Workspace&nbsp;:</strong> Design d'espaces, strat&eacute;gie flex office, animation de nouveaux lieux, changement de culture li&eacute; &agrave; l'occupation. Clients typiques&nbsp;: corporates en transition vers l'hybride, groupes innovants.</p>
+        <p><strong>3. People &amp; Transformation&nbsp;:</strong> Restructuration organisationnelle, rebranding interne, accompagnement au changement, reskilling. Clients typiques&nbsp;: PME/ETI en mutation, groupes en crise d'identit&eacute;.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Mod&egrave;le &eacute;conomique</div>
+        <p>Mission-based, honoraires &agrave; la journ&eacute;e ou projet selon la nature du travail. Dur&eacute;e moyenne des missions&nbsp;: 3-6 mois. Montant moyen par client&nbsp;: 150K &agrave; 500K euros.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Portefeuille client r&eacute;cent (cas publics)</div>
+        <p><strong>Exemplaires&nbsp;:</strong> NAOS (restructuration immobili&egrave;re), Edenred (flex office post-COVID), Publicis (reconfiguration Paris + Amsterdam), L&rsquo;Or&eacute;al (transformation RH), BNP Paribas (optimisation si&egrave;ges), Orange (workspace contemporain), Sanofi (rationalisation groupe).</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Actifs de diff&eacute;renciation</div>
+        <table>
+          <tr>
+            <th>Actif</th>
+            <th>Description</th>
+            <th>Impact march&eacute;</th>
+          </tr>
+          <tr>
+            <td class="label">Barom&egrave;tre Parella/CSA</td>
+            <td>8 &eacute;ditions publi&eacute;es, donn&eacute;es de r&eacute;f&eacute;rence sur l'occupation immobili&egrave;re en France</td>
+            <td>Seul acteur ind&eacute;pendant avec ce positionnement d'expert data</td>
+          </tr>
+          <tr>
+            <td class="label">Office Papers</td>
+            <td>Collection de cas d'&eacute;tude, analyses trends</td>
+            <td>Cr&eacute;dibilit&eacute; thought leadership</td>
+          </tr>
+          <tr>
+            <td class="label">R&eacute;seau associ&eacute;s (7 pays)</td>
+            <td>Pr&eacute;sence multi-g&eacute;ographique, cross-border delivery</td>
+            <td>Comp&eacute;titif aupr&egrave;s des groupes europeens</td>
+          </tr>
+          <tr>
+            <td class="label">Hybrid IP</td>
+            <td>Propri&eacute;t&eacute; intellectuelle sur frameworks de transformation</td>
+            <td>Valeur ajout&eacute;e justifi&eacute;e aupr&egrave;s de clients</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Expansion r&eacute;cente (contexte LBO 2025)</div>
+        <p>Le second LBO de septembre 2025 a &eacute;tendu le p&eacute;rim&egrave;tre de Parella au <strong>retail</strong> et &agrave; l'<strong>hospitality</strong>. L'offre couvre d&eacute;sormais non seulement les bureaux, mais aussi les magasins, h&ocirc;tels et restaurants &mdash; impliquant de nouveaux ICPs (dir. r&eacute;seau retail, dir. expansion hospitality) et des triggers distincts (ouvertures, fermetures, rebranding de r&eacute;seau).</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Positionnement vs. comp&eacute;titeurs</div>
+        <p><strong>vs. Brokers immobiliers (CBRE, JLL)&nbsp;:</strong> Parella est un transformateur, pas un transactionniste. Elle vend de la strat&eacute;gie et de l'accompagnement, pas de la surface.</p>
+        <p><strong>vs. Grands cabinets de conseil (Deloitte, Accenture)&nbsp;:</strong> Parella a une sp&eacute;cialit&eacute; profonde en immobilier &amp; workspace. Les grands cabinets offrent une g&eacute;n&eacute;ralit&eacute;.</p>
+        <p><strong>vs. Petits acteurs sp&eacute;cialis&eacute;s&nbsp;:</strong> Parella est le seul avec une couverture pan-europ&eacute;enne, une donn&eacute;e propri&eacute;taire (Barom&egrave;tre), et une expertise trois p&ocirc;les int&eacute;gr&eacute;e.</p>
+      </div>
     </div>
-    <div class="card">
-      <div class="card-label"><span class="badge badge-fc">Architecture</span></div>
-      <h3>L&rsquo;architecture du syst&egrave;me est saine</h3>
-      <p>Fit + Intent Score, deux chemins (bail / scoring continu), Swarm, HubSpot. Le probl&egrave;me n&rsquo;est pas la m&eacute;canique &mdash; c&rsquo;est le param&eacute;trage et l&rsquo;alignement strat&eacute;gique.</p>
+
+    <!-- TAB 3: MARCHE -->
+    <div id="tab3" class="tab-content">
+      <div class="section-header">Dynamiques de march&eacute; et implications strat&eacute;giques</div>
+      <div class="section-subtitle">Forces structurelles qui fa&ccedil;onnent la demande et le timing de vente</div>
+
+      <div class="box">
+        <div class="box-title">Contexte macro (2024-2026)</div>
+        <p><strong>Post-COVID rationalization&nbsp;:</strong> Les entreprises ont termin&eacute; la plupart de leurs changements urgents (r&eacute;duction surface, fermeture si&egrave;ges). Le march&eacute; &eacute;volue vers des projets de optimisation fine et d'exp&eacute;rience, moins vers l'urgence.</p>
+        <p><strong>Inflation immobili&egrave;re plafonnante&nbsp;:</strong> La hausse des charges de fonctionnement (nergie, maintenance) reste une pression, mais moins v&eacute;luctile qu'en 2022-2023. Le co&ucirc;t immobilier n'est plus per&ccedil;u comme une crise existentielle.</p>
+        <p><strong>Hybridation stabil&eacute;e&nbsp;:</strong> Mod&egrave;le hybride = nouvelle normalit&eacute;. Moins de projets de migration d'urgence, plus de projets de confortabilit&eacute; et d'engagement.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Trois moteurs de demande (timing r&eacute;el)</div>
+        <p><strong>1. Fin de bail (30-40% de la demande)&nbsp;:</strong> Classique. Seule opportunit&eacute; for&ccedil;&eacute;e de reconfigurer. Cyclique, visible.</p>
+        <p><strong>2. Transformation organisationnelle (30-40%)&nbsp;:</strong> Restructuration, changement direction, fusion, spin-off, pivot strat&eacute;gique. Moins visible mais plus volumineux. Cri&egrave;re d'alerte&nbsp;: nomination PDG, lev&eacute;e de fonds, churn RH, plan de rigueur.</p>
+        <p><strong>3. Ambition d'exp&eacute;rience et de marque (20-30%)&nbsp;:</strong> Innovation au travail, workplace de prestige, attrait talent. Plus &eacute;volutif, demand&eacute; par des dirigeants &eacute;clair&eacute;s.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Expansion sectorielle</div>
+        <p><strong>Retail (magasins, r&eacute;seaux, franchises)&nbsp;:</strong> Crise chronique du commerce en centre-ville, r&eacute;&eacute;quilibrage omni-canal, rebranding de points de vente. Besoin d'expertise immobili&egrave;re &amp; retail design croissant.</p>
+        <p><strong>Hospitality (h&ocirc;tels, restaurants)&nbsp;:</strong> Post-COVID, secteur en reconstruction. Groupes internationaux r&eacute;optimisent portefeuille immobilier. Besoin d'exp&eacute;rtise haute sur positionnement &amp; revenu immobilier.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Implications pour la strat&eacute;gie de d&eacute;veloppement</div>
+        <p><strong>1. Diversifier les triggers&nbsp;:</strong> Le syst&egrave;me outbound ne peut pas se contenter des fins de bail. Il doit capter les signaux organisationnels (changements direction, r&eacute;organisation, churn talents).</p>
+        <p><strong>2. Couvrir les trois p&ocirc;les m&eacute;tiers&nbsp;:</strong> Real Estate, Workspace et People &amp; Transformation ne sont pas des silo&rsquo;s. Une entreprise en crise d'engagement workplace cherche conseils crois&eacute;s immobilier-RH.</p>
+        <p><strong>3. Pr&eacute;parer le ciblage retail/hospitality&nbsp;:</strong> Le LBO de 2025 &eacute;largit le march&eacute; potentiel. Les campagnes doivent anticiper cette expansion.</p>
+        <p><strong>4. Investir dans le contenu de valeur&nbsp;:</strong> L'&egrave;re du &laquo;&nbsp;appel froid&nbsp;&raquo; pur est r&eacute;volue. Le Barom&egrave;tre, les cas clients, les Office Papers doivent &ecirc;tre des vecteurs centraux du nurturing.</p>
+      </div>
+    </div>
+
+    <!-- TAB 4: ICPS -->
+    <div id="tab4" class="tab-content">
+      <div class="section-header">Profils clients prioritaires et niveaux de confiance</div>
+      <div class="section-subtitle">Qui ach&egrave;te exactement, par segment et par pole m&eacute;tier</div>
+
+      <div class="box">
+        <div class="box-title">ICP 1 : Director of Real Estate / Facility Management</div>
+        <p><strong>Taille d'&eacute;l&eacute; pour:</strong> Groupes &gt; 500 FTE, portefeuille immobilier &gt; 50K m&sup2;</p>
+        <p><strong>Industries (high fit):</strong> Fintech, Services financiers, Assurance, Secteur public, Pharma, Tech scale-up, Conseil</p>
+        <p><strong>Triggers:</strong> Fin de bail (12-18 mois avant), plan de rationalisation, mutualisation si&egrave;ges, croissance organique</p>
+        <p><strong>Budget&nbsp;:</strong> 200K-600K (mission de conseil)</p>
+        <p><strong>Niveau de confiance&nbsp;:</strong> <span class="badge badge-green">Tr&egrave;s haut (13+ clients avec ce profil)</span></p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">ICP 2 : Chief People Officer / Director of Transformation</div>
+        <p><strong>Taille d'&eacute;l&eacute; pour:</strong> Groupes &gt; 1000 FTE</p>
+        <p><strong>Industries (high fit):</strong> Services financiers, Tech, Secteur public, Pharma, Retail (groupes)</p>
+        <p><strong>Triggers:</strong> Churn RH anormal (&gt; 15%), g&eacute;n&eacute;rationnel, changement PDG, plan d'engagement, r&eacute;organisation structure</p>
+        <p><strong>Budget&nbsp;:</strong> 250K-500K</p>
+        <p><strong>Niveau de confiance&nbsp;:</strong> <span class="badge badge-gold">Moyen-haut (7+ clients, preuves de fit)</span></p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">ICP 3 : Chief Operating Officer</div>
+        <p><strong>Taille d'&eacute;l&eacute; pour:</strong> Groupes &gt; 2000 FTE</p>
+        <p><strong>Industries (high fit):</strong> Secteur public, Pharma, Assurance, Services financiers, Conseil multinational</p>
+        <p><strong>Triggers:</strong> Fusion, acquisition, d&eacute;localisations, plan de rigueur, transformation num&eacute;rique majeure</p>
+        <p><strong>Budget&nbsp;:</strong> 300K-800K</p>
+        <p><strong>Niveau de confiance&nbsp;:</strong> <span class="badge badge-gold">Moyen (5+ clients, cas forts)</span></p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">ICP 4 : VP/Director Real Estate or Facilities (pour Retail)</div>
+        <p><strong>Taille d'&eacute;l&eacute; pour:</strong> Enseignes &gt; 100 magasins</p>
+        <p><strong>Industries (high fit):</strong> Distribution g&eacute;n&eacute;raliste, luxe, sp&eacute;cialit&eacute;s, restauration rapide (franchis&eacute;)</p>
+        <p><strong>Triggers:</strong> Rebranding r&eacute;seau, fermeture de points, probl&egrave;mes de transform&eacute;e centre-ville, loi AGEC</p>
+        <p><strong>Budget&nbsp;:</strong> 180K-450K</p>
+        <p><strong>Niveau de confiance&nbsp;:</strong> <span class="badge badge-blue">Nouveau segment (1-2 clients pilotes)</span></p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">ICP 5 : Director of Development (Hospitality)</div>
+        <p><strong>Taille d'&eacute;l&eacute; pour:</strong> Cha&icirc;nes &gt; 50 &eacute;tablissements</p>
+        <p><strong>Industries (high fit):</strong> H&ocirc;tellerie, restauration groupe, cin&eacute;mas, espaces de co-working</p>
+        <p><strong>Triggers:</strong> Expansion, fermeture volontaire, refonte d'exp&eacute;rience, fusion h&ocirc;tels</p>
+        <p><strong>Budget&nbsp;:</strong> 200K-500K</p>
+        <p><strong>Niveau de confiance&nbsp;:</strong> <span class="badge badge-blue">Nouveau segment (0 clients document&eacute;s)</span></p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Remarques sur la calibration ICP</div>
+        <p><strong>Points forts du syst&egrave;me Youno&nbsp;:</strong> Les ICPs 1-3 sont bien d&eacute;finis, les seuils de taille et les triggers sont r&eacute;alistes.</p>
+        <p><strong>Lacunes&nbsp;:</strong> Les IPCs 4 et 5 (retail, hospitality) ne disposent pas d'histor&eacute;tique d'apprentissage. Il faudra lancer des s&eacute;quences pilotes et ajuster sur 200-300 contacts avant de passer &agrave; l'&eacute;chelle.</p>
+      </div>
+    </div>
+
+    <!-- TAB 5: OPPORTUNITES -->
+    <div id="tab5" class="tab-content">
+      <div class="section-header">Cartographie des opportunit&eacute;s par segment et par p&ocirc;le</div>
+      <div class="section-subtitle">O&ugrave; se trouvent les prospects de qualit&eacute;, quels segments &agrave; prioriser</div>
+
+      <div class="box">
+        <div class="box-title">Segmentation opportunit&eacute;s par p&ocirc;le m&eacute;tier</div>
+      </div>
+
+      <table>
+        <tr>
+          <th>P&ocirc;le m&eacute;tier</th>
+          <th>ICP cible</th>
+          <th>Taille opportunit&eacute;s</th>
+          <th>Triggers cl&eacute;s</th>
+          <th>Maturit&eacute; pipeline</th>
+        </tr>
+        <tr>
+          <td class="label">Real Estate Services</td>
+          <td>Dir. Real Estate, Dir. Facilities, DRH (POV transfo)</td>
+          <td>800-1200 prospects /an</td>
+          <td>Fin bail (60%), restructuration (30%), croissance (10%)</td>
+          <td><span class="badge badge-green">Haute &mdash; track record solide</span></td>
+        </tr>
+        <tr>
+          <td class="label">Workspace</td>
+          <td>Dir. Facilities, VP Innovation, CDO</td>
+          <td>300-500 prospects/an</td>
+          <td>Flex office (50%), changement direction (30%), design marque (20%)</td>
+          <td><span class="badge badge-gold">Moyenne &mdash; &agrave; documenter</span></td>
+        </tr>
+        <tr>
+          <td class="label">People &amp; Transformation</td>
+          <td>Chief People Officer, CHRO, VP RH</td>
+          <td>400-600 prospects/an</td>
+          <td>Churn (40%), r&eacute;organisation (35%), rebranding (25%)</td>
+          <td><span class="badge badge-gold">Moyenne &mdash; 5+ clients existants</span></td>
+        </tr>
+        <tr>
+          <td class="label">Retail</td>
+          <td>Dir. R&eacute;seau, Dir. Real Estate retail</td>
+          <td>200-350 prospects/an</td>
+          <td>Rebranding (45%), fermeture (30%), omni-canal (25%)</td>
+          <td><span class="badge badge-blue">Basse &mdash; nouveau segment</span></td>
+        </tr>
+        <tr>
+          <td class="label">Hospitality</td>
+          <td>Dir. Development, VP Operations</td>
+          <td>150-250 prospects/an</td>
+          <td>Expansion (50%), refonte (40%), portfolio opt (10%)</td>
+          <td><span class="badge badge-blue">Basse &mdash; nouveau segment</span></td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <div class="box-title">Cartographie sectorielles (Real Estate Services, phase 1)</div>
+        <p>Parella doit cibler 5-7 secteurs ayant le meilleur fit immobilier et la plus haute propension &agrave; acheter de la transformation. Classement propos&eacute;&nbsp;:</p>
+      </div>
+
+      <table>
+        <tr>
+          <th>Secteur</th>
+          <th>Fit (immobilier + RH)</th>
+          <th>Volume prospects FR</th>
+          <th>Maturit&eacute; signal</th>
+        </tr>
+        <tr>
+          <td class="label">Services financiers</td>
+          <td><span class="badge badge-green">Tr&egrave;s haut</span></td>
+          <td>150-200</td>
+          <td><span class="badge badge-green">Haute (donn&eacute;es publiques)</span></td>
+        </tr>
+        <tr>
+          <td class="label">Conseil multinational</td>
+          <td><span class="badge badge-green">Tr&egrave;s haut</span></td>
+          <td>80-120</td>
+          <td><span class="badge badge-green">Haute (rapports clients publi&eacute;s)</span></td>
+        </tr>
+        <tr>
+          <td class="label">Tech &amp; scale-up</td>
+          <td><span class="badge badge-gold">Haut</span></td>
+          <td>200-300</td>
+          <td><span class="badge badge-gold">Moyenne (news technos, financement)</span></td>
+        </tr>
+        <tr>
+          <td class="label">Pharma &amp; Chimie</td>
+          <td><span class="badge badge-gold">Haut</span></td>
+          <td>60-100</td>
+          <td><span class="badge badge-gold">Moyenne (pipeline R&amp;D visible)</span></td>
+        </tr>
+        <tr>
+          <td class="label">Secteur public &amp; parapublic</td>
+          <td><span class="badge badge-gold">Haut</span></td>
+          <td>120-180</td>
+          <td><span class="badge badge-gold">Moyenne (budgets annuels publics)</span></td>
+        </tr>
+        <tr>
+          <td class="label">Assurance</td>
+          <td><span class="badge badge-blue">Moyen-haut</span></td>
+          <td>80-120</td>
+          <td><span class="badge badge-blue">Basse (restructurations discr&egrave;tes)</span></td>
+        </tr>
+        <tr>
+          <td class="label">Distribution (Retail groupe)</td>
+          <td><span class="badge badge-blue">Moyen (segment nouveau)</span></td>
+          <td>40-80</td>
+          <td><span class="badge badge-blue">Basse (signaux non documentes)</span></td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <div class="box-title">R&eacute;partition par sizing</div>
+        <p><strong>Large (>5000 FTE):</strong> 200-250 opportunit&eacute;s, r&eacute;sistance &agrave; l'approche outbound, force vente req.
+        <br/><strong>Mid-market (500-5000 FTE):</strong> 500-800 opportunit&eacute;s, r&eacute;pons&eacute; acceptable, best segment pour outbound
+        <br/><strong>SME/ETI (100-500 FTE):</strong> 300-500 opportunit&eacute;s, r&eacute;pons&eacute; haute, mais budget limit&eacute;
+        </p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Recommandation de priorit&eacute; pour phase 1 (Real Estate)</div>
+        <p><strong>Zones g&eacute;ographiques&nbsp;:</strong> &Icirc;le-de-France (60% des opportunit&eacute;s), Auvergne-Rh&ocirc;ne-Alpes, Provence, Occitanie. R&eacute;server le ciblage international (Belgique, Suisse, Pays-Bas) &agrave; phase 2.</p>
+        <p><strong>Timing&nbsp;:</strong> Lancer phase 1 (Real Estate) seul pendant 6-8 semaines. Accumuler data, affiner triggers, former &eacute;quipe qualification. &agrave; J+8 semaines, ajouter Workspace (triggers non-immobiliers + contenu diff&eacute;renci&eacute;). &agrave; J+16 semaines, lancer People &amp; Transformation.</p>
+      </div>
+    </div>
+
+    <!-- TAB 6: AUDIT DU DISPOSITIF -->
+    <div id="tab6" class="tab-content">
+      <div class="section-header">Revue du dispositif outbound &mdash; Forces, vigilances et conditions de succ&egrave;s</div>
+      <div class="section-subtitle">Architecture, m&eacute;thodologie, &eacute;valuation par dimension et recommandations</div>
+
+      <div class="box">
+        <div class="box-title">Score global de maturit&eacute;</div>
+      </div>
+
+      <table>
+        <tr>
+          <th>Dimension</th>
+          <th>Score</th>
+          <th>Verdict</th>
+        </tr>
+        <tr>
+          <td class="label">Architecture technique</td>
+          <td style="text-align:center;"><strong>9/10</strong></td>
+          <td>Excellente, modulaire, maintenable</td>
+        </tr>
+        <tr>
+          <td class="label">M&eacute;thodologie</td>
+          <td style="text-align:center;"><strong>7/10</strong></td>
+          <td>Rigoureuse, mais non calibr&eacute;e sur donn&eacute;es r&eacute;elles</td>
+        </tr>
+        <tr>
+          <td class="label">Couverture d'opportunit&eacute;s</td>
+          <td style="text-align:center;"><strong>4/10</strong></td>
+          <td>Incompl&egrave;te, biais sectoriels</td>
+        </tr>
+        <tr>
+          <td class="label">Op&eacute;rabilit&eacute; commerciale</td>
+          <td style="text-align:center;"><strong>3/10</strong></td>
+          <td>Goulot d'&eacute;tranglement humain critique</td>
+        </tr>
+        <tr>
+          <td class="label">Feedback et apprentissage</td>
+          <td style="text-align:center;"><strong>0/10</strong></td>
+          <td>Aucun m&eacute;canisme pr&eacute;vu</td>
+        </tr>
+        <tr style="background:var(--bg-secondary);">
+          <td class="label"><strong>SCORE MOYEN</strong></td>
+          <td style="text-align:center;"><strong>4.6/10</strong></td>
+          <td><strong>Pr&ecirc;t pour recalibrage, non pour d&eacute;ploiement pleine &eacute;chelle</strong></td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <div class="box-title">R&eacute;sum&eacute; architecture du syst&egrave;me Youno</div>
+        <p><strong>Donn&eacute;es d'entr&eacute;e&nbsp;:</strong> Lists de prospects (sources: LinkedIn, Crunchbase, registres publics, datalakes tierces).</p>
+        <p><strong>Moteur de scoring&nbsp;:</strong> Youno calcule deux scores (Fit Score 0-1000, Intent Score 0-1000) bas&eacute;s sur&nbsp;:
+        <br/>&bull; Fit Score&nbsp;: secteur (350 pts PE, 250 pts Tech, 200 pts Conseil, 150 pts autre), taille (250 pts >2000 FTE, 200 pts 500-2000, 100 pts <500), localisation (100 pts France, 50 pts proche), type occupation (100 pts coworking), capital structure (80 pts PI/VC).
+        <br/>&bull; Intent Score&nbsp;: expiration bail (300 pts), M&amp;A (150 pts), croissance (100 pts), autres (0-50 pts).
+        </p>
+        <p><strong>Tiering&nbsp;:</strong> Score compos&eacute; = (Fit &times; 60%) + (Intent &times; 40%). Seuils&nbsp;: T1 > 600, T2 400-600, T3 < 400.</p>
+        <p><strong>Envoi&nbsp;:</strong> Youno g&eacute;n&egrave;re s&eacute;quences email (7-10 &eacute;tapes), cibl&eacute;es par ICP. Volume pr&eacute;vu&nbsp;: 10K emails/mois, 8 campagnes parall&egrave;les, focus Real Estate Services.</p>
+        <p><strong>R&eacute;ponses&nbsp;:</strong> Michael Kaplan (associ&eacute;) d&eacute;sign&eacute; comme r&eacute;pondant unique. Pas de script de qualification formalis&eacute;, pas de SLA d&eacute;fini.</p>
+      </div>
+
+      <div class="section-header" style="margin-top:28px;">Dix points de vigilance majeurs</div>
+
+      <!-- Point 1 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">1</span>
+          <span class="vigilance-title">Pond&eacute;ration sectorielle du scoring</span>
+          <span class="badge badge-red">Critique</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Le Private Equity re&ccedil;oit 350 points dans le Fit Score (poids le plus &eacute;lev&eacute;), suivi de Tech (250) et Conseil (200). Aucun client PE n'appara&icirc;t dans le portefeuille document&eacute; de Parella. Le scoring donne donc une forte prime &agrave; un secteur sans track record de vente.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Le scoring sectoriel d&eacute;termine la priorisation de l'ensemble du pipeline. Un biais en t&ecirc;te de cha&icirc;ne se propage sur toutes les d&eacute;cisions de ciblage et d'allocation de ressources commerciales. Si le syst&egrave;me classe syst&eacute;matiquement les PE firms en T1 et les corporate tradis en T2/T3, l'&eacute;quipe ventes passe 80% de son temps sur les prospects &agrave; faible probabilit&eacute; de conversion.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Les meilleures cibles (corporates en transformation, conseil/finance premium, secteur public) sont sous-pond&eacute;r&eacute;es tandis que des prospects sans track record de fit monopolisent la capacit&eacute; commerciale. Taux de conversion divis&eacute; par 2-3. Frustration &eacute;quipe ventes. Perte de temps sur prospects&agrave; faible probabilit&eacute;.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Remplacer la grille sectorielle par une pond&eacute;ration fond&eacute;e sur le portefeuille r&eacute;el de Parella. Extraire les 20-30 derniers deals sign&eacute;s, calculer la distribution par secteur, valider par backtest. Ajuster les points de sorte que la distribution de scoring match la distribution r&eacute;elle des clients. Cette modification prend 2 semaines avec l'agence.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Nous observons un &eacute;cart entre la pond&eacute;ration sectorielle initiale et le portefeuille Parella existant. Pouvez-vous nous montrer la base de donn&eacute;es ou le briefing client qui a guid&eacute; ce choix ? Je crois qu'une calibration rapide sur nos clients r&eacute;els serait du temps bien investi.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 2 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">2</span>
+          <span class="vigilance-title">Mono-trigger bail dans le syst&egrave;me d'intent</span>
+          <span class="badge badge-red">Critique</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>L'expiration de bail repr&eacute;sente +300 points, soit 60% du score d'intent maximum. Les autres d&eacute;clencheurs (M&amp;A, croissance, hybridation, changement de direction) sont absents ou marginaux (&lt; 50 pts chacun). Le syst&egrave;me capte donc essentiellement un seul type d'&eacute;v&eacute;nement.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Le march&eacute; de Parella est clairement multi-d&eacute;clencheur. L'hybridation, les M&amp;A, la croissance, le rebranding g&eacute;n&egrave;rent autant de projets que les fins de bail. Un syst&egrave;me mono-trigger ne capte qu'une fraction de la demande r&eacute;elle, et cr&eacute;e des pics/creux artificiels (rush fin de bail, calme entre les baux).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Sous-couverture syst&eacute;matique des p&ocirc;les Workspace et People &amp; Transformation dont les d&eacute;clencheurs ne sont pas immobiliers. Pipeline moyen r&eacute;duit de 30-40%, variabilit&eacute; &eacute;lev&eacute;e. Incapacit&eacute; &agrave; vendre l'offre three-pole de Parella (c'est du marketing Real Estate pur).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Ajouter des signaux d'intent non-immobiliers&nbsp;: nomination de direction (CEO, COO, CHRO) = +150 pts, lev&eacute;e de fonds (S&eacute;ries A-D) = +100 pts, plan flex office annonc&eacute; = +80 pts, restructuration/downsizing = +100 pts, churn talents anormal (>15%) = +80 pts. R&eacute;&eacute;quilibrer pour que le bail ne d&eacute;passe pas 30% du score maximum. Tester sur 500 prospects, affiner les seuils.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Le trigger bail est pertinent pour Real Estate Services. Comment envisagez-vous d'&eacute;largir les signaux pour couvrir aussi les besoins Workspace et People ? Quels triggers d'intent non-immobiliers pourriez-vous int&eacute;grer ? Je vois un upside de +30-40% sur le volume de pipeline si on touche ces trois p&ocirc;les m&eacute;tiers.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 3 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">3</span>
+          <span class="vigilance-title">Volume d'envoi et image de marque</span>
+          <span class="badge badge-red">&Eacute;lev&eacute;e</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>10 000 emails/mois pr&eacute;vus pour un cabinet class&eacute; &laquo;&nbsp;Incontournable&nbsp;&raquo; par Leaders League, avec 250 collaborateurs et un positionnement premium (not de masse ventes).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Le ratio volume/taille est atypique pour un cabinet de conseil premium. La d&eacute;livrabilit&eacute; et la r&eacute;putation d'exp&eacute;diteur sont fragiles &agrave; ce niveau de volume, surtout sur des cibles C-level habitu&eacute;s &agrave; des approches personnalis&eacute;es. Un domaine "Parella" avec 10K emails/mois risque d'&ecirc;tre flagu&eacute; comme mass-mailer, m&ecirc;me avec un bon contenu.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Dilution de la marque, signalement spam, d&eacute;gradation du domaine d'exp&eacute;dition, perception de mass-mailing par des d&eacute;cideurs habitu&eacute;s &agrave; des approches personnalis&eacute;es. Taux de r&eacute;ponse divis&eacute; par 2-3. Risque de liste noire domaine (blocklist publique).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>D&eacute;marrer &agrave; 2-3K emails/mois, mesurer taux de d&eacute;livrabilit&eacute; (objectif > 95%), taux de r&eacute;ponse, taux de positif/neutralit&eacute;/blocklist chaque semaine. Si les m&eacute;triques sont saines &agrave; 3K, monter progressivement &agrave; 5K (semaine 4-5), puis 7-8K (semaine 8-10). Ajuster le contenu et les listes en fonction des retours r&eacute;els. Garder 10K comme plafond seulement si les m&eacute;triques de d&eacute;livrabilit&eacute; restent > 90% &agrave; 8K.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Quel est votre plan de mont&eacute;e progressive et quels indicateurs de d&eacute;livrabilit&eacute; suivez-vous pour prot&eacute;ger la r&eacute;putation du domaine ? Nous aimerions commencer &agrave; 3K/mois et monter selon les r&eacute;sultats r&eacute;els, plut&ocirc;t que de lancer &agrave; 10K d'embl&eacute;e. Avez-vous des benchmarks de d&eacute;livrabilit&eacute; pour des cabinets de conseil premium ?&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 4 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">4</span>
+          <span class="vigilance-title">Capacit&eacute; de traitement des r&eacute;ponses</span>
+          <span class="badge badge-red">Critique</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Michael Kaplan (associ&eacute;) est le seul r&eacute;pondant d&eacute;sign&eacute; pour toutes les r&eacute;ponses positives. &Agrave; 1-2% de taux de r&eacute;ponse sur 10K emails, cela repr&eacute;sente 100-200 conversations mensuelles &mdash; soit 4-8 par jour ouvr&eacute; &mdash; en plus de son portefeuille client existant.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Un goulot d'&eacute;tranglement humain annule l'avantage de l'automatisation. Les prospects non trait&eacute;s dans les 24-48h perdent en chaleur (diminution 60-70% de conversion par jour d'attente). La charge sur un associ&eacute; d&eacute;j&agrave; mobilis&eacute; est insoutenable &mdash; c'est incompatible avec une mission client active.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Non-r&eacute;ponse aux prospects chauds, d&eacute;gradation de l'exp&eacute;rience prospect, perte de deals, frustration interne, burn-out de Michael, d&eacute;motivation commerciale &eacute;quipe.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>D&egrave;s J+2 semaines de d&eacute;ploiement, d&eacute;signer un second profil senior capable de qualifier et engager (peut &ecirc;tre un manager, un senior consultant, ou un salesperson d&eacute;di&eacute;). D&eacute;finir des seuils de transfert (ex: r&eacute;ponses sans budget = auto-qualification, puis nurturing; r&eacute;ponses avec budget = call imm&eacute;diat avec Michael ou second r&eacute;pondant). Documenter un SLA de r&eacute;ponse < 24h pour T1, < 48h pour T2. Installer un syst&egrave;me de triage/routing pour ne pas surcharger un seul intervenant.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;La qualification des r&eacute;ponses est un maillon critique. Comment envisagez-vous la mont&eacute;e en charge c&ocirc;t&eacute; humain, au-del&agrave; de l'automatisation ? Nous ne pouvons pas assumer 100-200 r&eacute;ponses/mois avec une seule personne. Avez-vous un template de triage ou un processus de routing que vous recommandez ?&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 5 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">5</span>
+          <span class="vigilance-title">Actifs de thought leadership non exploit&eacute;s</span>
+          <span class="badge badge-red">&Eacute;lev&eacute;e</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Le Barom&egrave;tre Parella/CSA (8 &eacute;ditions), les Office Papers et les cas clients (NAOS, Edenred, Publicis, L'Or&eacute;al, BNP Paribas, Orange, Sanofi) ne sont pas int&eacute;gr&eacute;s dans les s&eacute;quences de nurturing existantes.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Ces actifs sont des diff&eacute;renciateurs exceptionnels. Le Barom&egrave;tre est le seul outil de ce type produit par un acteur ind&eacute;pendant c&ocirc;t&eacute; occupant (vs. brokers). Ne pas les utiliser dans le dispositif outbound, c'est priver les s&eacute;quences de leur levier de cr&eacute;dibilit&eacute; le plus puissant &mdash; et c'est laisser l'avantage concurrentiel sur la table.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>S&eacute;quences g&eacute;n&eacute;riques, perte du diff&eacute;renciateur premium, conversations commerciales sans ancrage fort. Les r&eacute;ponses positives sont moins engag&eacute;es. Difficult&eacute;s &agrave; justifier les tarifs premium vs. brokers immobiliers classiques.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Int&eacute;grer le Barom&egrave;tre en step 2-3 de nurturing (&laquo;&nbsp;Vous avez peut-&ecirc;tre vu notre &eacute;tude 2024 sur l'occupation immobili&egrave;re en France...&nbsp;&raquo;), les cas clients en preuve sociale cibl&eacute;e par ICP (ex: "Edenred a transform&eacute; son flex office avec nous, r&eacute;sultats: RIO, engagement"), les Office Papers comme contenu de valeur pour r&eacute;engager prospects dormants. Adapter le messaging par persona (Real Estate vs. Transformation). Cela prend 1-2 semaines de configuration.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Parella dispose d'actifs de contenu remarquables (Barom&egrave;tre, cases studies, Office Papers). Comment pr&eacute;voyz-vous de les positionner dans le funnel outbound ? Je crois que c'est un levier majeur pour diff&eacute;rencier Parella et justifier une approche premium vs. brokers classiques.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 6 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">6</span>
+          <span class="vigilance-title">Deux p&ocirc;les m&eacute;tiers sans couverture outbound</span>
+          <span class="badge badge-red">Critique</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Les 8+ campagnes pr&eacute;vues sont centr&eacute;es sur Real Estate Services. Aucune s&eacute;quence sp&eacute;cifique pour Workspace (flex office, workplace design, changement culture) ni pour People &amp; Transformation (rebranding, restructuration, churn talents).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Parella se d&eacute;finit par trois p&ocirc;les m&eacute;tiers int&eacute;gr&eacute;s. Ignorer deux tiers de l'offre dans le dispositif outbound (a) limite le retour sur investissement, (b) ne refl&egrave;te pas le positionnement int&eacute;gr&eacute; du cabinet, (c) cr&eacute;e un d&eacute;calage interne entre ce que Parella vend et ce que le marketing outbound promeut.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Sous-exploitation du march&eacute;, concentration excessive sur un seul p&ocirc;le (Real Estate), d&eacute;connexion entre l'offre r&eacute;elle et la prospection. Ventes crois&eacute;es (Real Estate + Workspace + People) moins fr&eacute;quentes.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>&Agrave; J+8 semaines (apr&egrave;s stabilisation Real Estate), cr&eacute;er des s&eacute;quences d&eacute;di&eacute;es avec des triggers sp&eacute;cifiques. Workspace&nbsp;: nomination CDO/VP Innovation (120 pts), annonce flex office (100 pts), lancement nouveau si&egrave;ge (80 pts). People &amp; Transformation&nbsp;: churn RH anormal (150 pts), changement PDG/CHRO (120 pts), plan restructuration (100 pts). Tester d'abord sur 200-300 prospects/p&ocirc;le. Ajuster selon les taux de r&eacute;ponse r&eacute;els, puis scaler progressivement.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Nous comprenons le choix de prioriser Real Estate en phase initiale (apprendre, optimiser, valider les m&eacute;triques). Quel est le plan pour Workspace et People &amp; Transformation ? Dans quel calendrier pouvez-vous livrer des s&eacute;quences test pour ces deux p&ocirc;les ? Je crois que l'int&eacute;gration trois-p&ocirc;les est un fort diff&eacute;renciateur.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 7 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">7</span>
+          <span class="vigilance-title">P&eacute;rim&egrave;tre de ciblage incomplet</span>
+          <span class="badge badge-gold">&Eacute;lev&eacute;e</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Le communiqu&eacute; Bpifrance sur le LBO de septembre 2025 mentionne &laquo;&nbsp;bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo;. Le ciblage actuel du syst&egrave;me Youno ne refl&egrave;te que les bureaux.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Parella a officiellement &eacute;tendu son activit&eacute; au retail et &agrave; l'hospitality. Le syst&egrave;me outbound doit refl&eacute;ter cette extension strat&eacute;gique confirm&eacute;e par le dernier LBO. Ignorer ces segments, c'est ignorer 20-30% de la croissance annonc&eacute;e.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>D&eacute;calage entre la strat&eacute;gie corporate et la prospection, pas de pipeline sur les segments en expansion, perte d'opportunit&eacute;s retail/hospitality aux competitors.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Identifier les d&eacute;cideurs sp&eacute;cifiques pour retail (VP/Director Real Estate retail, Director Expansion) et hospitality (VP Development, Director Operations). Cr&eacute;er des campagnes pilotes sur 100-150 prospects/segment. Adapter le messaging (retail&nbsp;: omni-canal, site fermeurs; hospitality&nbsp;: refonte d'exp&eacute;rience, portfolio optimization). Lancer &agrave; J+12 semaines (apr&egrave;s stabilisation Real Estate + Workspace).</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Le p&eacute;rim&egrave;tre corporate de Parella inclut d&eacute;sormais retail et hospitality (LBO 2025). Comment le dispositif pourrait-il int&eacute;grer ces segments &agrave; terme ? Pouvez-vous proposer des ICPs et des triggers sp&eacute;cifiques ? C'est un upside significatif pour le pipeline 2026.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 8 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">8</span>
+          <span class="vigilance-title">Absence de calibration r&eacute;trospective</span>
+          <span class="badge badge-red">Critique</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Les seuils de tiering (T1 > 600, T2 400-600, T3 < 400) et les poids du Fit Score n'ont pas &eacute;t&eacute; test&eacute;s r&eacute;trospectivement contre les clients existants de Parella.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Un scoring non calibr&eacute; peut &eacute;liminer syst&eacute;matiquement des profils qui correspondent au client id&eacute;al r&eacute;el. C'est le fondement de la machine: s'il est biais&eacute;, tout le pipeline est biais&eacute;. Un "backtest" simple (appliquer le scoring aux deals sign&eacute;s) r&eacute;v&egrave;le imm&eacute;diatement si les seuils sont r&eacute;alistes.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Faux n&eacute;gatifs massifs (bons prospects class&eacute;s T3), faux positifs (mauvais profils en T1), allocation de ressources commerciales invers&eacute;e, d&eacute;couragmeent &eacute;quipe ventes.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Passer les 20-30 derniers deals sign&eacute;s dans le Fit Score Youno (en utilisant les donn&eacute;es actuelles de ces prospects &agrave; l'&eacute;poque du deal). Calculer&nbsp;: quel % sont class&eacute;s T1, T2, T3 ? Objectif&nbsp;: > 70% en T1. Si < 50%, ajuster les poids avant tout lancement. Cette calibration prend 1 semaine avec l'agence et 1 r&eacute;union interne. C'est du temps investissement majeur.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Avez-vous pu tester le scoring sur les deals existants de Parella ? Ce serait un excellent moyen de valider les seuils avant le d&eacute;ploiement. On peut vous partager les 20-25 derniers deals sign&eacute;s &mdash; appliquez le Fit Score r&eacute;trospectivement et on compare. Si moins de 50% sont T1, on ajuste ensemble avant lancement.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 9 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">9</span>
+          <span class="vigilance-title">Registre de messaging d&eacute;cal&eacute;</span>
+          <span class="badge badge-gold">&Eacute;lev&eacute;e</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Les s&eacute;quences existantes utilisent un vocabulaire de broker immobilier (m&sup2;, co&ucirc;ts, rationalisation) plut&ocirc;t que de transformateur d'espaces de travail.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Le positionnement de Parella est &laquo;&nbsp;faire de l'immobilier un levier de transformation, de coh&eacute;sion et de performance&nbsp;&raquo;. Le discours commercial doit refl&eacute;ter cette promesse, pas parler uniquement optimisation de co&ucirc;ts (ce qui est la posture des brokers).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>Attractivit&eacute; faible aupr&egrave;s des DRH, directeurs de transformation et DG. Perception r&eacute;duite &agrave; un prestataire immobilier classique, pas &agrave; un partner transformation premium.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Cr&eacute;er deux registres de messaging distinct&nbsp;: (1) registre &laquo;&nbsp;Real Estate&nbsp;&raquo; pour les directeurs immobiliers/facilities (co&ucirc;ts, optimization, compliance); (2) registre &laquo;&nbsp;Transformation&nbsp;&raquo; pour les DG/DRH/COO (engagement, performance, culture). Chaque persona a son vocabulaire. Adapter les s&eacute;quences pour que les m&ecirc;mes prospects re&ccedil;oivent des messages align&eacute;s avec leur fonction, pas juste sur l'immobilier. Cela prend 2-3 semaines de contenu development.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Comment distinguez-vous le messaging par persona et par p&ocirc;le m&eacute;tier dans les s&eacute;quences actuelles ? Un directeur immobilier n'a pas la m&ecirc;me sensibilit&eacute; qu'un DRH. Proposez-vous des variantes de messaging pour atteindre les deux publics avec le m&ecirc;me contexte client ?&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <!-- Point 10 -->
+      <div class="vigilance-card">
+        <div class="vigilance-header">
+          <span class="vigilance-num">10</span>
+          <span class="vigilance-title">Absence de boucle de retour</span>
+          <span class="badge badge-red">Critique</span>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Constat</div>
+          <p>Aucun m&eacute;canisme structur&eacute; d'ajustement automatique n'est pr&eacute;vu. Pas de feedback loop entre les r&eacute;sultats (r&eacute;ponses, objections, conversions) et les param&egrave;tres du syst&egrave;me (scoring, triggers, messaging).</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Pourquoi ce point est important</div>
+          <p>Un syst&egrave;me outbound sans boucle de retour est un syst&egrave;me fig&eacute;. Les param&egrave;tres initiaux sont forc&eacute;ment imparfaits; la valeur vient de la capacit&eacute; &agrave; apprendre et ajuster en continu. Sans cette boucle, les premi&egrave;res erreurs se perp&eacute;tuent pendant 6-12 mois.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Risque si rien ne change</div>
+          <p>D&eacute;gradation progressive des r&eacute;sultats, incapacit&eacute; &agrave; identifier ce qui fonctionne, pas de base factuelle pour les d&eacute;cisions de scaling, perte de confiance interne.</p>
+        </div>
+        <div class="vigilance-section">
+          <div class="vigilance-label">Am&eacute;lioration recommand&eacute;e</div>
+          <p>Mettre en place un reporting hebdomadaire (taux d'ouverture par segment, taux de r&eacute;ponse par ICP, meetings convertis, objections fr&eacute;quentes, churn nurturing), une revue mensuelle des param&egrave;tres avec l'agence (ajustements scoring, triggers, messaging), et des seuils d'alerte automatiques (ex: si taux de r&eacute;ponse T1 < 1%, analyser la cause; si taux d'ouverture < 20%, changer subject line). Cette infrastructure prend 2 semaines &agrave; mettre en place, mais elle g&eacute;n&egrave;re une valeur exponentielle &agrave; 3-6 mois.</p>
+        </div>
+        <div class="vigilance-section vigilance-posture">
+          <div class="vigilance-label">Posture vis-&agrave;-vis de l&rsquo;agence</div>
+          <p>&laquo;&nbsp;Quel processus de feedback loop proposez-vous pour ajuster le syst&egrave;me sur la base des r&eacute;sultats r&eacute;els ? On aimerait un reporting hebdomadaire + review mensuelle avec seuils d'alerte. C'est le seul moyen de transformer une machine statique en syst&egrave;me d'apprentissage.&nbsp;&raquo;</p>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Analyse et recommandation</div>
+        <p><strong>Verdict global&nbsp;:</strong> L'architecture technique est solide et professionnelle. Le param&eacute;trage a &eacute;t&eacute; r&eacute;alis&eacute; sans acc&egrave;s suffisant aux donn&eacute;es business r&eacute;elles de Parella, ce qui explique les &eacute;carts observ&eacute;s. La comp&eacute;tence technique de l'agence n'est pas en question. Le recalibrage demand&eacute; est une condition de succ&egrave;s, pas une critique de la m&eacute;thode.</p>
+        <p><strong>Priorit&eacute;s de correction (4-6 semaines)&nbsp;:</strong></p>
+        <ol style="margin-left:20px; color:var(--text-secondary);">
+          <li style="margin-bottom:8px;">Backtest scoring sur 20 derniers deals (semaine 1-2)</li>
+          <li style="margin-bottom:8px;">Ajouter triggers non-immobiliers + test 500 prospects (semaine 2-4)</li>
+          <li style="margin-bottom:8px;">R&eacute;duire volume &agrave; 3K/mois, mettre en place reporting d&eacute;livrabilit&eacute; (semaine 1)</li>
+          <li style="margin-bottom:8px;">D&eacute;signer second r&eacute;pondant + SLA (semaine 1-2)</li>
+          <li style="margin-bottom:8px;">Int&eacute;grer Barom&egrave;tre et cases clients dans nurturing (semaine 2-3)</li>
+          <li style="margin-bottom:8px;">Setup feedback loop + tableau de bord (semaine 1-2)</li>
+        </ol>
+        <p style="margin-top:20px;"><strong>Verdict apr&egrave;s correction&nbsp;:</strong> Passable pour lancement phase 1 (Real Estate &agrave; 3K/mois). Id&eacute;alement &agrave; J+4 semaines. Si quelques points ne peuvent pas &ecirc;tre corrig&eacute;s, lancer quand m&ecirc;me avec une roadmap tr&egrave;s claire des ajustements &agrave; venir.</p>
+      </div>
+    </div>
+
+    <!-- TAB 7: QUESTIONS AGENCE -->
+    <div id="tab7" class="tab-content">
+      <div class="section-header">Conditions de poursuite &mdash; Points de clarification avec l'agence</div>
+      <div class="section-subtitle">Questions directes pour valider la faisabilit&eacute; du plan de recalibrage</div>
+
+      <div class="list-item">
+        <div class="list-item-title">1. Backtest scoring sur le portefeuille existant</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Pouvez-vous appliquer le Fit Score et Intent Score r&eacute;trospectivement &agrave; nos 20-30 derniers deals sign&eacute;s ? Quel pourcentage serait class&eacute; T1, T2, T3 ? Combien de temps cela prend-il, et comment proposez-vous d'ajuster si < 70% sont T1 ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">2. Triggers non-immobiliers et diversification intent</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Quels signaux d'intent non-immobiliers pouvez-vous int&eacute;grer rapidement (changement direction, lev&eacute;e de fonds, plan rebranding, churn talents) ? Pouvez-vous tester sur 200-300 prospects/trigger avant de scaler ? Calendrier propos&eacute; ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">3. Plan de mont&eacute;e en charge volume et d&eacute;livrabilit&eacute;</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Acceptez-vous de d&eacute;marrer &agrave; 2-3K emails/mois au lieu de 10K ? Quel est votre plan de mont&eacute;e progressive bas&eacute; sur les m&eacute;triques de d&eacute;livrabilit&eacute; (objectif > 95%) et taux de r&eacute;ponse ? Comment mesurez-vous spam score et r&eacute;putation domaine ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">4. Architecture de r&eacute;ponse et triage</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Proposez-vous un template ou un processus de triage des r&eacute;ponses (auto-qual vs. hot lead vs. nurture) ? Comment g&eacute;rez-vous les conversations multiples en parall&egrave;le sans bottleneck humain ? Avez-vous des outils ou scripts de pr&eacute;-qual recommand&eacute;s ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">5. Int&eacute;gration des actifs Parella (Barom&egrave;tre, cases clients)</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Comment int&eacute;grez-vous le Barom&egrave;tre Parella/CSA dans la s&eacute;quence de nurturing (quel step, quel messaging) ? M&ecirc;me pour les cases clients (NAOS, Edenred, Publicis, etc.). Pouvez-vous cr&eacute;er des variantes de messaging par secteur/ICP utilisant ces actifs ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">6. Couverture Workspace et People &amp; Transformation</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Quand pouvez-vous livrer des s&eacute;quences pilotes pour Workspace et People &amp; Transformation (triggers sp&eacute;cifiques, ICP distincts, messaging adapt&eacute;) ? Calendrier envisag&eacute; ? Combien de prospects par p&ocirc;le pour la phase test ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">7. Extension retail et hospitality</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Avez-vous une exp&eacute;rience de ciblage dans les secteurs retail et hospitality ? Pouvez-vous identifier les d&eacute;cideurs sp&eacute;cifiques (VP/Director Retail, VP Development hospitality) et les triggers adapt&eacute;s ? Calendrier de lancement de campagnes pilotes ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">8. Variantes de messaging par persona</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Proposez-vous des versions distinctes du messaging pour les profils Real Estate vs. Transformation (DRH, DG, COO) ? Comment g&eacute;rez-vous les variantes A/B testing ? Quels indicateurs suivez-vous pour valider quelle version convertit mieux ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">9. Reporting et feedback loop</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Proposez-vous un dashboard de reporting hebdomadaire (taux ouverture, r&eacute;ponse, meetings, objections par ICP) ? Comment fonctionnerait la revue mensuelle des param&egrave;tres ? Avez-vous des seuils d'alerte automatiques propos&eacute;s (ex: si open rate < 20%, changer subject) ?</div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-item-title">10. Planning d&eacute;taill&eacute; et jalons</div>
+        <div class="list-item-desc"><strong>Question&nbsp;:</strong> Pouvez-vous proposer un planning d&eacute;taill&eacute; &agrave; partir d'aujourd'hui avec jalons clairs (J+1 semaine, J+2, J+4, J+6) montrant quand chaque correction sera valid&eacute;e/d&eacute;ploy&eacute;e ? Quel est le chemin critique pour &ecirc;tre &laquo;&nbsp;pr&ecirc;t &agrave; lancer&nbsp;&raquo; en full scale &agrave; J+6 semaines ?</div>
+      </div>
+    </div>
+
+    <!-- TAB 8: PLAN 30/60/90 -->
+    <div id="tab8" class="tab-content">
+      <div class="section-header">Feuille de route &mdash; Conditions de validation et de d&eacute;ploiement</div>
+      <div class="section-subtitle">Calendrier d&eacute;taill&eacute; et jalons de Go/No-Go</div>
+
+      <div class="box">
+        <div class="box-title">Semaines 1-2 (Days 0-14): Stabilisation et calibration</div>
+        <p><strong>Objectif&nbsp;:</strong> Corriger les biais majeurs du scoring, mettre en place les fondations op&eacute;rationnelles.</p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>Backtest scoring Youno sur 20-25 derniers deals (Michael + agence)</li>
+          <li>R&eacute;duction volume &agrave; 2-3K emails/mois, lancement monitoring d&eacute;livrabilit&eacute;</li>
+          <li>D&eacute;signation 2e r&eacute;pondant (senior consultant ou manager)</li>
+          <li>Draft SLA r&eacute;ponse < 24h T1, < 48h T2</li>
+          <li>Int&eacute;gration Barom&egrave;tre step 2 des s&eacute;quences</li>
+          <li>Setup tableau bord hebdo (open rate, reply, meetings)</li>
+        </ul>
+        <p style="margin-top:12px; font-weight:600; color:var(--gold);">Go/No-Go criteria&nbsp;:</p>
+        <p>Scoring backtest: &#8805; 70% deals en T1. D&eacute;livrabilit&eacute;: &#8805; 95%. R&eacute;pondant 2 confirm&eacute;. Dashboard live.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Semaines 3-4 (Days 15-28): Diversification triggers et content</div>
+        <p><strong>Objectif&nbsp;:</strong> Ajouter les triggers non-immobiliers, enrichir le contenu, tester les actifs.</p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>Ajout triggers non-immobiliers: changement direction (+150), lev&eacute;e fonds (+100), churn RH (+80)</li>
+          <li>Test segments Workspace (200-300 prospects) avec triggers flex office, changement direction</li>
+          <li>Cases clients int&eacute;gr&eacute;s par secteur (Edenred, NAOS, Publicis, etc.)</li>
+          <li>Draft 2 registres messaging (Real Estate vs. Transformation)</li>
+          <li>Revue r&eacute;sultats semaine 1-2: taux ouverture, r&eacute;ponse, objections fr&eacute;quentes</li>
+        </ul>
+        <p style="margin-top:12px; font-weight:600; color:var(--gold);">Go/No-Go criteria&nbsp;:</p>
+        <p>Triggers live en production. Workspace test rate &#8805; 0.8% (vs. 1.2% objectif Real Estate). Messaging variants A/B: au moins 2 variantes par segment.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Semaines 5-6 (Days 29-42): Couverture multi-p&ocirc;les et mont&eacute;e progressive</div>
+        <p><strong>Objectif&nbsp;:</strong> Activer People &amp; Transformation, augmenter progressivement le volume, optimiser sur base r&eacute;sultats r&eacute;els.</p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>Lancement s&eacute;quences People &amp; Transformation (300-400 prospects) avec triggers churn, r&eacute;org</li>
+          <li>Mont&eacute;e volume &agrave; 5K emails/mois (des 3K) si d&eacute;livrabilit&eacute; reste > 92% et open rate > 18%</li>
+          <li>Analyse mensuelle des param&egrave;tres avec agence: scoring OK? Triggers pertinents? Messaging converting?</li>
+          <li>Campagne pilote retail (100-150 prospects) avec Dir. R&eacute;seau comme ICP</li>
+          <li>Mise &agrave; jour SLA et processus de triage bas&eacute; sur 4 semaines de donn&eacute;es r&eacute;elles</li>
+        </ul>
+        <p style="margin-top:12px; font-weight:600; color:var(--gold);">Go/No-Go criteria&nbsp;:</p>
+        <p>People launch: taux r&eacute;ponse &#8805; 0.5%. Real Estate metrics stable &agrave; 5K. Retail pilot: &#8805; 5-7 r&eacute;ponses qualifi&eacute;es. Feedback loop: seuils d'alerte configur&eacute;s.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Semaines 7-8+ (Days 43+): Scaler ou pivoter</div>
+        <p><strong>Objectif&nbsp;:</strong> D&eacute;cider si passage &agrave; 10K emails/mois, ou stabilisation &agrave; 5-7K avec profondeur.</p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>Analyse compl&egrave;te 6-8 semaines: taux r&eacute;ponse par ICP, taux conversion meetings-deals, ROI estim&eacute;</li>
+          <li>Si Real Estate stable (open > 20%, reply > 1%, meeting > 0.3%) &rarr; Mont&eacute;e &agrave; 7-8K</li>
+          <li>Si Workspace/People faibles &rarr; Ajuster triggers/messaging ou r&eacute;duire allocation</li>
+          <li>D&eacute;cision retail/hospitality: pilot viable? Scaler ou shelve?</li>
+          <li>Stabilisation processus boucle retour: weekly reporting live, monthly optimization</li>
+        </ul>
+        <p style="margin-top:12px; font-weight:600; color:var(--gold);">No-Go indicators&nbsp;:</p>
+        <p>Si &agrave; J+6 semaines: open rate < 15% OU reply rate < 0.5% OU conversion meeting-deal < 10% &rarr; Pauser et ajuster prioritairement.</p>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Jalons de validation (Go/No-Go table)</div>
+      </div>
+
+      <table>
+        <tr>
+          <th>Jalons</th>
+          <th>Date cible</th>
+          <th>Crit&egrave;res Go</th>
+          <th>Crit&egrave;res No-Go (pause + ajustement)</th>
+        </tr>
+        <tr>
+          <td class="label">Scoring backtest</td>
+          <td>J+7 jours</td>
+          <td>&#8805; 70% deals T1</td>
+          <td>< 50% T1 &rarr; Reparam&eacute;trer seuils</td>
+        </tr>
+        <tr>
+          <td class="label">Phase 1 Real Estate (3K)</td>
+          <td>J+14 jours</td>
+          <td>Open: 18-22%, Reply: 0.8-1.2%, Deliverability: > 95%</td>
+          <td>Open < 15% OR Deliverability < 90% &rarr; Revoir listes/subject</td>
+        </tr>
+        <tr>
+          <td class="label">Triggers non-immobiliers</td>
+          <td>J+21 jours</td>
+          <td>Identified and tested on 200 contacts</td>
+          <td>0 ou faible signal &rarr; Keep + monitor</td>
+        </tr>
+        <tr>
+          <td class="label">Workspace pilot (200-300)</td>
+          <td>J+28 jours</td>
+          <td>Open: &#8805; 15%, Reply: &#8805; 0.6%</td>
+          <td>Reply < 0.3% &rarr; Pivot messaging ou pause segment</td>
+        </tr>
+        <tr>
+          <td class="label">Mont&eacute;e &agrave; 5K emails</td>
+          <td>J+35 jours</td>
+          <td>Real Estate metrics stable, Deliverability > 92%</td>
+          <td>Deliverability degraded &rarr; Stay at 3K</td>
+        </tr>
+        <tr>
+          <td class="label">People &amp; Transfo launch</td>
+          <td>J+42 jours</td>
+          <td>Reply rate &#8805; 0.5%, Mensuel review OK</td>
+          <td>Reply < 0.2% &rarr; Revoir ICP/triggers</td>
+        </tr>
+        <tr style="background:var(--bg-secondary);">
+          <td class="label"><strong>Full scale decision</strong></td>
+          <td><strong>J+56 jours</strong></td>
+          <td><strong>Real Estate stable, 2+ poles active, ROI > 3:1</strong></td>
+          <td><strong>Any metric < threshold &rarr; 6-week hold + optimization</strong></td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <div class="box-title">Ressources humaines pr&eacute;vues</div>
+        <p><strong>C&ocirc;t&eacute; Parella&nbsp;:</strong></p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>Michael Kaplan (associ&eacute;)&nbsp;: R&eacute;pondant principal, qualification hot leads</li>
+          <li>2e r&eacute;pondant (manager/senior conseil)&nbsp;: Qualification secondaire, nurture, SLA 24-48h</li>
+          <li>1 personne donn&eacute;es (ou Michael/admin)&nbsp;: Backtest scoring, maintenance listes, feedback loop data</li>
+        </ul>
+        <p style="margin-top:12px;"><strong>C&ocirc;t&eacute; agence&nbsp;:</strong></p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>1 point de contact principal (project lead Youno)</li>
+          <li>1 data analyst (backtest, monitoring, feed loop)</li>
+          <li>1 copywriter (messaging variants par p&ocirc;le)</li>
+          <li>1 tech lead (integration, SLA setup, alert thresholds)</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <div class="box-title">Budget et ROI estim&eacute;</div>
+        <p><strong>Investissement technique (agence, 30-60 jours)&nbsp;:</strong> 15K-25K euros (calibration + int&eacute;gration + reporting).</p>
+        <p><strong>ROI estim&eacute; (ann&eacute;e 1)&nbsp;:</strong></p>
+        <ul style="margin-left:20px; color:var(--text-secondary); line-height:1.8;">
+          <li>Scenario conservateur&nbsp;: 50-80 meetings, 8-12 deals (150K moyen) = 1.2M-1.8M, ROI 5-10x</li>
+          <li>Scenario optimiste&nbsp;: 120-150 meetings, 15-18 deals = 2.2M-2.7M, ROI 10-15x</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- GLOSSAIRE -->
+    <div id="glossary" class="glossary-section">
+      <div class="section-header">Glossaire &mdash; D&eacute;finitions et conventions</div>
+      <div class="glossary-grid">
+        <div class="glossary-item"><strong>Fit Score</strong> &mdash; Score composite (0-1000) mesurant l&rsquo;ad&eacute;quation structurelle d&rsquo;un prospect avec le profil client id&eacute;al. Inclut secteur, taille, localisation, type d&rsquo;occupation, structure capitalistique.</div>
+        <div class="glossary-item"><strong>Intent Score</strong> &mdash; Score composite (0-1000) mesurant la probabilit&eacute; qu&rsquo;un prospect soit en phase d&rsquo;achat court-terme. Bas&eacute; sur signaux de changement (fin de bail, M&amp;A, changement direction, lev&eacute;e fonds).</div>
+        <div class="glossary-item"><strong>Tiering</strong> &mdash; Segmentation des prospects en tiers de priorit&eacute; (T1, T2, T3) bas&eacute;e sur score combin&eacute; (Fit + Intent). T1 > 600 = focus maximal, T2 400-600 = nurture, T3 < 400 = parquer ou re-cibler.</div>
+        <div class="glossary-item"><strong>ABM (Account-Based Marketing)</strong> &mdash; Strat&eacute;gie marketing ciblant des comptes pr&eacute;cis (vs. masse) avec des messages personnalis&eacute;s. Courant en B2B conseil et high-ticket.</div>
+        <div class="glossary-item"><strong>Nurturing</strong> &mdash; S&eacute;quence d&rsquo;emails ou de contenus destin&eacute;s &agrave; maintenir l&rsquo;engagement d&rsquo;un prospect non encore pr&ecirc;t &agrave; acheter, en envoyant de la valeur r&eacute;guli&egrave;rement.</div>
+        <div class="glossary-item"><strong>ICP (Ideal Customer Profile)</strong> &mdash; Portrait-robot du client id&eacute;al pour Parella. D&eacute;fini par fonction (Dir. Real Estate, CHRO), secteur, taille FTE, triggers d&rsquo;achat.</div>
+        <div class="glossary-item"><strong>Trigger</strong> &mdash; &Eacute;v&eacute;nement ou signal indicateur qu&rsquo;un prospect est en phase d&rsquo;achat probable (fin de bail, changement PDG, lev&eacute;e fonds, plan restructuration).</div>
+        <div class="glossary-item"><strong>Scoring</strong> &mdash; M&eacute;thode de calcul automatique attribuant des points &agrave; un prospect selon des crit&egrave;res (taille, secteur, trigger). Score &eacute;lev&eacute; = priorit&eacute; haute.</div>
+        <div class="glossary-item"><strong>Pipeline</strong> &mdash; Ensemble des prospects en cours de qualification/negotiation, class&eacute;s par stage (lead, contact, meeting demand&eacute;, meeting pris, proposition, deal) et valeur estim&eacute;e.</div>
+        <div class="glossary-item"><strong>Swarm</strong> &mdash; Dans le contexte Parella, acc&egrave;s &agrave; l&rsquo;&eacute;quipe multi-poles (Real Estate + Workspace + People) pour une mission int&eacute;gr&eacute;e client.</div>
+        <div class="glossary-item"><strong>Feedback loop</strong> &mdash; Processus it&eacute;ratif o&ugrave; les r&eacute;sultats r&eacute;els (taux r&eacute;ponse, objections, conversions) sont analys&eacute;s et r&eacute;inject&eacute;s pour ajuster les param&egrave;tres du syst&egrave;me (scoring, triggers, messaging).</div>
+        <div class="glossary-item"><strong>Backtest</strong> &mdash; Test r&eacute;trospectif d&rsquo;un mod&egrave;le ou scoring sur des donn&eacute;es historiques (ex: appliquer le Fit Score &agrave; des deals d&eacute;j&agrave; sign&eacute;s). Valide la pr&eacute;cision du mod&egrave;le avant lancement.</div>
+        <div class="glossary-item"><strong>SLA (Service Level Agreement)</strong> &mdash; Accord de niveau de service. Ici, ex: r&eacute;pondre &agrave; 100% des replies T1 en < 24h, T2 en < 48h. Garantit qualit&eacute; exp&eacute;rience prospect.</div>
+        <div class="glossary-item"><strong>Persona</strong> &mdash; Profil humain d&eacute;taill&eacute; (fonction, d&eacute;fi, budget, processus d&eacute;cision) d'un d&eacute;cideur cl&eacute; dans le prospect. Ex: &laquo;&nbsp;Director of Real Estate&nbsp;&raquo;, &laquo;&nbsp;Chief People Officer&nbsp;&raquo;.</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><strong>Parella Group &mdash; Tableau de bord strat&eacute;gique V5</strong></p>
+      <p>Audit du dispositif outbound Youno &mdash; 30 mars 2026</p>
+      <p>Confidentiel &mdash; Usage interne et agence partenaire uniquement</p>
     </div>
   </div>
 
-  <div class="section-header">3 risques majeurs</div>
-  <div class="alert alert-red"><strong>1. Ciblage d&eacute;salig&eacute;.</strong> Lancer le syst&egrave;me en l&rsquo;&eacute;tat revient &agrave; prospecter des segments (PE) o&ugrave; Parella n&rsquo;a pas de track record visible, tout en sous-pond&eacute;rant les propri&eacute;taires-utilisateurs (30&nbsp;% des clients).</div>
-  <div class="alert alert-red"><strong>2. Dilution de marque.</strong> 10&nbsp;000 emails/mois pour un cabinet class&eacute; &laquo;&nbsp;Incontournable&nbsp;&raquo; par Leaders League. Le risque d&rsquo;image est r&eacute;el pour un acteur premium.</div>
-  <div class="alert alert-red"><strong>3. Goulot humain.</strong> Michael Kaplan est le seul point de contact pour les r&eacute;ponses positives. &Agrave; 1-2&nbsp;% de taux de r&eacute;ponse, c&rsquo;est 100-200 conversations/mois pour un associ&eacute; d&eacute;j&agrave; occup&eacute;.</div>
-
-  <div class="section-header">3 d&eacute;cisions &agrave; prendre</div>
-  <div class="card-grid">
-    <div class="card" style="border-left:3px solid var(--gold);">
-      <h3>1. Fournir les donn&eacute;es internes</h3>
-      <p>CA par p&ocirc;le, canaux d&rsquo;acquisition actuels, 20 derniers deals sign&eacute;s. Sans cela, aucune calibration n&rsquo;est possible.</p>
-    </div>
-    <div class="card" style="border-left:3px solid var(--gold);">
-      <h3>2. Valider le scope de l&rsquo;outbound</h3>
-      <p>L&rsquo;outbound couvre-t-il uniquement Real Estate, ou aussi Workspace et People &amp; Transformation&nbsp;? D&eacute;cision strat&eacute;gique du PDG.</p>
-    </div>
-    <div class="card" style="border-left:3px solid var(--gold);">
-      <h3>3. Choisir l&rsquo;option de reprise</h3>
-      <p>Poursuite conditionnelle (recommand&eacute;), pilote restreint (alternative), ou reframe complet (non recommand&eacute;). Pas de statu quo.</p>
-    </div>
-  </div>
-
-  <div class="section-header">Verdict sur l&rsquo;agence</div>
-  <div class="verdict-strip">
-    <div class="verdict-box verdict-good">
-      <h4>Ce qui est bien fait</h4>
-      <ul>
-        <li>Architecture Fit + Intent coh&eacute;rente</li>
-        <li>Deux chemins (bail / scoring continu)</li>
-        <li>Int&eacute;gration Swarm (warm intros)</li>
-        <li>HubSpot comme pivot CRM</li>
-        <li>Documentation compl&egrave;te et transparente</li>
-      </ul>
-    </div>
-    <div class="verdict-box verdict-fix">
-      <h4>&Agrave; recalibrer imp&eacute;rativement</h4>
-      <ul>
-        <li>Scoring sectoriel (PE &rarr; portefeuille r&eacute;el)</li>
-        <li>Propri&eacute;taires-utilisateurs sous-pond&eacute;r&eacute;s</li>
-        <li>Volume d&rsquo;envoi (10K &rarr; 2-3K pour d&eacute;marrer)</li>
-        <li>Campagnes Workspace &amp; People manquantes</li>
-        <li>Assets de thought leadership non int&eacute;gr&eacute;s</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="takeaway">
-    <div class="takeaway-label">Recommandation</div>
-    <p><strong>Poursuite conditionnelle.</strong> Nous reconnaissons la valeur du travail d&rsquo;automatisation. L&rsquo;architecture est professionnelle. La critique porte sur l&rsquo;alignement strat&eacute;gique, pas sur la comp&eacute;tence technique. Recalibrer avant de lancer, pas apr&egrave;s.</p>
-  </div>
-</div>
-
-<!-- TAB 2 - BUSINESS REEL -->
-<div class="tab-content" id="tab-business">
-  <div class="tab-title">Ce que Parella vend r&eacute;ellement</div>
-  <div class="tab-subtitle">Core business, structure et diff&eacute;renciation &mdash; faits confirm&eacute;s</div>
-
-  <div class="section-header">D&eacute;finition</div>
-  <div class="card" style="margin-bottom:24px;">
-    <h3>Conseil en immobilier d&rsquo;exploitation et transformation des espaces de travail</h3>
-    <p style="margin-top:8px;">Parella accompagne les occupants (entreprises, institutions) dans la strat&eacute;gie, la conception et la transformation de leurs espaces de travail. Positionnement 100&nbsp;% c&ocirc;t&eacute; occupant, ind&eacute;pendant de tout propri&eacute;taire ou investisseur. Mission d&eacute;clar&eacute;e&nbsp;: &laquo;&nbsp;faire de votre immobilier et de vos espaces int&eacute;rieurs des leviers de transformation, de coh&eacute;sion et de performance.&nbsp;&raquo;</p>
-    <p style="margin-top:6px;"><span class="badge badge-fc">Fait confirm&eacute;</span> &mdash; Sources : site corporate, Interview Business Immo juin 2024</p>
-  </div>
-
-  <div class="section-header">Ce que Parella n&rsquo;est pas (ou pas uniquement)</div>
-  <div class="card-grid">
-    <div class="card"><h3>Pas un d&eacute;corateur d&rsquo;int&eacute;rieur</h3><p>L&rsquo;offre couvre la strat&eacute;gie immobili&egrave;re, les transactions, l&rsquo;expertise, l&rsquo;ing&eacute;nierie technique et le change management. Le design est un p&ocirc;le parmi d&rsquo;autres. <span class="badge badge-fc">FC</span></p></div>
-    <div class="card"><h3>Pas un broker immobilier</h3><p>Parella ne repr&eacute;sente pas de propri&eacute;taires. 70&nbsp;% de ses clients sont locataires, 30&nbsp;% propri&eacute;taires-utilisateurs. Z&eacute;ro investisseur. <span class="badge badge-fc">FC</span></p></div>
-    <div class="card"><h3>Pas uniquement &laquo;&nbsp;bureaux&nbsp;&raquo;</h3><p>Le communiqu&eacute; Bpifrance mentionne explicitement &laquo;&nbsp;bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo;. <span class="badge badge-fc">FC</span></p></div>
-  </div>
-
-  <div class="section-header">Les 3 p&ocirc;les m&eacute;tiers</div>
-  <div class="bm-poles">
-    <div class="bm-pole">
-      <h4>Real Estate Services</h4>
-      <ul>
-        <li>Strat&eacute;gie &amp; transactions immobili&egrave;res</li>
-        <li>Expertise immobili&egrave;re (RICS)</li>
-        <li>Audit &amp; ing&eacute;nierie technique</li>
-      </ul>
-      <div style="margin-top:8px;"><span class="badge badge-fc">FC</span></div>
-    </div>
-    <div class="bm-pole">
-      <h4>Workspace</h4>
-      <ul>
-        <li>Architecture &amp; design</li>
-        <li>Strat&eacute;gie workplace</li>
-        <li>Am&eacute;nagement d&rsquo;espaces</li>
-      </ul>
-      <div style="margin-top:8px;"><span class="badge badge-fc">FC</span></div>
-    </div>
-    <div class="bm-pole">
-      <h4>People &amp; Transformation</h4>
-      <ul>
-        <li>Accompagnement du changement</li>
-        <li>Formation / Parella Academy</li>
-      </ul>
-      <div style="margin-top:8px;"><span class="badge badge-fc">FC</span></div>
-    </div>
-  </div>
-
-  <div class="section-header">Cha&icirc;ne de valeur</div>
-  <div class="bm-flow">
-    <div class="bm-box"><div class="bm-label">Phase 1</div><div class="bm-name">Audit strat&eacute;gique</div></div>
-    <div class="bm-arrow">&rarr;</div>
-    <div class="bm-box"><div class="bm-label">Phase 2</div><div class="bm-name">Transaction / n&eacute;go bail</div></div>
-    <div class="bm-arrow">&rarr;</div>
-    <div class="bm-box"><div class="bm-label">Phase 3</div><div class="bm-name">Conception &amp; design</div></div>
-    <div class="bm-arrow">&rarr;</div>
-    <div class="bm-box"><div class="bm-label">Phase 4</div><div class="bm-name">Am&eacute;nagement</div></div>
-    <div class="bm-arrow">&rarr;</div>
-    <div class="bm-box"><div class="bm-label">Phase 5</div><div class="bm-name">Change &amp; formation</div></div>
-  </div>
-  <div class="alert alert-blue"><strong>Diff&eacute;renciateur cl&eacute;&nbsp;:</strong> Parella est le seul acteur ind&eacute;pendant de cette taille &agrave; couvrir l&rsquo;int&eacute;gralit&eacute; de cette cha&icirc;ne, sans conflits d&rsquo;int&eacute;r&ecirc;ts avec les propri&eacute;taires. <span class="badge badge-ip">Interpr&eacute;tation</span></div>
-
-  <div class="section-header">Faits structurants</div>
-  <table>
-    <thead><tr><th>Indicateur</th><th>Valeur</th><th>Preuve</th></tr></thead>
-    <tbody>
-      <tr><td>CA 2024</td><td><strong>~150 M&euro;</strong></td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</td></tr>
-      <tr><td>Part internationale</td><td><strong>40 %</strong></td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</td></tr>
-      <tr><td>Collaborateurs</td><td><strong>250</strong> (sept. 2025)</td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; actionnariat</td></tr>
-      <tr><td>Pr&eacute;sence</td><td><strong>7 pays, 13 villes</strong></td><td><span class="badge badge-fc">FC</span> Site corporate + communiqu&eacute;</td></tr>
-      <tr><td>Acquisitions</td><td><strong>4</strong> (Solved, TTS, Agilit&eacute;, + 1)</td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</td></tr>
-      <tr><td>2nd LBO</td><td>SG Capital, BRED, Bpifrance (sept. 2025)</td><td><span class="badge badge-fc">FC</span> Page actionnariat</td></tr>
-      <tr><td>Locataires / propri&eacute;taires-util.</td><td><strong>70 / 30</strong></td><td><span class="badge badge-fc">FC</span> Interview Business Immo</td></tr>
-      <tr><td>Revenue mix par p&ocirc;le</td><td>Non connu</td><td><span class="badge badge-hv">HV</span> Estimations contradictoires</td></tr>
-    </tbody>
-  </table>
-
-  <div class="section-header">R&eacute;f&eacute;rences clients document&eacute;es</div>
-  <div class="card" style="margin-bottom:20px;">
-    <p><strong>Portfolio confirm&eacute;&nbsp;:</strong> NAOS, Edenred, Publicis, Wavestone, Sanofi, Eurostar, General Motors, NBA, LinkedIn, Evercore, Lululemon, Hogan Lovells, KPMG, Oliver Wyman, Malt, Omnes Education. <span class="badge badge-fc">FC</span></p>
-    <p style="margin-top:6px;"><strong>T&eacute;moignages confirm&eacute;s&nbsp;:</strong> APM, Airbus, Caisse des D&eacute;p&ocirc;ts, Bayard, LMFV-Pyrex. <span class="badge badge-fc">FC</span></p>
-    <p style="margin-top:6px;"><strong>Classement Leaders League&nbsp;:</strong> &laquo;&nbsp;Incontournable&nbsp;&raquo; depuis plusieurs ann&eacute;es. <span class="badge badge-fc">FC</span></p>
-  </div>
-</div>
-
-<!-- TAB 3 - MARCHE -->
-<div class="tab-content" id="tab-market">
-  <div class="tab-title">Les dynamiques de march&eacute; &agrave; surveiller</div>
-  <div class="tab-subtitle">Lecture de march&eacute; orient&eacute;e d&eacute;cision</div>
-
-  <div class="legend">
-    <div class="legend-item"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
-    <div class="legend-item"><span class="badge badge-ip">Interpr&eacute;tation</span></div>
-    <div class="legend-item"><span class="badge badge-hv">Hypoth&egrave;se</span></div>
-  </div>
-
-  <div class="section-header">7 dynamiques de march&eacute;</div>
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-label">Dynamique 1</div>
-      <h3>Hybridation g&eacute;n&eacute;ralis&eacute;e</h3>
-      <p>24&nbsp;% des collaborateurs fran&ccedil;ais en flex office. 71&nbsp;% acc&egrave;s t&eacute;l&eacute;travail (2,1 jours/semaine en moyenne). 95&nbsp;% des projets impliquent un accompagnement du changement.</p>
-      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Barom&egrave;tre Parella/CSA, site corporate</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Dynamique 2</div>
-      <h3>R&eacute;duction de surface &agrave; effectif constant</h3>
-      <p>Rationalisation des m&sup2; avec r&eacute;allocation vers des espaces collaboratifs. Moins de postes fixes, plus de flexibilit&eacute;.</p>
-      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Interview Business Immo</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Dynamique 3</div>
-      <h3>Consolidation du secteur</h3>
-      <p>Les acteurs ind&eacute;pendants cherchent la taille critique. Concurrence structurelle avec CBRE, JLL, Savills qui servent aussi le c&ocirc;t&eacute; propri&eacute;taire.</p>
-      <p style="margin-top:6px;"><span class="badge badge-ip">IP</span> D&eacute;duit du LBO et mouvements sectoriels</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Dynamique 4</div>
-      <h3>&Eacute;largissement au-del&agrave; des bureaux</h3>
-      <p>Le communiqu&eacute; Bpifrance mentionne &laquo;&nbsp;bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo;. Extension vers retail et hospitality.</p>
-      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Dynamique 5</div>
-      <h3>Exp&eacute;rience collaborateur comme enjeu RH</h3>
-      <p>Le bureau devient un outil d&rsquo;attractivit&eacute; et de r&eacute;tention. Le discours Parella (&laquo;&nbsp;bureaux pour vos talents&nbsp;&raquo;) cible cette dynamique.</p>
-      <p style="margin-top:6px;"><span class="badge badge-ip">IP</span> Coh&eacute;rent avec le positionnement</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Dynamique 6</div>
-      <h3>Internationalisation des entreprises</h3>
-      <p>Besoin de coh&eacute;rence workplace multi-pays. Parella &agrave; 40&nbsp;% international, acquisition d&rsquo;Agilit&eacute;, r&eacute;seau Exis Global.</p>
-      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance, site corporate</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Dynamique 7</div>
-      <h3>Contraintes budg&eacute;taires et RSE</h3>
-      <p>Pression sur les co&ucirc;ts immobiliers et exigences environnementales. Parella propose audit technique et RSE &eacute;nerg&eacute;tique.</p>
-      <p style="margin-top:6px;"><span class="badge badge-ip">IP</span> Coh&eacute;rent avec l&rsquo;offre</p>
-    </div>
-  </div>
-
-  <div class="takeaway">
-    <div class="takeaway-label">Ce que cela change pour le GTM</div>
-    <p>Le march&eacute; n&rsquo;est pas seulement &laquo;&nbsp;fins de bail&nbsp;&raquo;. Les d&eacute;clencheurs sont multiples&nbsp;: hybridation, croissance, M&amp;A, attractivit&eacute; talents, RSE, internationalisation. Un syst&egrave;me outbound construit uniquement autour du bail ne capte qu&rsquo;une fraction de la demande. Le GTM doit &ecirc;tre &laquo;&nbsp;business-led&nbsp;&raquo;, pas &laquo;&nbsp;real-estate-led&nbsp;&raquo;.</p>
-  </div>
-
-  <div class="section-header">Ce que nous ne savons pas</div>
-  <div class="card-grid">
-    <div class="card" style="border-left:3px solid var(--red);">
-      <h3>Pas d&rsquo;analyse concurrentielle structur&eacute;e</h3>
-      <p>Concurrents frontaux par p&ocirc;le non document&eacute;s. Parts de march&eacute;, taux de win/loss, raisons de perte d&rsquo;affaires&nbsp;: inconnus.</p>
-    </div>
-    <div class="card" style="border-left:3px solid var(--red);">
-      <h3>Pas de donn&eacute;es sur les canaux d&rsquo;acquisition</h3>
-      <p>Quelle part vient du referral, de l&rsquo;inbound, des events&nbsp;? Sans cela, impossible de positionner l&rsquo;outbound.</p>
-    </div>
-    <div class="card" style="border-left:3px solid var(--red);">
-      <h3>Cycle de vente inconnu</h3>
-      <p>Le syst&egrave;me calibre l&rsquo;intent score sur 90 jours. Si le cycle r&eacute;el est 12-18 mois, le nurturing est sous-dimensionn&eacute;.</p>
-    </div>
-  </div>
-</div>
-
-<!-- TAB 4 - ICPs -->
-<div class="tab-content" id="tab-icp">
-  <div class="tab-title">Les ICPs les plus plausibles aujourd&rsquo;hui</div>
-  <div class="tab-subtitle">Priorit&eacute;s de ciblage et niveau de confiance &mdash; construits &agrave; partir du portfolio public</div>
-
-  <div class="legend">
-    <div class="legend-item"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
-    <div class="legend-item"><span class="badge badge-ip">Interpr&eacute;tation</span></div>
-    <div class="legend-item"><span class="badge badge-hv">Hypoth&egrave;se</span></div>
-  </div>
-
-  <div class="alert alert-orange"><strong>Avertissement m&eacute;thodologique&nbsp;:</strong> la hi&eacute;rarchie ci-dessous est construite &laquo;&nbsp;de l&rsquo;ext&eacute;rieur&nbsp;&raquo; (portfolio visible, presse, site). Elle n&eacute;cessite une validation par les donn&eacute;es internes (CA par segment, deals clos&eacute;s, taux de conversion).</div>
-
-  <div class="icp-tier-label icp-priority">Prioritaires &mdash; Confiance &eacute;lev&eacute;e</div>
-  <table>
-    <thead><tr><th style="width:22%">ICP</th><th>Confiance</th><th>D&eacute;clencheurs</th><th>D&eacute;cideurs</th><th>Int&eacute;r&ecirc;t outbound</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>1. Grands occupants en transformation</strong><br><span style="font-size:12px;color:var(--text-muted)">Relocation, consolidation, campus</span></td>
-        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">4/5</span></td>
-        <td>Annonce nouveau si&egrave;ge, consolidation, communication campus</td>
-        <td>DG, Dir. Immobilier, COO</td>
-        <td><span class="badge badge-fc">FC</span> Wavestone, Edenred, Publicis, Sanofi.</td>
-      </tr>
-      <tr>
-        <td><strong>2. Conseil, finance, professions premium</strong><br><span style="font-size:12px;color:var(--text-muted)">Espaces &agrave; forte exigence d&rsquo;image</span></td>
-        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">4/5</span></td>
-        <td>Entr&eacute;e immeuble premium, refonte image</td>
-        <td>Partners, Head of Office, Marketing</td>
-        <td><span class="badge badge-fc">FC</span> Evercore, KPMG, Oliver Wyman, Hogan Lovells.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="icp-tier-label icp-test">&Agrave; tester &mdash; Confiance mod&eacute;r&eacute;e</div>
-  <table>
-    <thead><tr><th style="width:22%">ICP</th><th>Confiance</th><th>D&eacute;clencheurs</th><th>D&eacute;cideurs</th><th>Int&eacute;r&ecirc;t outbound</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>3. Transformation modes de travail</strong><br><span style="font-size:12px;color:var(--text-muted)">Flex, hybride, bien-&ecirc;tre</span></td>
-        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">3/5</span></td>
-        <td>Passage flex office, r&eacute;duction surface</td>
-        <td>DRH, Dir. Transformation, DG</td>
-        <td><span class="badge badge-ip">IP</span> Barom&egrave;tre, p&ocirc;le d&eacute;di&eacute;.</td>
-      </tr>
-      <tr>
-        <td><strong>4. Scale-ups en forte croissance</strong><br><span style="font-size:12px;color:var(--text-muted)">Premier &laquo;&nbsp;vrai&nbsp;&raquo; bureau</span></td>
-        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">3/5</span></td>
-        <td>Lev&eacute;e de fonds, ouverture bureau</td>
-        <td>CEO/Fondateur, COO, People</td>
-        <td><span class="badge badge-ip">IP</span> Lululemon, Malt, NBA.</td>
-      </tr>
-      <tr>
-        <td><strong>5. Internationaux multi-pays</strong><br><span style="font-size:12px;color:var(--text-muted)">Standards workplace paneurop&eacute;ens</span></td>
-        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">3/5</span></td>
-        <td>Ouverture si&egrave;ge EMEA, harmonisation</td>
-        <td>Real Estate Dir. EMEA, Corporate Services</td>
-        <td><span class="badge badge-ip">IP</span> Capacit&eacute; confirm&eacute;e par acquisitions.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="icp-tier-label icp-unproven">S&eacute;duisant mais non prouv&eacute;</div>
-  <table>
-    <thead><tr><th style="width:22%">ICP</th><th>Confiance</th><th>D&eacute;clencheurs</th><th>D&eacute;cideurs</th><th>Int&eacute;r&ecirc;t outbound</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>6. Entreprises US en expansion Europe</strong><br><span style="font-size:12px;color:var(--text-muted)">Hypoth&egrave;se strat&eacute;gique</span></td>
-        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">2/5</span></td>
-        <td>Arriv&eacute;e en Europe, ouverture hub</td>
-        <td>VP Real Estate, COO Europe</td>
-        <td><span class="badge badge-hv">HV</span> Logique coh&eacute;rente, z&eacute;ro preuve directe.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="takeaway" style="margin-top:24px;">
-    <div class="takeaway-label">Ce qui manque pour finaliser</div>
-    <p>R&eacute;partition du CA par type de client, deals clos&eacute;s par segment (24 derniers mois), taux de conversion par ICP, deal size moyen. Sans ces donn&eacute;es, la hi&eacute;rarchie reste indicative.</p>
-  </div>
-</div>
-
-<!-- TAB 5 - OPPORTUNITES -->
-<div class="tab-content" id="tab-opportunities">
-  <div class="tab-title">O&ugrave; sont les meilleures opportunit&eacute;s</div>
-  <div class="tab-subtitle">Matrice confiance &times; potentiel et lecture par p&ocirc;le</div>
-
-  <div class="alert alert-orange"><strong>Avertissement&nbsp;:</strong> cette lecture est qualitative. Aucun TAM chiffr&eacute; n&rsquo;est disponible. Les conclusions reposent sur le portefeuille visible.</div>
-
-  <div class="section-header">Matrice confiance &times; potentiel</div>
-  <div class="matrix-2x2">
-    <div class="matrix-header-y">Confiance de preuve &rarr; &Eacute;lev&eacute;e &nbsp;&nbsp;|&nbsp;&nbsp; Potentiel business &darr;</div>
-    <div class="matrix-cell mc-green">
-      <h4>Quick wins &mdash; Fort &times; Prouv&eacute;</h4>
-      <ul>
-        <li><strong>Grands occupants / si&egrave;ge</strong> &mdash; C&oelig;ur du portfolio. Outbound ABM cibl&eacute; tr&egrave;s pertinent.</li>
-        <li><strong>Conseil / finance premium</strong> &mdash; Evercore, KPMG, Hogan Lovells. Haut ticket.</li>
-      </ul>
-    </div>
-    <div class="matrix-cell mc-blue">
-      <h4>Strat&eacute;giques &mdash; Fort &times; &Agrave; tester</h4>
-      <ul>
-        <li><strong>Multi-pays / harmonisation</strong> &mdash; Agilit&eacute; donne la capacit&eacute;. Volume &agrave; valider.</li>
-        <li><strong>Transformation modes de travail</strong> &mdash; Barom&egrave;tre = actif unique.</li>
-      </ul>
-    </div>
-    <div class="matrix-cell mc-orange">
-      <h4>Sous-p&eacute;n&eacute;tr&eacute;s &mdash; Mod&eacute;r&eacute; &times; Prouv&eacute;</h4>
-      <ul>
-        <li><strong>Retail / hospitality</strong> &mdash; Confirm&eacute; (Bpifrance), invisible dans l&rsquo;outbound.</li>
-        <li><strong>Propri&eacute;taires-utilisateurs</strong> &mdash; 30&nbsp;% des clients, p&eacute;nalis&eacute;s par le scoring.</li>
-      </ul>
-    </div>
-    <div class="matrix-cell mc-purple">
-      <h4>Exploratoires &mdash; &Agrave; valider</h4>
-      <ul>
-        <li><strong>US-to-Europe</strong> &mdash; Z&eacute;ro preuve directe. Pilote possible.</li>
-        <li><strong>Scale-ups</strong> &mdash; Quelques cas. Ticket plus petit.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="section-header">Opportunit&eacute;s par p&ocirc;le</div>
-  <table>
-    <thead><tr><th>P&ocirc;le</th><th>Force actuelle</th><th>Sous-p&eacute;n&eacute;tration</th><th>Action outbound</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>Real Estate Services</strong></td>
-        <td>Bien couvert (trigger bail)</td>
-        <td>Propri&eacute;taires-utilisateurs exclus</td>
-        <td>Reclasser propri&eacute;taires, &eacute;largir triggers</td>
-      </tr>
-      <tr>
-        <td><strong>Workspace</strong></td>
-        <td>C&oelig;ur visible du portfolio</td>
-        <td>Aucune campagne d&eacute;di&eacute;e Youno</td>
-        <td>S&eacute;quences sur triggers non-immo</td>
-      </tr>
-      <tr>
-        <td><strong>People &amp; Transformation</strong></td>
-        <td>Barom&egrave;tre = actif unique</td>
-        <td>P&ocirc;le invisible dans l&rsquo;outbound</td>
-        <td>Exploiter le Barom&egrave;tre comme nurturing</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="takeaway">
-    <div class="takeaway-label">O&ugrave; concentrer les efforts</div>
-    <p><strong>Court terme&nbsp;:</strong> ICP 1 et 2 en ABM cibl&eacute;. <strong>Moyen terme&nbsp;:</strong> ouvrir Workspace et People avec des triggers non immobiliers. <strong>Long terme&nbsp;:</strong> tester US-to-Europe et multi-pays si les donn&eacute;es valident.</p>
-  </div>
-</div>
-
-<!-- TAB 6 - AUDIT YOUNO -->
-<div class="tab-content" id="tab-audit">
-  <div class="tab-title">Ce que l&rsquo;agence a bien construit &mdash; et ce qu&rsquo;elle doit corriger</div>
-  <div class="tab-subtitle">Architecture, forces, d&eacute;salignements, score par dimension</div>
-
-  <div class="section-header">Architecture r&eacute;sum&eacute;e</div>
-  <div class="card" style="margin-bottom:24px;">
-    <p>Syst&egrave;me en <strong>13 sections</strong>&nbsp;: Fit Score (0-1000), Intent Score (0-500, fen&ecirc;tre 90j), Tiering (T1/T2/T3), Segments HubSpot, Personas, Orchestration (2 chemins), Swarm (warm intros), 8+ campagnes, HubSpot fields, gestion r&eacute;ponses, stack technique.</p>
-    <p style="margin-top:6px;"><strong>Stack&nbsp;:</strong> Cargo ($990/m), Icypeas+Enrow (&euro;124/m), Lemlist ($99/m), Swarm ($99/m), Explore API (~&euro;150/m), HubSpot. <strong>Total ~1&nbsp;354&nbsp;&euro;/mois.</strong></p>
-    <p style="margin-top:6px;"><strong>Volume pr&eacute;vu&nbsp;:</strong> 10&nbsp;000 emails/mois. <strong>R&eacute;pondant unique&nbsp;:</strong> Michael Kaplan (associ&eacute;).</p>
-    <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Source : youno-parella.vercel.app</p>
-  </div>
-
-  <div class="section-header">Score par dimension</div>
-  <div class="score-grid">
-    <div class="score-card"><div class="label">Alignement business</div><div class="score score-low">3/10</div><div class="note">PE en top scorer, 1 p&ocirc;le sur 3</div></div>
-    <div class="score-card"><div class="label">ICP</div><div class="score score-low">3/10</div><div class="note">Non calibr&eacute; sur portefeuille r&eacute;el</div></div>
-    <div class="score-card"><div class="label">Segmentation</div><div class="score score-mid">5/10</div><div class="note">Surface OK mais insuffisant</div></div>
-    <div class="score-card"><div class="label">Triggers</div><div class="score score-low">3/10</div><div class="note">Mono-trigger bail (300 pts)</div></div>
-    <div class="score-card"><div class="label">Personas</div><div class="score score-mid">5/10</div><div class="note">D&eacute;finis mais non test&eacute;s</div></div>
-    <div class="score-card"><div class="label">Messaging</div><div class="score score-low">4/10</div><div class="note">Langage broker, pas transformateur</div></div>
-    <div class="score-card"><div class="label">Orchestration</div><div class="score score-high">7/10</div><div class="note">2 chemins + Swarm bien pens&eacute;s</div></div>
-    <div class="score-card"><div class="label">RevOps / Data</div><div class="score score-mid">5/10</div><div class="note">HubSpot OK, pas de feedback loop</div></div>
-    <div class="score-card"><div class="label">Image de marque</div><div class="score score-low">3/10</div><div class="note">10K emails/mois = risque premium</div></div>
-  </div>
-
-  <div class="section-header">Les 10 critiques majeures</div>
-  <table>
-    <thead><tr><th style="width:5%">#</th><th style="width:30%">Critique</th><th>D&eacute;tail</th><th style="width:12%">S&eacute;v&eacute;rit&eacute;</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td><strong>PE en top scorer</strong></td><td>350 pts pour le Private Equity, z&eacute;ro client PE dans le portefeuille.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
-      <tr><td>2</td><td><strong>Mono-trigger bail</strong></td><td>Bail expiry = +300 pts = 60 % du max intent. Ignore M&amp;A, croissance, hybridation.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
-      <tr><td>3</td><td><strong>Volume vs premium</strong></td><td>10K emails/mois pour un cabinet &laquo;&nbsp;Incontournable&nbsp;&raquo;. Risque de dilution.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
-      <tr><td>4</td><td><strong>Goulot Michael Kaplan</strong></td><td>Seul r&eacute;pondant. 100-200 conversations/mois potentielles.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
-      <tr><td>5</td><td><strong>Thought leadership ignor&eacute;</strong></td><td>Barom&egrave;tre (8 &eacute;d.), Office Papers, cas clients non int&eacute;gr&eacute;s.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
-      <tr><td>6</td><td><strong>2 p&ocirc;les sans campagnes</strong></td><td>Workspace et People &amp; Transformation absents du syst&egrave;me.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
-      <tr><td>7</td><td><strong>P&eacute;rim&egrave;tre tronqu&eacute;</strong></td><td>&laquo;&nbsp;Bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo; non refl&eacute;t&eacute; dans le ciblage.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
-      <tr><td>8</td><td><strong>Pas de calibration r&eacute;trospective</strong></td><td>Seuils de tiering et poids non test&eacute;s contre les deals existants.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
-      <tr><td>9</td><td><strong>Messaging &laquo;&nbsp;broker&nbsp;&raquo;</strong></td><td>S&eacute;quences bail parlent m&sup2;, co&ucirc;ts, pas le langage de la transformation.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
-      <tr><td>10</td><td><strong>Pas de feedback loop</strong></td><td>Aucun m&eacute;canisme d&rsquo;ajustement automatique.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="takeaway">
-    <div class="takeaway-label">Agency Challenge</div>
-    <p>L&rsquo;architecture est solide. Le probl&egrave;me n&rsquo;est pas la m&eacute;canique mais le param&eacute;trage. Le scoring, les triggers, le scope et le volume ont &eacute;t&eacute; configur&eacute;s sans r&eacute;f&eacute;rence suffisante au business r&eacute;el de Parella. La comp&eacute;tence technique de l&rsquo;agence n&rsquo;est pas en cause&nbsp;; c&rsquo;est l&rsquo;alignement strat&eacute;gique qui doit &ecirc;tre repris.</p>
-  </div>
-</div>
-
-<!-- TAB 7 - QUESTIONS AGENCE -->
-<div class="tab-content" id="tab-questions">
-  <div class="tab-title">Les 10 questions &agrave; poser &agrave; l&rsquo;agence</div>
-  <div class="tab-subtitle">Conditions de poursuite du dispositif outbound</div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-scoring">Scoring</span></div>
-    <div class="q-text"><span class="q-num">1</span>Sur quelle base le Private Equity a-t-il &eacute;t&eacute; retenu comme top secteur (350 pts)&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> C&rsquo;est le param&egrave;tre le plus influent du Fit Score. Aucun client PE n&rsquo;est visible dans le portefeuille.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> explication fond&eacute;e sur des donn&eacute;es (pipeline Parella, briefing client), pas sur une logique g&eacute;n&eacute;rique.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-calibration">Calibration</span></div>
-    <div class="q-text"><span class="q-num">2</span>Le scoring a-t-il &eacute;t&eacute; test&eacute; r&eacute;trospectivement contre les 10-20 derniers deals&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Si les clients existants ne seraient pas class&eacute;s T1, le syst&egrave;me &eacute;limine les bons prospects.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> tableau montrant les clients existants pass&eacute;s dans le Fit Score.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-coverage">Coverage p&ocirc;les</span></div>
-    <div class="q-text"><span class="q-num">3</span>Pourquoi n&rsquo;y a-t-il pas de campagnes Workspace et People &amp; Transformation&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Deux des trois p&ocirc;les m&eacute;tiers sont absents du syst&egrave;me.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> plan pour ces campagnes, ou explication strat&eacute;gique du choix Real Estate seul.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-volume">Volume</span></div>
-    <div class="q-text"><span class="q-num">4</span>Comment justifiez-vous 10&nbsp;000 emails/mois pour un cabinet premium&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Risque de dilution de marque et de d&eacute;livrabilit&eacute;.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> mont&eacute;e progressive, tests de d&eacute;livrabilit&eacute;, benchmark par volume.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-coverage">Coverage assets</span></div>
-    <div class="q-text"><span class="q-num">5</span>Le Barom&egrave;tre, les Office Papers et les cas clients sont-ils int&eacute;gr&eacute;s comme nurturing&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Actifs de cr&eacute;dibilit&eacute; exceptionnels, absents des s&eacute;quences.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> int&eacute;gration pr&eacute;vue avec positionnement dans le funnel.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-volume">Capacit&eacute;</span></div>
-    <div class="q-text"><span class="q-num">6</span>Comment le syst&egrave;me g&egrave;re-t-il la mont&eacute;e en charge c&ocirc;t&eacute; r&eacute;ponses&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Michael Kaplan est seul pour toutes les r&eacute;ponses positives.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> plan de d&eacute;l&eacute;gation avec seuils et profils compl&eacute;mentaires.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-calibration">Calibration</span></div>
-    <div class="q-text"><span class="q-num">7</span>Les seuils de tiering (T1 &gt; 600, T2 400-600, T3 &lt; 400) viennent-ils de donn&eacute;es r&eacute;elles&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Des seuils arbitraires excluent de bons prospects.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> m&eacute;thodologie de calibration, id&eacute;alement backtest.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-segment">Segmentation</span></div>
-    <div class="q-text"><span class="q-num">8</span>Quelle strat&eacute;gie pour les propri&eacute;taires-utilisateurs (30&nbsp;% de la base)&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Ce segment est sous-scor&eacute;. Un tiers du business est p&eacute;nalis&eacute;.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> reclassement ou justification argument&eacute;e.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-segment">Triggers</span></div>
-    <div class="q-text"><span class="q-num">9</span>Comment capter les signaux non immobiliers (M&amp;A, direction, croissance, flex)&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Le syst&egrave;me est domin&eacute; par le bail. Les autres p&ocirc;les ont d&rsquo;autres d&eacute;clencheurs.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> liste de signaux alternatifs avec sources et int&eacute;gration.</div>
-  </div>
-
-  <div class="q-card">
-    <div><span class="q-theme theme-feedback">Feedback loop</span></div>
-    <div class="q-text"><span class="q-num">10</span>Existe-t-il un m&eacute;canisme de feedback loop&nbsp;?</div>
-    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Sans boucle de retour, le syst&egrave;me ne s&rsquo;am&eacute;liore pas.</div>
-    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> processus structur&eacute; avec m&eacute;triques, seuils d&rsquo;alerte et ajustements.</div>
-  </div>
-</div>
-
-<!-- TAB 8 - PLAN 30/60/90 -->
-<div class="tab-content" id="tab-plan">
-  <div class="tab-title">Ce qu&rsquo;il faut valider dans les 90 prochains jours</div>
-  <div class="tab-subtitle">Recalibration, extension et pilote &mdash; conditions de Go / No-Go</div>
-
-  <div class="legend" style="margin-bottom:24px;">
-    <div class="legend-item"><span class="tl-tag tl-tag-decide">D&eacute;cider</span> Action PDG</div>
-    <div class="legend-item"><span class="tl-tag tl-tag-validate">Valider</span> Donn&eacute;es internes</div>
-    <div class="legend-item"><span class="tl-tag tl-tag-test">Tester</span> Pilote terrain</div>
-    <div class="legend-item"><span class="tl-tag tl-tag-deploy">D&eacute;ployer</span> Mise en production</div>
-  </div>
-
-  <div class="tl-phase tl-phase-30">30 premiers jours &mdash; Recalibration</div>
-  <div class="timeline">
-    <div class="tl-item"><div class="tl-title">1. Obtenir la r&eacute;partition r&eacute;elle du CA par p&ocirc;le</div><div class="tl-desc">Donn&eacute;e la plus critique. Sans elle, le scoring reste arbitraire.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
-    <div class="tl-item"><div class="tl-title">2. Auditer les canaux d&rsquo;acquisition existants</div><div class="tl-desc">Referral, inbound, events, r&eacute;seau. L&rsquo;outbound est un compl&eacute;ment, pas un remplacement.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
-    <div class="tl-item"><div class="tl-title">3. Tester le scoring r&eacute;trospectivement</div><div class="tl-desc">Passer les 20 derniers clients dans le Fit Score. Si moins de 50 % sont T1, recalibrer.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
-    <div class="tl-item"><div class="tl-title">4. Remplacer le scoring PE par un scoring portefeuille r&eacute;el</div><div class="tl-desc">Corporate, Conseil/Finance, Tech/Scale-up, Public/Institutionnel, Retail/Hospitality.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
-    <div class="tl-item"><div class="tl-title">5. Reclasser les propri&eacute;taires-utilisateurs</div><div class="tl-desc">Au m&ecirc;me niveau que les locataires. 30 % du business r&eacute;el.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
-  </div>
-
-  <div class="tl-phase tl-phase-60" style="margin-top:12px;">60 jours &mdash; Extension</div>
-  <div class="timeline">
-    <div class="tl-item"><div class="tl-title">6. Cr&eacute;er des s&eacute;quences Workspace et People</div><div class="tl-desc">Triggers non immobiliers : flex, changement direction, rebranding, churn talents.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
-    <div class="tl-item"><div class="tl-title">7. Int&eacute;grer le Barom&egrave;tre et Office Papers comme nurturing</div><div class="tl-desc">Actifs de cr&eacute;dibilit&eacute; exceptionnels, &agrave; positionner dans les s&eacute;quences.</div><div><span class="tl-tag tl-tag-deploy">D&eacute;ployer</span></div></div>
-    <div class="tl-item"><div class="tl-title">8. R&eacute;duire le volume initial &agrave; 2-3K emails/mois</div><div class="tl-desc">Mont&eacute;e progressive en fonction des r&eacute;sultats.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
-    <div class="tl-item"><div class="tl-title">9. D&eacute;signer un second point de contact</div><div class="tl-desc">Au-del&agrave; de Michael Kaplan. Profil senior, capable de qualifier et engager.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
-  </div>
-
-  <div class="tl-phase tl-phase-90" style="margin-top:12px;">90 jours &mdash; Pilote et feedback</div>
-  <div class="timeline">
-    <div class="tl-item"><div class="tl-title">10. Lancer un pilote ABM sur l&rsquo;ICP 1 (Grands occupants)</div><div class="tl-desc">Segment &agrave; plus haute confiance. Suivi hebdomadaire.</div><div><span class="tl-tag tl-tag-test">Tester</span></div></div>
-    <div class="tl-item"><div class="tl-title">11. Mettre en place la boucle de feedback</div><div class="tl-desc">Taux de r&eacute;ponse par ICP, objections, signaux, conversions. Ajustement mensuel.</div><div><span class="tl-tag tl-tag-deploy">D&eacute;ployer</span></div></div>
-    <div class="tl-item"><div class="tl-title">12. Bilan &agrave; 90 jours &mdash; D&eacute;cision de g&eacute;n&eacute;ralisation</div><div class="tl-desc">Donn&eacute;es r&eacute;elles pour d&eacute;cider : g&eacute;n&eacute;raliser, ajuster ou arr&ecirc;ter.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
-  </div>
-
-  <div class="section-header" style="margin-top:32px;">Conditions de Go / No-Go</div>
-  <table>
-    <thead><tr><th>Condition</th><th>Go</th><th>No-Go</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Donn&eacute;es internes</strong></td><td>CA par p&ocirc;le, canaux, 20 derniers deals partag&eacute;s</td><td>Donn&eacute;es non fournies</td></tr>
-      <tr><td><strong>Scoring recalibr&eacute;</strong></td><td>PE remplac&eacute;, propri&eacute;taires reclass&eacute;s, backtest &gt; 50 % T1</td><td>Agence refuse de modifier</td></tr>
-      <tr><td><strong>Volume ajust&eacute;</strong></td><td>D&eacute;marrage 2-3K avec mont&eacute;e progressive</td><td>Insistance sur 10K</td></tr>
-      <tr><td><strong>Capacit&eacute; r&eacute;ponse</strong></td><td>Second r&eacute;pondant d&eacute;sign&eacute;</td><td>Michael Kaplan reste seul</td></tr>
-      <tr><td><strong>Pilote ICP 1</strong></td><td>Taux r&eacute;ponse &gt; 2 %, meeting &gt; 0,5 % &agrave; 90j</td><td>Taux r&eacute;ponse &lt; 1 % apr&egrave;s 60j</td></tr>
-    </tbody>
-  </table>
-
-  <div class="takeaway">
-    <div class="takeaway-label">Posture</div>
-    <p>Nous reconnaissons la valeur du travail d&rsquo;automatisation, mais nous remettons la d&eacute;cision au bon niveau&nbsp;: <strong>business &rarr; march&eacute; &rarr; ICP &rarr; triggers &rarr; orchestration</strong>. Pas l&rsquo;inverse.</p>
-  </div>
-</div>
-
-<div class="footer">
-  Parella Group &mdash; Dashboard Strat&eacute;gique de Direction &middot; Mars 2026 &middot; Sources : communiqu&eacute; Bpifrance, parella-group.fr, youno-parella.vercel.app, Barom&egrave;tre Parella/CSA &middot; Confidentiel
-</div>
-
-<script>
-function switchTab(tabId) {
-  var btns = document.querySelectorAll('.tab-btn');
-  var tabs = document.querySelectorAll('.tab-content');
-  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
-  for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
-  var clickedBtn = document.querySelector('[data-tab="' + tabId + '"]');
-  var targetTab = document.getElementById('tab-' + tabId);
-  if (clickedBtn) { clickedBtn.classList.add('active'); }
-  if (targetTab) { targetTab.classList.add('active'); }
-  window.scrollTo(0, 0);
-}
-</script>
+  <script>
+    function switchTab(event, tabName) {
+      event.preventDefault();
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 </body>
 </html>
