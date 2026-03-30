@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parella Group â Dashboard de Direction</title>
+<title>Parella Group &mdash; Dashboard Strat&eacute;gique de Direction</title>
 <style>
 :root {
   --bg-primary: #0f1117;
@@ -38,25 +38,33 @@
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background:var(--bg-primary); color:var(--text-primary); line-height:1.6; }
-.header { background:var(--bg-secondary); border-bottom:1px solid var(--border); padding:20px 32px; display:flex; justify-content:space-between; align-items:center; }
-.header h1 { font-size:20px; font-weight:600; letter-spacing:0.5px; }
-.header h1 span { color:var(--gold); }
-.header-meta { font-size:12px; color:var(--text-muted); text-align:right; }
-.header-meta strong { color:var(--text-secondary); }
+
+/* Header */
+.header { background:var(--bg-secondary); border-bottom:2px solid var(--gold-dim); padding:24px 32px; display:flex; justify-content:space-between; align-items:center; }
+.header-left h1 { font-size:22px; font-weight:700; letter-spacing:0.5px; }
+.header-left h1 span { color:var(--gold); }
+.header-left .subtitle { font-size:13px; color:var(--text-secondary); margin-top:4px; }
+.header-meta { font-size:12px; color:var(--text-muted); text-align:right; line-height:1.6; }
+.header-meta strong { color:var(--gold); }
+.header-meta .conf-tag { display:inline-block; padding:2px 8px; border-radius:3px; background:var(--red-bg); color:var(--red); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+
+/* Tab bar */
 .tab-bar { display:flex; background:var(--bg-tab); border-bottom:1px solid var(--border); overflow-x:auto; -webkit-overflow-scrolling:touch; }
 .tab-bar::-webkit-scrollbar { height:3px; }
 .tab-bar::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-.tab-btn { padding:13px 20px; font-size:13px; font-weight:500; color:var(--text-muted); background:none; border:none; cursor:pointer; white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.2s; }
-.tab-btn:hover { color:var(--text-secondary); background:rgba(255,255,255,0.02); }
-.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+.tab-btn { padding:14px 22px; font-size:13px; font-weight:600; color:var(--text-muted); background:none; border:none; cursor:pointer; white-space:nowrap; border-bottom:3px solid transparent; transition:all 0.2s; user-select:none; -webkit-user-select:none; }
+.tab-btn:hover { color:var(--text-secondary); background:rgba(255,255,255,0.03); }
+.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); background:rgba(201,168,76,0.04); }
 .tab-content { display:none; padding:28px 32px 48px; max-width:1200px; margin:0 auto; }
 .tab-content.active { display:block; }
-.tab-title { font-size:22px; font-weight:600; margin-bottom:4px; }
-.tab-subtitle { font-size:14px; color:var(--text-muted); margin-bottom:28px; }
+
+/* Tab title / subtitle */
+.tab-title { font-size:24px; font-weight:700; margin-bottom:4px; }
+.tab-subtitle { font-size:14px; color:var(--text-muted); margin-bottom:28px; font-style:italic; }
 
 /* Cards */
 .card-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:16px; margin-bottom:24px; }
-.card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:20px 22px; }
+.card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:20px 22px; transition:border-color 0.2s; }
 .card:hover { border-color:var(--border-light); }
 .card-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:8px; }
 .card-value { font-size:28px; font-weight:700; color:var(--gold); line-height:1.2; }
@@ -66,12 +74,12 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 .card ul { padding-left:18px; }
 .card li { margin-bottom:4px; }
 
-/* CEO Takeaway box */
+/* CEO Takeaway */
 .takeaway { background:var(--gold-bg); border:1px solid var(--gold-dim); border-radius:8px; padding:20px 24px; margin-bottom:24px; }
 .takeaway-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--gold); margin-bottom:8px; }
 .takeaway p { font-size:14px; color:var(--text-primary); line-height:1.7; }
 
-/* Alert box */
+/* Alerts */
 .alert { border-radius:8px; padding:16px 20px; margin-bottom:16px; font-size:13.5px; line-height:1.6; }
 .alert-green { background:var(--green-bg); border:1px solid var(--green); color:var(--green); }
 .alert-orange { background:var(--orange-bg); border:1px solid var(--orange); color:var(--orange); }
@@ -84,7 +92,6 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 .badge-fc { background:var(--fc-bg); color:var(--fc-color); border:1px solid rgba(76,175,124,0.25); }
 .badge-ip { background:var(--ip-bg); color:var(--ip-color); border:1px solid rgba(224,145,64,0.25); }
 .badge-hv { background:var(--hv-bg); color:var(--hv-color); border:1px solid rgba(212,93,93,0.25); }
-.badge-score { padding:3px 10px; border-radius:4px; font-size:12px; font-weight:700; }
 
 /* Tables */
 table { width:100%; border-collapse:collapse; margin-bottom:20px; font-size:13px; }
@@ -96,7 +103,7 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .section-header { font-size:16px; font-weight:600; margin:28px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--border); }
 .section-sub { font-size:14px; font-weight:600; margin:20px 0 10px; color:var(--gold); }
 
-/* Score cards for Youno */
+/* Score cards */
 .score-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:12px; margin-bottom:24px; }
 .score-card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:16px; text-align:center; }
 .score-card .label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
@@ -111,10 +118,6 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .timeline::before { content:''; position:absolute; left:6px; top:8px; bottom:8px; width:2px; background:var(--border); }
 .tl-item { position:relative; margin-bottom:20px; }
 .tl-item::before { content:''; position:absolute; left:-21px; top:6px; width:10px; height:10px; border-radius:50%; border:2px solid var(--gold); background:var(--bg-primary); }
-.tl-item.decide::before { border-color:var(--red); background:var(--red); }
-.tl-item.validate::before { border-color:var(--orange); background:var(--orange); }
-.tl-item.test::before { border-color:var(--blue); background:var(--blue); }
-.tl-item.deploy::before { border-color:var(--green); background:var(--green); }
 .tl-phase { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; padding:4px 10px; border-radius:4px; display:inline-block; }
 .tl-phase-30 { background:var(--red-bg); color:var(--red); }
 .tl-phase-60 { background:var(--orange-bg); color:var(--orange); }
@@ -127,7 +130,7 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .tl-tag-test { background:var(--blue-bg); color:var(--blue); }
 .tl-tag-deploy { background:var(--green-bg); color:var(--green); }
 
-/* 2x2 Matrix */
+/* Matrix */
 .matrix-2x2 { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:2px; margin-bottom:24px; border-radius:8px; overflow:hidden; }
 .matrix-header-y { grid-column:1/3; text-align:center; padding:8px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); background:var(--bg-secondary); }
 .matrix-cell { background:var(--bg-card); padding:18px; min-height:140px; }
@@ -141,7 +144,7 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 
 /* Question cards */
 .q-card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:18px 20px; margin-bottom:12px; }
-.q-card .q-num { display:inline-block; width:24px; height:24px; border-radius:50%; background:var(--gold-bg); color:var(--gold); font-size:12px; font-weight:700; text-align:center; line-height:24px; margin-right:10px; flex-shrink:0; }
+.q-card .q-num { display:inline-block; width:24px; height:24px; border-radius:50%; background:var(--gold-bg); color:var(--gold); font-size:12px; font-weight:700; text-align:center; line-height:24px; margin-right:10px; }
 .q-card .q-text { font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:6px; }
 .q-card .q-why { font-size:12.5px; color:var(--text-muted); margin-bottom:6px; }
 .q-card .q-good { font-size:12.5px; color:var(--text-secondary); padding:8px 12px; background:var(--green-bg); border-radius:4px; }
@@ -153,7 +156,7 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .theme-calibration { background:var(--gold-bg); color:var(--gold); }
 .theme-feedback { background:var(--green-bg); color:var(--green); }
 
-/* Verdict strip */
+/* Verdict */
 .verdict-strip { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
 .verdict-box { border-radius:8px; padding:18px 20px; }
 .verdict-good { background:var(--green-bg); border:1px solid rgba(76,175,124,0.25); }
@@ -168,7 +171,7 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .legend { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
 .legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-muted); }
 
-/* ICP tier separator */
+/* ICP tiers */
 .icp-tier-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; padding:6px 14px; margin:20px 0 12px; border-radius:4px; display:inline-block; }
 .icp-priority { background:var(--green-bg); color:var(--green); }
 .icp-test { background:var(--orange-bg); color:var(--orange); }
@@ -179,10 +182,7 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .conf-dot { width:14px; height:6px; border-radius:2px; background:var(--border); }
 .conf-dot.filled { background:var(--gold); }
 
-/* Footer */
-.footer { text-align:center; padding:20px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:40px; }
-
-/* Business model diagram */
+/* Business model */
 .bm-flow { display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin:20px 0; }
 .bm-box { background:var(--bg-card); border:1px solid var(--border); border-radius:6px; padding:10px 16px; text-align:center; min-width:140px; }
 .bm-box .bm-label { font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
@@ -193,6 +193,9 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 .bm-pole h4 { font-size:13px; font-weight:600; color:var(--gold); margin-bottom:8px; }
 .bm-pole ul { font-size:12.5px; color:var(--text-secondary); padding-left:14px; }
 .bm-pole li { margin-bottom:3px; }
+
+/* Footer */
+.footer { text-align:center; padding:20px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:40px; }
 
 /* Responsive */
 @media (max-width:768px) {
@@ -205,8 +208,6 @@ tr:hover td { background:rgba(255,255,255,0.015); }
   .tab-content { padding:20px 16px 40px; }
   .header { padding:16px; flex-direction:column; gap:8px; }
 }
-
-/* Print */
 @media print {
   .tab-bar { display:none; }
   .tab-content { display:block !important; page-break-after:always; }
@@ -218,216 +219,631 @@ tr:hover td { background:rgba(255,255,255,0.015); }
 <body>
 
 <div class="header">
-  <h1><span>PARELLA GROUP</span> &mdash; Dashboard de Direction</h1>
+  <div class="header-left">
+    <h1><span>PARELLA GROUP</span> &mdash; Dashboard Strat&eacute;gique de Direction</h1>
+    <div class="subtitle">&Eacute;tat du march&eacute;, ICPs possibles et audit du dispositif outbound</div>
+  </div>
   <div class="header-meta">
     Audit strat&eacute;gique &amp; &eacute;valuation outbound<br>
-    <strong>Confidentiel</strong> &middot; Mars 2026
+    <strong>Confidentiel</strong> &middot; Mars 2026<br>
+    <span class="conf-tag">Document de travail</span>
   </div>
 </div>
 
 <div class="tab-bar" id="tabBar">
-  <button class="tab-btn active" data-tab="ceo">Vue PDG</button>
-  <button class="tab-btn" data-tab="business">Business r&eacute;el</button>
-  <button class="tab-btn" data-tab="market">March&eacute;</button>
-  <button class="tab-btn" data-tab="icp">ICPs possibles</button>
-  <button class="tab-btn" data-tab="opportunities">P&eacute;n&eacute;tration</button>
-  <button class="tab-btn" data-tab="audit">Audit Youno</button>
-  <button class="tab-btn" data-tab="questions">Questions agence</button>
-  <button class="tab-btn" data-tab="plan">Plan 30/60/90</button>
+  <button class="tab-btn active" onclick="switchTab('ceo')" data-tab="ceo">Vue PDG</button>
+  <button class="tab-btn" onclick="switchTab('business')" data-tab="business">Business r&eacute;el</button>
+  <button class="tab-btn" onclick="switchTab('market')" data-tab="market">March&eacute;</button>
+  <button class="tab-btn" onclick="switchTab('icp')" data-tab="icp">ICPs</button>
+  <button class="tab-btn" onclick="switchTab('opportunities')" data-tab="opportunities">Opportunit&eacute;s</button>
+  <button class="tab-btn" onclick="switchTab('audit')" data-tab="audit">Audit Youno</button>
+  <button class="tab-btn" onclick="switchTab('questions')" data-tab="questions">Questions agence</button>
+  <button class="tab-btn" onclick="switchTab('plan')" data-tab="plan">Plan 30/60/90</button>
 </div>
 
-<!-- ===================== ONGLET 1 â VUE PDG ===================== -->
+<!-- TAB 1 - VUE PDG -->
 <div class="tab-content active" id="tab-ceo">
-  <div class="tab-title">Vue PDG</div>
-  <div class="tab-subtitle">Les points essentiels en 3 minutes</div>
+  <div class="tab-title">Ce que le PDG doit savoir en 3 minutes</div>
+  <div class="tab-subtitle">Faits confirm&eacute;s, hypoth&egrave;ses et implications business</div>
 
   <div class="takeaway">
     <div class="takeaway-label">CEO Takeaway</div>
-    <p>Le syst&egrave;me d'outbound automatis&eacute; con&ccedil;u par Youno est techniquement solide, mais il n'est pas calibr&eacute; sur le business r&eacute;el de Parella. Avant toute mont&eacute;e en charge, il doit &ecirc;tre recalibr&eacute; &agrave; partir des donn&eacute;es internes. Notre recommandation&nbsp;: <strong>poursuite conditionnelle</strong>.</p>
+    <p>Le syst&egrave;me d&rsquo;outbound automatis&eacute; con&ccedil;u par Youno est techniquement solide, mais il n&rsquo;est pas calibr&eacute; sur le business r&eacute;el de Parella. Avant toute mont&eacute;e en charge, il doit &ecirc;tre recalibr&eacute; &agrave; partir des donn&eacute;es internes. Notre recommandation&nbsp;: <strong>poursuite conditionnelle</strong>.</p>
   </div>
 
   <div class="section-header">5 messages cl&eacute;s</div>
   <div class="card-grid">
     <div class="card">
-      <div class="card-label">Fait confirm&eacute;</div>
+      <div class="card-label"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
       <h3>Parella = ~150 M&euro; de CA, 250 collaborateurs, 7 pays</h3>
-      <p>Confirm&eacute; par le communiqu&eacute; Bpifrance (septembre 2025). 40&nbsp;% du CA &agrave; l'international. Tous les actionnaires historiques ont r&eacute;investi lors du 2nd LBO.</p>
+      <p>Confirm&eacute; par le communiqu&eacute; Bpifrance (septembre 2025). 40&nbsp;% du CA &agrave; l&rsquo;international. Tous les actionnaires historiques ont r&eacute;investi lors du 2nd LBO.</p>
     </div>
     <div class="card">
-      <div class="card-label">Fait confirm&eacute;</div>
+      <div class="card-label"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
       <h3>Trois p&ocirc;les, huit m&eacute;tiers, une cha&icirc;ne int&eacute;gr&eacute;e</h3>
       <p>Real Estate Services, Workspace, People &amp; Transformation. De la strat&eacute;gie immobili&egrave;re &agrave; la formation. Positionnement unique&nbsp;: 100&nbsp;% c&ocirc;t&eacute; occupant, ind&eacute;pendant.</p>
     </div>
     <div class="card">
-      <div class="card-label">Interpr&eacute;tation</div>
-      <h3>L'outbound Youno ne couvre qu'un p&ocirc;le sur trois</h3>
-      <p>Le syst&egrave;me est construit autour du bail immobilier. Les p&ocirc;les Workspace et People &amp; Transformation n'ont pas de campagnes d&eacute;di&eacute;es. Deux tiers de l'offre sont ignor&eacute;s.</p>
+      <div class="card-label"><span class="badge badge-ip">Interpr&eacute;tation</span></div>
+      <h3>L&rsquo;outbound Youno ne couvre qu&rsquo;un p&ocirc;le sur trois</h3>
+      <p>Le syst&egrave;me est construit autour du bail immobilier. Les p&ocirc;les Workspace et People &amp; Transformation n&rsquo;ont pas de campagnes d&eacute;di&eacute;es. Deux tiers de l&rsquo;offre sont ignor&eacute;s.</p>
     </div>
     <div class="card">
-      <div class="card-label">Anomalie</div>
+      <div class="card-label"><span class="badge badge-hv">Anomalie</span></div>
       <h3>Private Equity = top secteur du scoring, z&eacute;ro client PE</h3>
-      <p>Le Fit Score donne 350 pts au PE. Aucun client PE n'appara&icirc;t dans le portefeuille document&eacute;. Le scoring semble import&eacute; d'un template, pas calibr&eacute; sur Parella.</p>
+      <p>Le Fit Score donne 350 pts au PE. Aucun client PE n&rsquo;appara&icirc;t dans le portefeuille document&eacute;. Le scoring semble import&eacute; d&rsquo;un template, pas calibr&eacute; sur Parella.</p>
     </div>
     <div class="card">
-      <div class="card-label">Architecture</div>
-      <h3>L'architecture du syst&egrave;me est saine</h3>
-      <p>Fit + Intent Score, deux chemins (bail / scoring continu), Swarm, HubSpot. Le probl&egrave;me n'est pas la m&eacute;canique â c'est le param&eacute;trage et l'alignement strat&eacute;gique.</p>
+      <div class="card-label"><span class="badge badge-fc">Architecture</span></div>
+      <h3>L&rsquo;architecture du syst&egrave;me est saine</h3>
+      <p>Fit + Intent Score, deux chemins (bail / scoring continu), Swarm, HubSpot. Le probl&egrave;me n&rsquo;est pas la m&eacute;canique &mdash; c&rsquo;est le param&eacute;trage et l&rsquo;alignement strat&eacute;gique.</p>
     </div>
   </div>
 
   <div class="section-header">3 risques majeurs</div>
-  <div class="alert alert-red"><strong>1. Ciblage d&eacute;salign&eacute;.</strong> Lancer le syst&egrave;me en l'&eacute;tat revient &agrave; prospecter des segments (PE) o&ugrave; Parella n'ta pas de track record visible, tout en sous-pond&eacute;rant les propri&eacute;taires-utilisateurs (30&nbsp;% des clients).</div>
-  <div class="alert alert-red"><strong>2. Dilution de marque.</strong> 10&nbsp;000 emails/mois pour un cabinet class&eacute; &laquo;&nbsp;Incontournable&nbsp;&raquo; par Leaders League. Le risque d'image est r&eacute;el pour un acteur premium.</div>
-  <div class="alert alert-red"><strong>3. Goulot humain.</strong> Michael Kaplan est le seul point de contact pour les r&eacute;ponses positives. &Agrave; 1-2&nbsp;% de taux de r&eacute;ponse, c'est 100-200 conversations/mois pour un associ&eacute; d&eacute;j&agrave; occup&eacute;.</div>
+  <div class="alert alert-red"><strong>1. Ciblage d&eacute;salig&eacute;.</strong> Lancer le syst&egrave;me en l&rsquo;&eacute;tat revient &agrave; prospecter des segments (PE) o&ugrave; Parella n&rsquo;a pas de track record visible, tout en sous-pond&eacute;rant les propri&eacute;taires-utilisateurs (30&nbsp;% des clients).</div>
+  <div class="alert alert-red"><strong>2. Dilution de marque.</strong> 10&nbsp;000 emails/mois pour un cabinet class&eacute; &laquo;&nbsp;Incontournable&nbsp;&raquo; par Leaders League. Le risque d&rsquo;image est r&eacute;el pour un acteur premium.</div>
+  <div class="alert alert-red"><strong>3. Goulot humain.</strong> Michael Kaplan est le seul point de contact pour les r&eacute;ponses positives. &Agrave; 1-2&nbsp;% de taux de r&eacute;ponse, c&rsquo;est 100-200 conversations/mois pour un associ&eacute; d&eacute;j&agrave; occup&eacute;.</div>
 
   <div class="section-header">3 d&eacute;cisions &agrave; prendre</div>
   <div class="card-grid">
     <div class="card" style="border-left:3px solid var(--gold);">
       <h3>1. Fournir les donn&eacute;es internes</h3>
-      <p>CA par p&ocirc;le, canaux d'acquisition actuels, 20 derniers deals sign&eacute;s. Sans cela, aucune c[X][ÛÙ\ÝÜÜÚXKÜÙ]]Û\ÜÏHØ\Ý[OHÜ\[YÜÛÛY\KYÛÛ
-NÈÏ[Y\HØÛÜHH	ÛÝ]Ý[ÚÏ	ÛÝ]Ý[ÛÝ]K]Z[[\]Y[Y[X[\Ý]KÝH]\ÜÚHÛÜÜÜXÙH][ÜH	[\È[ÙÜX][ÛÜÏÈ	XXÝ]NØÚ\Ú[ÛÝ]	XXÝ]NÙÚ\]YHHËÜÙ]]Û\ÜÏHØ\Ý[OHÜ\[YÜÛÛY\KYÛÛ
-NÈÏËÚÚ\Ú\	ÛÜ[ÛH\\ÙOÚÏÝ\ÝZ]HÛÛ][Û[H
-XÛÛ[X[	XXÝ]NÊK[ÝH\ÝZ[
-[\]]JKÝHY[YHÛÛ\]
-ÛXÛÛ[X[	XXÝ]NÊK\ÈHÝ]H][ËÜÙ]Ù]]Û\ÜÏHÙXÝ[ÛZXY\\XÝÝ\	ØYÙ[ÙOÙ]]Û\ÜÏH\XÝ\Ý\]Û\ÜÏH\XÝXÞ\XÝYÛÛÙ
-ÙH]ZH\ÝY[Z]Ú
-[O\Ú]XÝ\H]
-È[[ÛÚ	XXÝ]NÜ[OÛOO]^Ú[Z[È
-Z[ÈØÛÜ[ÈÛÛ[JOÛOO[	XXÝ]NÙÜ][ÛÝØ\H
-Ø\H[ÜÊOÛOOXÜÝÛÛ[YH]ÝÔOÛOOØÝ[Y[][ÛÛÛ\	YÜ]NÝH][Ü\[OÛOÝ[Ù]]Û\ÜÏH\XÝXÞ\XÝY^
-YÜ]NÈXØ[X\[\	XXÝ]NÜ]][Y[Ú
-[OØÛÜ[ÈÙXÝÜY[
-H	\ÈÜY]Z[HXXÝ]NÙ[
-OÛOOÜIXXÝ]NÝZ\\Ë]][\Ø]]\ÈÛÝ\Ë\Û	XXÝ]NÜXXÝ]NÜÏÛOOÛ[YH	Ù[ÚH
-LÈ	\ÈLÒÈÝ\	XXÝ]NÛX\\OÛOOØ[\YÛ\ÈÛÜÜÜXÙH	[\È[ÜHX[]X[\ÏÛOO\ÜÙ]ÈHÝYÚXY\Ú\Û[	XXÝ]NÙÜXXÝ]NÜÏÛOÝ[Ù]Ù]]Û\ÜÏHZÙX]Ø^H]Û\ÜÏHZÙX]Ø^K[X[XÛÛ[X[][ÛÙ]ÝÛÏÝ\ÝZ]HÛÛ][Û[KÜÝÛÏÝ\ÈXÛÛZ\ÜÛÛÈH[]\H]Z[	Ø]]ÛX]\Ø][Û	Ø\Ú]XÝ\H\ÝÙ\ÜÚ[Û[KHÜ]\]YHÜHÝ\	Ø[YÛ[Y[Ý]	XXÝ]NÙÚ\]YK\ÈÝ\HÛÛ\	XXÝ]NÝ[ÙHXÚ\]YKXØ[X\][H[Ù\\È\YÜ]NÜËÜÙ]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓU8 %TÒSTÔÈ°âQSOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHXX\Ú[\ÜÈ]Û\ÜÏHX]]HÙH]YH\[H[XXÝ]NÙ[[Y[Ù]]Û\ÜÏHX\ÝX]HÛÜH\Ú[\ÜËÝXÝ\KYXXÝ]NÜ[ÚX][ÛÙ]]Û\ÜÏHÙXÝ[ÛZXY\	XXÝ]NÙ[][ÛÙ]]Û\ÜÏHØ\Ý[OHX\Ú[XÝÛNÈÏÛÛÙZ[[[[[Ø[Y\	Ù^Ú]][Û][ÙÜX][Û\È\ÜXÙ\ÈH]Z[ÚÏÝ[OHX\Ú[]ÜÈ\[HXØÛÛ\YÛH\ÈØØÝ\[È
-[\\Ù\Ë[Ý]][ÛÊH[ÈHÝ]	XXÝ]NÙÚYKHÛÛÙ\[Û]H[ÙÜX][ÛH]\È\ÜXÙ\ÈH]Z[ÜÚ][Û[Y[L	ÜÉHÉØÚ\ÎÝ	XXÝ]NÈØØÝ\[[	XXÝ]NÜ[[HÝ]ÜIXXÝ]NÝZ\HÝH[\Ý\ÜÙ]\Z\ÜÚ[Û	XXÝ]NØÛ\XXÝ]NÙIÜÎ	\][ÎÉÜÙZ\HHÝH[[[Ø[Y\]HÜÈ\ÜXÙ\È[	XXÝ]NÜY]\È\È]Y\ÈH[ÙÜX][ÛHÛÚ	XXÝ]NÜÚ[Û]H\ÜX[ÙKÜÉ\][ÎÏÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈZ]ÛÛ\IXXÝ]NÏÜÜ[	Y\ÚÈÛÝ\Ù\ÈÚ]HÛÜÜ]K[\Y]È\Ú[\ÜÈ[[[ÈZ[ÜÙ]]Û\ÜÏHÙXÝ[ÛZXY\ÙH]YH\[HÙ\Ý\È
-ÝH\È[\]Y[Y[
-OÙ]]Û\ÜÏHØ\YÜY]Û\ÜÏHØ\Ï\È[	XXÝ]NØÛÜ]]\	Ú[	XXÝ]NÜY]\ÚÏ	ÛÙHÛÝ]HHÝ]	XXÝ]NÙÚYH[[[Ø[IYÜ]NÜK\È[ØXÝ[ÛË	Ù^\\ÙK	Ú[ÉXXÝ]NÛY\YHXÚ\]YH]HÚ[ÙHX[YÙ[Y[H\ÚYÛ\Ý[	ØÚ\ÎÛH\ZH	Ø]]\ËÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÜÙ]]Û\ÜÏHØ\Ï\È[ÚÙ\[[[Ø[Y\ÚÏ\[HH\XXÝ]NÜÙ[H\ÈHÜIXXÝ]NÝZ\\Ë
-Ì	ÜÉHHÙ\ÈÛY[ÈÛÛØØ]Z\\ËÌ	ÜÉHÜIXXÝ]NÝZ\\Ë]][\Ø]]\ËXXÝ]NÜÈ[\Ý\ÜÙ]\Ü[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÜÙ]]Û\ÜÏHØ\Ï\È[\]Y[Y[	\][ÎÉÜØ\X]^	ÜÉ\][ÎÏÚÏHÛÛ[][\]IXXÝ]NÈY[ÙHY[[ÛH^XÚ][Y[	\][ÎÉÜØ\X]^XYØ\Ú[Ë	ØÚ\ÎÝ[Ë\Ý]\[ÉÜÉ\][ÎËÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÜÙ]Ù]]Û\ÜÏHÙXÝ[ÛZXY\\ÈÈ	ØÚ\ÎÛ\ÈIXXÝ]NÝY\ÏÙ]]Û\ÜÏHK\Û\È]Û\ÜÏHK\ÛH
-X[\Ý]HÙ\XÙ\ÏÚ
-[OÝ]	XXÝ]NÙÚYH	[\È[ØXÝ[ÛÈ[[[Ø[IYÜ]NÜ\ÏÛOO^\\ÙH[[[Ø[IYÜ]NÜH
-PÔÊOÛOO]Y]	[\È[ÉXXÝ]NÛY\YHXÚ\]YOÛOÝ[]Ý[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[Ù]Ù]]Û\ÜÏHK\ÛH
-ÛÜÜÜXÙOÚ
-[O\Ú]XÝ\H	[\È\ÚYÛÛOOÝ]	XXÝ]NÙÚYHÛÜÜXÙOÛOO[IXXÝ]NÛYÙ[Y[	Ù\ÜXÙ\ÏÛOÝ[]Ý[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[Ù]Ù]]Û\ÜÏHK\ÛH
-[ÜH	[\È[ÙÜX][ÛÚ
-[OXØÛÛ\YÛ[Y[HÚ[Ù[Y[ÛOOÜX][ÛÈ\[HXØY[^OÛOÝ[]Ý[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[Ù]Ù]Ù]]Û\ÜÏHÙXÝ[ÛZXY\ÚIXÚ\ÎÛHH[]\Ù]]Û\ÜÏHKYÝÈ]Û\ÜÏHKXÞ]Û\ÜÏHK[X[\ÙHOÙ]]Û\ÜÏHK[[YH]Y]Ý]	XXÝ]NÙÚ\]YOÙ]Ù]]Û\ÜÏHKX\ÝÈ\ÏÙ]]Û\ÜÏHKXÞ]Û\ÜÏHK[X[\ÙHÙ]]Û\ÜÏHK[[YH[ØXÝ[ÛÈXXÝ]NÙÛÈZ[Ù]Ù]]Û\ÜÏHKX\ÝÈ\ÏÙ]]Û\ÜÏHKXÞ]Û\ÜÏHK[X[\ÙHÏÙ]]Û\ÜÏHK[[YHÛÛÙ\[Û	[\È\ÚYÛÙ]Ù]]Û\ÜÏHKX\ÝÈ\ÏÙ]]Û\ÜÏHKXÞ]Û\ÜÏHK[X[\ÙH
-Ù]]Û\ÜÏHK[[YH[IXXÝ]NÛYÙ[Y[Ù]Ù]]Û\ÜÏHKX\ÝÈ\ÏÙ]]Û\ÜÏHKXÞ]Û\ÜÏHK[X[\ÙH
-OÙ]]Û\ÜÏHK[[YHÚ[ÙH	[\ÈÜX][ÛÙ]Ù]Ù]]Û\ÜÏH[\[\XYHÝÛÏYXXÝ]NÜ[ÚX]]\Û	XXÝ]NÉÜÎÜÝÛÏ\[H\ÝHÙ][XÝ]\[	XXÝ]NÜ[[HÙ]HZ[H	YÜ]NÈÛÝ]\	Ú[	XXÝ]NÙÜ[]	XXÝ]NÈHÙ]HÚIXÚ\ÎÛKØ[ÈÛÛ]È	Ú[	XXÝ]NÜXÚ\ÎÝÈ]XÈ\ÈÜIXXÝ]NÝZ\\ËÜ[Û\ÜÏHYÙHYÙKZ\[\XXÝ]NÝ][ÛÜÜ[Ù]]Û\ÜÏHÙXÝ[ÛZXY\Z]ÈÝXÝ\[ÏÙ]XOXY[XØ]]\Ý[]\Ý]]OÝÝÝXYÙOÐHÝÝÛÏMLI]\ÎÏÜÝÛÏÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÛ[][\]IXXÝ]NÈY[ÙOÝÝ\[\][Û[OÝÝÛÏ	OÜÝÛÏÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÛ[][\]IXXÝ]NÈY[ÙOÝÝÛÛXÜ]]\ÏÝÝÛÏLÜÝÛÏ
-Ù\JOÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÛ[][\]IXXÝ]NÈXÝ[Û\X]ÝÝXXÝ]NÜÙ[ÙOÝÝÛÏÈ^\ËLÈ[\ÏÜÝÛÏÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[Ú]HÛÜÜ]H
-ÈÛÛ[][\]IXXÝ]NÏÝÝXÜ]Z\Ú][ÛÏÝÝÛÏÜÝÛÏ
-ÛÛYËYÚ[]	XXÝ]NË
-ÈHÛY[YIXXÝ]NÙJOÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÛ[][\]IXXÝ]NÈY[ÙOÝÝÏÝÑÈØ\][QY[ÙH
-Ù\JOÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[YÙHXÝ[Û\X]ÝÝ][ÈØØ]Z\\ÈÈÜIXXÝ]NÝZ\\Ë]][ÝÝÛÏÌÈÌÜÝÛÏÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[[\Y]È\Ú[\ÜÈ[[[ÏÝÝ[	XXÝ]NÜ[[ÙHÞXÛ\È[[[ÏÝ][\]IXXÝ]NÙOÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[Ú]][Û\XÝH\ÜÛØÚIXXÝ]NÜÏÝÝ][YHZ^\	ØÚ\ÎÛOÝÛÛÛOÝÜ[Û\ÜÏHYÙHYÙKZÜÜ[È\Ý[X][ÛÈÛÛYXÝÚ\\È[È\ÈXÚY\ÏÝÝX\ÙHÛÛÛÛY	XXÝ]NÙOÝÛÛÛYOÝÜ[Û\ÜÏHYÙHYÙKZÜÜ[\Ý[X][ÛLÈ	HÛXXÝ]NÜYXXOÝÝÝÙOÝXO]Û\ÜÏHÙXÝ[ÛZXY\XXÝ]NÙXXÝ]NÜ[Ù\ÈÛY[ÈØÝ[Y[	XXÝ]NÙ\ÏÙ]]Û\ÜÏHØ\Ý[OHX\Ú[XÝÛNÈÝÛÏÜÛ[ÈÛÛ\IXXÝ]NÉÜÎÜÝÛÏSÔËY[YXXÚ\ËØ]\ÝÛKØ[ÙK]\ÜÝ\Ù[\[[ÝÜËK[ÙY[]\ÛÜK[[[[ÛÙØ[Ý[ËÔQËÛ]\Þ[X[X[Û[\ÈYXØ][ÛÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÜÝ[OHX\Ú[]ÜÈÝÛÏ	XXÝ]NÛ[ÚYÛYÙ\ÈÛÛ\IXXÝ]NÜÉÜÎÜÝÛÏTKZ\\ËØZ\ÜÙH\È	XXÝ]NÜ	ØÚ\ÎÝË^X\QT\^Ü[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÜÝ[OHX\Ú[]ÜÈÝÛÏÛ\ÜÙ[Y[XY\ÈXYÝYIÜÎÜÝÛÏ	\][ÎÉÜÒ[ÛÛÝ\XIÜÉ\][ÎÈ\Z\È\ÚY]\È[XXÝ]NÙ\ËÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÜÙ]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓUÈ8 %PTÒ0âHOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHX[X\Ù]]Û\ÜÏHX]]HX\Ú	XXÝ]NÈ	[\È[[Z\]Y\ÏÙ]]Û\ÜÏHX\ÝX]HÙH]ZHÜXXÝ]NÙHH[X[KÙH]IÛÛØZ]ÙH]IÛÛHØZ]\ÏÙ]]Û\ÜÏHYÙ[]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏHYÙHYÙKYÈZ]ÛÛ\IXXÝ]NÏÜÜ[Ù]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏHYÙHYÙKZ\[\XXÝ]NÝ][ÛÜÜ[Ù]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏHYÙHYÙKZ\Ý	YÜ]NÜÙOÜÜ[Ù]Ù]]Û\ÜÏHÙXÝ[ÛZXY\È[[Z\]Y\ÈHX\Ú	XXÝ]NÏÙ]]Û\ÜÏHØ\YÜY]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YHOÙ]ÏXY][ÛÉXXÝ]NÛXXÝ]NÜ[\ÉXXÝ]NÙOÚÏ	ÜÉH\ÈÛÛXÜ]]\È[ØÙY[ØZ\È[^ÙXÙK
-ÌIÜÉHXØÉYÜ]NÜÈ	XXÝ]NÛ	XXÝ]NÝ]Z[
-HÝ\ËÜÙ[XZ[H[[ÞY[JKMIÜÉH\ÈÚ]È	Ø[IXXÝ]NÛYÙ[Y[[\\]Y[[XØÛÛ\YÛ[Y[HÚ[Ù[Y[ÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÝ\ÙH\ÛIYÜ]NÝH\[KÐÔÐKÚ]HÛÜÜ]OÜÙ]]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YHÙ]ÏXXÝ]NÙXÝ[ÛHÝ\XÙH	YÜ]NÈYXÝYÛÛÝ[ÚÏH[[ÙHHÛ\ÝH][Û[\Ø][Û\ÈIÝ\È]XÈXXÝ]NØ[ØØ][Û\È\È\ÜXÙ\ÈÛÛXÜ]YË[Ú[ÈHÜÝ\È^\Ë\ÈH^X[]	XXÝ]NËÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÝ\ÙH[\Y]È\Ú[\ÜÈ[[[ÏÜÙ]]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YHÏÙ]ÏÛÛÛÛY][ÛHÙXÝ]\ÚÏ\ÈXÝ]\È[	XXÝ]NÜ[[ÈÚ\Ú[HZ[HÜ]\]YH\ÜÚ\ÜØ[ÙH^\H]	XXÝ]NÜÚY[Y[[\][Û[ÛÛÝ\[ÙHÝXÝ\[H]XÈ\ÈÜ[ÈÜÝ\\È
-ÐKØ][ÊH]ZHÙ\[]\ÜÚHHÉØÚ\ÎÝ	XXÝ]NÈÜIXXÝ]NÝZ\KÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKZ\TÜÜ[	XXÝ]NÙZ]HÈ\[H]\È[Ý][Y[ÈÙXÝÜY[ÏÜÙ]]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YH
-Ù]ÏXXÝ]NÛ\Ú\ÜÙ[Y[]KY[	YÜ]NÈ\È\X]^ÚÏHÛÛ[][\]IXXÝ]NÈY[ÙHY[[ÛH	\][ÎÉÜØ\X]^XYØ\Ú[Ë	ØÚ\ÎÝ[Ë\Ý]\[ÉÜÉ\][ÎËHX\Ú	XXÝ]NÈÉÉXXÝ]NÛ\Ú]]H]Z[]	YÜ]NÈ	ÚÜÜ][]KÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÝ\ÙHÛÛ[][\]IXXÝ]NÈY[ÙOÜÙ]]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YH
-OÙ]Ï^	XXÝ]NÜY[ÙHÛÛXÜ]]\ÛÛ[YH[]HÚÏH\X]H]Y[[Ý][	Ø]XÝ]]	XXÝ]NËHXXÝ]NÝ[[Û]HÝ[\KH\ØÛÝ\È\[H
-	\][ÎÉÜØ\X]^Ý\ÜÈ[[ÉÜÉ\][ÎÊHÚXHÙ]H[[Z\]YKÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKZ\TÜÜ[ÛÚ	XXÝ]NÜ[]XÈHÜÚ][Û[Y[]\È[[Ù\ÈÜÙ]]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YH
-Ù]Ï[\][Û[\Ø][Û\È[\\Ù\ÏÚÏ\ÛÚ[HÛÚ	XXÝ]NÜ[ÙHÛÜÜXÙH][K\^\Ë\[H	YÜ]NÈ
-	ÜÉH[\][Û[XÜ]Z\Ú][Û	ÐYÚ[]	XXÝ]NÈ
-][Ý][]\Ü	XXÝ]NÙ[KXXÝ]NÜÙX]H^\ÈÛØ[ÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÝ\ÙHÛÛ[][\]IXXÝ]NÈY[ÙKÚ]HÛÜÜ]OÜÙ]]Û\ÜÏHØ\]Û\ÜÏHØ\[X[[[Z\]YH
-ÏÙ]ÏÛÛZ[\ÈYÉXXÝ]NÝZ\\È]ÑOÚÏ\ÜÚ[ÛÝ\\ÈÛÉXÚ\ÎÝÈ[[[Ø[Y\È]^YÙ[Ù\È[\Û[Y[[\ÈÝ\ÜÙ[\È[\\Ù\È	YÜ]NÈÜ[Z\Ù\]	ØÚ\ÎÝ]IÉYÜ]NÈYÜ[\\[HÜÜÙH]Y]XÚ\]YH]ÑH	XXÝ]NÛ\ÉXXÝ]NÝ\]YKÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKZ\TÜÜ[ÛÚ	XXÝ]NÜ[]XÈ	ÛÙHXZ\ÈÛ]X[YIXXÝ]NÏÜÙ]Ù]]Û\ÜÏHZÙX]Ø^H]Û\ÜÏHZÙX]Ø^K[X[ÙH]YHÙ[HÚ[ÙHÝ\HÕOÙ]HX\Ú	XXÝ]NÈÙ\Ý\ÈÙ][[Y[	\][ÎÉÜÙ[ÈHZ[	ÜÉ\][ÎË\È	XXÝ]NØÛ[Ú]\ÈÛÛ][\\ÉÜÎXY][ÛÜÚ\ÜØ[ÙKI[\ÐK]XÝ]]	XXÝ]NÈ[[ËÑK[\][Û[\Ø][Û[Þ\Ý	YÜ]NÛYHÝ]Ý[ÛÛÝZ][\]Y[Y[]]Ý\HZ[HØ\H]IÝ[HXÝ[ÛHH[X[HXXÝ]NÙ[KHÕHÚ]	XÚ\ÎÝH	\][ÎÉÜØ\Ú[\ÜË[Y	ÜÉ\][ÎË\È	\][ÎÉÜÜX[Y\Ý]K[Y	ÜÉ\][ÎËÜÙ]]Û\ÜÏHÙXÝ[ÛZXY\ÙH]YHÝ\ÈHØ]ÛÈ\ÏÙ]]Û\ÜÏHØ\YÜY]Û\ÜÏHØ\Ý[OHÜ\[YÜÛÛY\K\Y
-NÈÏ\È	Ø[[\ÙHÛÛÝ\[Y[HÝXÝ\XXÝ]NÙOÚÏÛÛÝ\[ÈÛ]^\	ØÚ\ÎÛHÛØÝ[Y[	XXÝ]NÜË\ÈHX\Ú	XXÝ]NË]^HÚ[ÛÜÜËZ\ÛÛÈH\H	ØYZ\\ÉÜÎ[ÛÛ\ËÜÙ]]Û\ÜÏHØ\Ý[OHÜ\[YÜÛÛY\K\Y
-NÈÏ\ÈHÛXXÝ]NÙ\ÈÝ\\ÈØ[]^	ØXÜ]Z\Ú][ÛÚÏ]Y[H\Y[HY\[H	Ú[Ý[\È][ÉÜÏÈØ[ÈÙ[K[\ÜÜÚXHHÜÚ][Û\	ÛÝ]Ý[ÛÛ[YHÛÛ\	XXÝ]NÛY[ÝH[\XÙ[Y[ÜÙ]]Û\ÜÏHØ\Ý[OHÜ\[YÜÛÛY\K\Y
-NÈÏÞXÛHH[H[ÛÛOÚÏHÞ\Ý	YÜ]NÛYH[Ý[ÈØ[XH	Ú[[ØÛÜHÝ\LÝ\ËÚHHÞXÛHXXÝ]NÙ[\ÝLLN[Ú\ËH\\[È\ÝÛÝ\ËY[Y[Ú[ÛXXÝ]NËÜÙ]Ù]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓU
-8 %PÔÈOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHXZXÜ]Û\ÜÏHX]]HPÔÈÜÜÚX\ÏÙ]]Û\ÜÏHX\ÝX]HÛÛÝZ]È	YÜ]NÈ\\HÜÛ[ÈXXËÛ[Y	XXÝ]NÜÈ\HÔKÙ]]Û\ÜÏHYÙ[]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏHYÙHYÙKYÈZ]ÛÛ\IXXÝ]NÏÜÜ[Ù]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏHYÙHYÙKZ\[\XXÝ]NÝ][ÛÜÜ[Ù]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏHYÙHYÙKZ\Ý	YÜ]NÜÙOÜÜ[Ù]Ù]]Û\ÜÏH[\[\[Ü[ÙHÝÛÏ]\\ÜÙ[Y[IXXÝ]NÝÙÛÙÚ\]YIÜÎÜÝÛÏHIXXÝ]NÜ\ÚYHÚKY\ÜÛÝ\È\ÝÛÛÝZ]H	\][ÎÉÜÙH	Ù^	XXÝ]NÜY]\ÜÉ\][ÎÈ
-ÜÛ[È\ÚXK\ÜÙKÚ]JK[HXXÝ]NØÙ\ÜÚ]H[H[Y][Û\\ÈÛXXÝ]NÙ\È[\\È
-ÐH\ÙYÛY[X[ÈÛÜÉXXÝ]NÜË]^HÛÛ\Ú[ÛKÙ]]Û\ÜÏHXÜ]Y\[X[XÜ\[Ü]H[Ü]Z\\È	Y\ÚÈÛÛX[ÙH	XXÝ]NÛ]XXÝ]NÙOÙ]XOXYÝ[OHÚYHPÔÝÛÛX[ÙOÝ	XXÝ]NØÛ[Ú]\ÏÝ	XXÝ]NØÚY]\ÏÝ[	XXÝ]NÜXÚ\ÎÝÝ]Ý[ÝÝÝXYÙOÝÛÏKÜ[ÈØØÝ\[È[[ÙÜX][ÛHÚIYÜ]NÙÙOÜÝÛÏÜ[Ý[OHÛ\Ú^NLØÛÛÜ\K]^[]]Y
-H[ØØ][ÛÛÛÛÛY][ÛÝ]X]HØ[\\ÏÜÜ[Ý]Û\ÜÏHÛÛX\Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ù]Ü[Ý[OHÛ\Ú^NL\ØÛÛÜ\K]^[]]Y
-HÍOÜÜ[Ý[ÛÙHÝ]X]HÚIYÜ]NÙÙKÛÛÛÛY][ÛHÚ]\ËÛÛ[][XØ][ÛØ[\\ÏÝË\[[[Ø[Y\ÓÓË\[ÙÜX][ÛÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÉÙ[YÎÝ\HÜÛ[Ë][\\È]]\ÈØ]\ÝÛKY[YXXÚ\ËØ[ÙKÝÝÝÛÏÛÛÙZ[[[ÙKÙ\ÜÚ[ÛÈ[Z][OÜÝÛÏÜ[Ý[OHÛ\Ú^NLØÛÛÜ\K]^[]]Y
-H\ÜXÙ\È	YÜ]NÈÜH^YÙ[ÙH	Ú[XYÙOÜÜ[Ý]Û\ÜÏHÛÛX\Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ù]Ü[Ý[OHÛ\Ú^NL\ØÛÛÜ\K]^[]]Y
-HÍOÜÜ[Ý[XXÝ]NÙH[[Y]XH[Z][KYÛH[XYÙK[Ù\\Ø][Û]X]^Ý\\ËXYÙÙXÙK\[[[Ø[Y\X\Ù][ÏÝÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[]\ÛÜKÔQËÛ]\Þ[X[ÙØ[Ý[Ë[Ú]H[ÈHÜÛ[ËÝÝÝÙOÝXO]Û\ÜÏHXÜ]Y\[X[XÜ]\ÝYÜ]NÈ\Ý\	Y\ÚÈÛÛX[ÙH[Ù	XXÝ]NÜXXÝ]NÙOÙ]XOXYÝ[OHÚYHPÔÝÛÛX[ÙOÝ	XXÝ]NØÛ[Ú]\ÏÝ	XXÝ]NØÚY]\ÏÝ[	XXÝ]NÜXÚ\ÎÝÝ]Ý[ÝÝÝXYÙOÝÛÏË[ÙÜX][Û[Ù\ÈH]Z[ÜÝÛÏÜ[Ý[OHÛ\Ú^NLØÛÛÜ\K]^[]]Y
-H^XYKY[IXÚ\ÎÝOÜÜ[Ý]Û\ÜÏHÛÛX\Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ù]Ü[Ý[OHÛ\Ú^NL\ØÛÛÜ\K]^[]]Y
-HËÍOÜÜ[Ý\ÜØYÙH^ÙXÙKXXÝ]NÙXÝ[ÛÝ\XÙKÛ]\]YH	\][ÎÉÜÜ]Ý\]H\X]IÜÉ\][ÎÏÝ\[ÙÜX][ÛËXÚ[]HX[YÙ[Y[ÝÜ[Û\ÜÏHYÙHYÙKZ\TÜÜ[	XXÝ]NÙÚ][Z]	XXÝ]NÈÜH
-\ÛIYÜ]NÝK	ØÚ\ÎÛH	XXÝ]NÙIXXÝ]NÊKXZ\ÈØ\ÈÛY[È[Ú[È\ÚX\ÈÜÈ\ÚYÛÝÝÝÛÏØØ[K]\È[ÜHÜÚ\ÜØ[ÙOÜÝÛÏÜ[Ý[OHÛ\Ú^NLØÛÛÜ\K]^[]]Y
-H[ZY\	\][ÎÉÜÝZIÜÉ\][ÎÈ\X]KÝ[\HÛÜÜÜXÙOÜÜ[Ý]Û\ÜÏHÛÛX\Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ù]Ü[Ý[OHÛ\Ú^NL\ØÛÛÜ\K]^[]]Y
-HËÍOÜÜ[Ý]XXÝ]NÙHHÛËÝ]\\HÝ]X]H\X]K^[Ú[ÛÉXXÝ]NÛÙÜ\\]YOÝÑSËÑÛ]]\ÓÓË[ÜKÒÙXÙHX[YÙ\ÝÜ[Û\ÜÏHYÙHYÙKZ\TÜÜ[[[[[ÛX[H[ÈHÜÛ[ËØ\È[Z]	XXÝ]NÜËÝÝÝÛÏK[\][Û]^][K\^\ÏÜÝÛÏÜ[Ý[OHÛ\Ú^NLØÛÛÜ\K]^[]]Y
-HÝ[\ÈÛÜÜXÙH	YÜ]NÈ	ÉXXÝ]NØÚ[OÜÜ[Ý]Û\ÜÏHÛÛX\Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ù]Ü[Ý[OHÛ\Ú^NL\ØÛÛÜ\K]^[]]Y
-HËÍOÜÜ[ÝÝ]\\HÚIYÜ]NÙÙHSQPK\[Û\Ø][ÛÛÜÜXÙKÚ]È][K\^\ÏÝX[\Ý]H\SQPKÛÜÜ]HÙ\XÙ\ËÛÝ[HX[YÙ\ÏÝÜ[Û\ÜÏHYÙHYÙKZ\TÜÜ[Ø\XÚ]	XXÝ]NÈÛÛ\IXXÝ]NÙH\XÜ]Z\Ú][ÛËÛ[YH	YÜ]NÈ[Y\ÝÝÝÙOÝXO]Û\ÜÏHXÜ]Y\[X[XÜ][Ý[ÉXXÝ]NÙZ\Ø[XZ\ÈÛÝ]XXÝ]NÏÙ]XOXYÝ[OHÚYHPÔÝÛÛX[ÙOÝ	XXÝ]NØÛ[Ú]\ÏÝ	XXÝ]NØÚY]\ÏÝ[	XXÝ]NÜXÚ\ÎÝÝ]Ý[ÝÝÝXYÙOÝÛÏ[\\Ù\ÈTÈ[^[Ú[Û]\ÜOÜÝÛÏÜ[Ý[OHÛ\Ú^NLØÛÛÜ\K]^[]]Y
-H\Ý	YÜ]NÜÙHÝ]	XXÝ]NÙÚ\]YK\È[ÛÛÝ]ÜÜ[Ý]Û\ÜÏHÛÛX\Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝ[YÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ü[Û\ÜÏHÛÛYÝÜÜ[Ù]Ü[Ý[OHÛ\Ú^NL\ØÛÛÜ\K]^[]]Y
-HÍOÜÜ[Ý\]XXÝ]NÙH[]\ÜK	\][ÎÉÜÒXYÙÛÜÜXÙH]\ÜIÜÉ\][ÎËÝ]\\HXÝX[\Ý]KÓÓÈ]\ÜKÕ[[ÛÝ[HX[YÙ\ÝÜ[Û\ÜÏHYÙHYÙKZÜÜ[ÙÚ\]YHÛÚ	XXÝ]NÜ[H
-YÚ[]	XXÝ]NËÓK[ÙY[KXZ\ÈXXÝ]NÜÈØ\È	\][ÎÉÜÕTË]ËQ]\ÜIÜÉ\][ÎÈ^XÚ]ÝÝÝÙOÝXO]Û\ÜÏHZÙX]Ø^HÝ[OHX\Ú[]ÜÈ]Û\ÜÏHZÙX]Ø^K[X[ÙH]ZHX[]YHÝ\[[\Ù\Ù]XXÝ]NÜ\][ÛHÐH\\HHÛY[X[ÈÛÜÉXXÝ]NÜÈ\ÙYÛY[
-\Y\È[Ú\ÊK]^HÛÛ\Ú[Û\PÔX[Ú^H[ÞY[\ÙYÛY[Ø[ÈÙ\ÈÛXXÝ]NÙ\ËHIXXÝ]NÜ\ÚYH\ÝH[XØ]]KÜÙ]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓU
-H8 %0âS°âUUSÓOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHX[ÜÜ[]Y\È]Û\ÜÏHX]]H	XXÝ]NÛXXÝ]NÝ][Û	[\ÈÜÜ[]	XXÝ]NÜÏÙ]]Û\ÜÏHX\ÝX]HÉYÜ]NÈÛÛÙ[\\ÈYÜËXÝ\H]X[]]]OÙ]]Û\ÜÏH[\[\[Ü[ÙHÝÛÏ]\\ÜÙ[Y[	ÜÎÜÝÛÏÙ]HXÝ\H\Ý]X[]]]K]XÝ[SHÚYXXÝ]NÈÙ\Ý\ÜÛXK\ÈÛÛÛ\Ú[ÛÈ\ÜÙ[Ý\HÜY]Z[H\ÚXH]HÛÛ[][XØ][ÛÛÜÜ]KÙ]]Û\ÜÏHÙXÝ[ÛZXY\X]XÙHÛÛX[ÙH	[Y\ÎÈÝ[Y[Ù]]Û\ÜÏHX]^L]Û\ÜÏHX]^ZXY\^HÛÛX[ÙHH]]H	\È	XXÝ]NÛ]XXÝ]NÙH	ÜÉÜß	ÜÉÜÈÝ[Y[\Ú[\ÜÈ	\ÏÙ]]Û\ÜÏHX]^XÙ[XËYÜY[
-]ZXÚÈÚ[È	Y\ÚÈÜ	[Y\ÎÈÝ]XXÝ]NÏÚ
-[OÝÛÏÜ[ÈØØÝ\[ÈÈÚIYÜ]NÙÙOÜÝÛÏ	Y\ÚÈÉÙ[YÎÝ\HÜÛ[Ë][\H]]\ËÝ]Ý[PHÚX	XXÝ]NÈYÜ]NÜÈ\[[ÛOOÝÛÏÛÛÙZ[È[[ÙH[Z][OÜÝÛÏ	Y\ÚÈ]\ÛÜKÔQËÙØ[Ý[ËÙYÛY[	YÜ]NÈ]]XÚÙ]XØÙ\ÜÚXH\[ÙY[
-È][ËÛOÝ[Ù]]Û\ÜÏHX]^XÙ[XËXYH
-Ý]	XXÝ]NÙÚ\]Y\È	Y\ÚÈÜ	[Y\ÎÈ	YÜ]NÈ\Ý\Ú
-[OÝÛÏ][K\^\ÈÈ\[Û\Ø][ÛÜÝÛÏ	Y\ÚÈYÚ[]	XXÝ]NÈÛHHØ\XÚ]	XXÝ]NË
-	ÜÉH[\][Û[ÛÛ\IXXÝ]NËÛ[YH	YÜ]NÈ[Y\ÛOOÝÛÏ[ÙÜX][Û[Ù\ÈH]Z[ÜÝÛÏ	Y\ÚÈ\ÛIYÜ]NÝHHXÝY[\]YK	ØÚ\ÎÛH	XXÝ]NÙIXXÝ]NË\ÛÚ[HØ\ÈÛY[È\ÚX\ËÛOÝ[Ù]]Û\ÜÏHX]^XÙ[XË[Ü[ÙH
-ÛÝ\Ë\	XXÝ]NÛXXÝ]NÝXXÝ]NÜÈ	Y\ÚÈ[Ù	XXÝ]NÜXXÝ]NÈ	[Y\ÎÈÝ]XXÝ]NÏÚ
-[OÝÛÏ]Z[ÈÜÜ][]OÜÝÛÏ	Y\ÚÈH	XXÝ]NÜ[IYÜ]NÝH	\][ÎÉÜÛXYØ\Ú[Ë	ØÚ\ÎÝ[Ë\Ý]\[ÉÜÉ\][ÎÈ\ÝÛÛ\IXXÝ]NÈ
-Y[ÙJHXZ\È\È\ÚXH[È	ÛÝ]Ý[ÛOOÝÛÏÜIXXÝ]NÝZ\\Ë]][\Ø]]\ÏÜÝÛÏ	Y\ÚÈÌ	ÜÉH\ÈÛY[Ë	XXÝ]NÛ[\ÉXXÝ]NÜÈ\HØÛÜ[È[Ý[ËÛOÝ[Ù]]Û\ÜÏHX]^XÙ[XË\\H
-^Ü]Ú\\È	Y\ÚÈ	YÜ]NÈ[Y\Ú
-[OÝÛÏTË]ËQ]\ÜOÜÝÛÏ	Y\ÚÈÙÚ\]YHÛÚ	XXÝ]NÜ[KXXÝ]NÜÈ]]H\XÝK[ÝHÚX	XXÝ]NÈÜÜÚXKÛOOÝÛÏØØ[K]\ÏÜÝÛÏ	Y\ÚÈ]Y[]Y\ÈØ\È
-X[[[[[ÛKXÚÙ]\È]]Û[YHXXÝ]NØÙ\ÜØZ\KÛOÝ[Ù]Ù]]Û\ÜÏHÙXÝ[ÛZXY\ÜÜ[]	XXÝ]NÜÈ\	ØÚ\ÎÛOÙ]XOXY	ØÚ\ÎÛOÝÜÙHXÝY[OÝÛÝ\Ë\	XXÝ]NÛXXÝ]NÝ][ÛÝXÝ[ÛÝ]Ý[ÝÝÝXYÙOÝÛÏX[\Ý]HÙ\XÙ\ÏÜÝÛÏÝY[ÛÝ]\\	ÛÝ]Ý[[Ý[È
-YÙÙ\Z[
-OÝÜIXXÝ]NÝZ\\Ë]][\Ø]]\È^Û\ÈHØÛÜ[ÏÝXÛ\ÜÙ\\ÈÜIXXÝ]NÝZ\\Ë	XXÝ]NÛ\Ú\\ÈYÙÙ\ÏÝÝÝÛÏÛÜÜÜXÙOÜÝÛÏÝÉÙ[YÎÝ\\ÚXHHÜÛ[È
-\ÚYÛ[IXXÝ]NÛYÙ[Y[
-OÝ]XÝ[HØ[\YÛH	XXÝ]NÙIXXÝ]NÙH[ÈHÞ\Ý	YÜ]NÛYH[Ý[ÏÝÜXXÝ]NÙ\\ÈÉXXÝ]NÜ]Y[Ù\ÈÝ\YÙÙ\ÈÛZ[[[È
-XY][ÛX[[ÊOÝÝÝÛÏ[ÜH	[\È[ÙÜX][ÛÜÝÛÏÝ\ÛIYÜ]NÝHHXÝYH	XXÝ]NÙÚ][Z]	XXÝ]NÈ[\]YOÝ]XÝ[HØ[\YÛK	ØÚ\ÎÛH[\ÚXH[È	ÛÝ]Ý[Ý^Ú]\H\ÛIYÜ]NÝHÛÛ[YH\ÜÙ]H\\[ËÉXXÝ]NÜ]Y[Ù\ÈÚ[ÙHX[YÙ[Y[ÝÝÝÙOÝXO]Û\ÜÏHZÙX]Ø^H]Û\ÜÏHZÙX]Ø^K[X[ÉYÜ]NÈÛÛÙ[\\ÈYÜÏÙ]ÝÛÏÛÝ\\YIÜÎÜÝÛÏPÔH
-Ü[ÈØØÝ\[ÊH]PÔ
-ÛÛÙZ[Ù[[ÙJH[PHÚX	XXÝ]NËÝÛÏ[ÞY[\YIÜÎÜÝÛÏÝ]\ÛÜÜÜXÙH][ÜH	[\È[ÙÜX][Û]XÈ\ÈYÙÙ\ÈÛ[[[Ø[Y\ËÝÛÏÛÈ\YIÜÎÜÝÛÏ\Ý\TË]ËQ]\ÜH]][K\^\ÈÚH\ÈÛXXÝ]NÙ\È[Y[HÝ[Y[ÜÙ]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓU
-8 %UQUSÕSÈOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHXX]Y]]Û\ÜÏHX]]H]Y]HÞ\Ý	YÜ]NÛYH[Ý[ÏÙ]]Û\ÜÏHX\ÝX]H\Ú]XÝ\KÜÙ\Ë	XXÝ]NÜØ[YÛ[Y[ËØÛÜH\[Y[Ú[ÛÙ]]Û\ÜÏHÙXÝ[ÛZXY\\Ú]XÝ\HXXÝ]NÜÝ[IXXÝ]NÙOÙ]]Û\ÜÏHØ\Ý[OHX\Ú[XÝÛNÈÞ\Ý	YÜ]NÛYH[ÝÛÏLÈÙXÝ[ÛÏÜÝÛÏÜÎ]ØÛÜH
-LL
-K[[ØÛÜH
-ML[XÚ\ÎÝHLKY\[È
-KÕÕÊKÙYÛY[ÈXÜÝ
-ÌKÔÌÔÌÈ\Ý\XÙJK\ÛÛ\ËÜÚ\Ý][Û
-Ú[Z[ÉÜÎZ[ÈÜÈZ[
-KÝØ\H
-Ø\H[ÜÈKÕK
-ÈØ[\YÛ\ËXÜÝY[ËÙ\Ý[ÛXXÝ]NÜÛÙ\ËÝXÚÈXÚ\]YKÜÝ[OHX\Ú[]ÜÈÝÛÏÝXÚÉÜÎÜÝÛÏØ\ÛÈ
-	NLÛJKXÞ\X\ÊÑ[ÝÈ
-	]\ÎÌLÛJK[[\Ý
-	NKÛJKÝØ\H
-	NKÛJK^ÜHTH
-]\ÎÌMLÛJKXÜÝÝÛÏÝ[IÜÌÍM	ÜÉ]\ÎËÛ[Ú\ËÜÝÛÏÜÝ[OHX\Ú[]ÜÈÝÛÏÛ[YHXXÝ]NÝIÜÎÜÝÛÏL	ÜÌ[XZ[ËÛ[Ú\ËÝÛÏXXÝ]NÜÛ[[\]YIÜÎÜÝÛÏZXÚY[Ø\[
-\ÜÛØÚIXXÝ]NÊKÜÝ[OHX\Ú[]ÜÈÜ[Û\ÜÏHYÙHYÙKYÈÏÜÜ[ÛÝ\ÙH[Ý[Ë\\[K\Ù[\ÜÙ]]Û\ÜÏHÙXÝ[ÛZXY\ØÛÜH\[Y[Ú[ÛÙ]]Û\ÜÏHØÛÜKYÜY]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[[YÛ[Y[\Ú[\ÜÏÙ]]Û\ÜÏHØÛÜHØÛÜK[ÝÈËÌLÙ]]Û\ÜÏHÝHH[ÜØÛÜ\H	ØÚ\ÎÛHÝ\ÈÛÝ]\Ù]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[PÔÙ]]Û\ÜÏHØÛÜHØÛÜK[ÝÈËÌLÙ]]Û\ÜÏHÝHÛØ[XXXÝ]NÈÝ\HÜY]Z[HXXÝ]NÙ[Ù]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[ÙYÛY[][ÛÙ]]Û\ÜÏHØÛÜHØÛÜK[ZYKÌLÙ]]Û\ÜÏHÝHÝ\XÙHÒÈXZ\È\ÈHYZ[]\Ü]	YÜ]NÜOÙ]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[YÙÙ\ÏÙ]]Û\ÜÏHØÛÜHØÛÜK[ÝÈËÌLÙ]]Û\ÜÏHÝH[ÛË]YÙÙ\Z[
-ÌÊOÙ]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[\ÛÛ\ÏÙ]]Û\ÜÏHØÛÜHØÛÜK[ZYKÌLÙ]]Û\ÜÏHÝH	XXÝ]NÙ[\ÈXZ\ÈÛ\Ý	XXÝ]NÜÏÙ]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[Y\ÜØYÚ[ÏÙ]]Û\ÜÏHØÛÜHØÛÜK[ÝÈÌLÙ]]Û\ÜÏHÝH[ØYÙHÚÙ\\È[ÙÜX]]\Ù]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[ÜÚ\Ý][ÛÙ]]Û\ÜÏHØÛÜHØÛÜKZYÚËÌLÙ]]Û\ÜÏHÝHÚ[Z[È
-ÈÝØ\HY[[ÉXXÝ]NÜÏÙ]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[]ÜÈÈ]OÙ]]Û\ÜÏHØÛÜHØÛÜK[ZYKÌLÙ]]Û\ÜÏHÝHXÜÝÒË\ÈHYYXÚÈÛÜÙ]Ù]]Û\ÜÏHØÛÜKXØ\]Û\ÜÏHX[[XYÙHHX\]YOÙ]]Û\ÜÏHØÛÜHØÛÜK[ÝÈËÌLÙ]]Û\ÜÏHÝHLÈ[XZ[ËÛ[Ú\ÈH\Ü]YH[Z][OÙ]Ù]Ù]]Û\ÜÏHÙXÝ[ÛZXY\\ÈLÜ]\]Y\ÈXZ]\\ÏÙ]XOXYÝ[OHÚYIHÏÝÝ[OHÚYÌ	HÜ]\]YOÝ	XXÝ]NÝZ[ÝÝ[OHÚYLHÉXXÝ]NÝXXÝ]NÜ]	XXÝ]NÏÝÝÝXYÙOOÝÝÛÏH[ÜØÛÜ\ÜÝÛÏÝÍLÈÝ\H]]H\]Z]KXXÝ]NÜÈÛY[H[ÈHÜY]Z[HØÝ[Y[	XXÝ]NËÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K\YXÊNØÛÛÜ\K\Y
-NÈÜ]\]YOÜÜ[ÝÝÝÝÛÏ[ÛË]YÙÙ\Z[ÜÝÛÏÝZ[^\HH
-ÌÌÈH
-	HHX^[[YÛÜHI[\ÐKÜÚ\ÜØ[ÙKXY][ÛÚ\[[ËÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K\YXÊNØÛÛÜ\K\Y
-NÈÜ]\]YOÜÜ[ÝÝÏÝÝÛÏÛ[YHÈ[Z][OÜÝÛÏÝLÈ[XZ[ËÛ[Ú\ÈÝ\[ØX[]	\][ÎÉÜÒ[ÛÛÝ\XIÜÉ\][ÎË\Ü]YHH[][ÛHX\]YKÝÜ[Û\ÜÜÜÏHYÙHÝ[OHXÚÙÜÝ[\K\YXÊNØÛÛÜ\K\Y
-NÈÜ]\]YOÜÜ[ÝÝÝÝÛÏÛÝ[ÝZXÚY[Ø\[ÜÝÛÏÝÙ][XXÝ]NÜÛ[LLÛÛ\Ø][ÛËÛ[Ú\ÈÝ[Y[\ÈÝ\[\ÜÛØÚIXXÝ]NÈ	XXÝ]NÚYÜ]NÈØØÝ\	XXÝ]NËÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K\YXÊNØÛÛÜ\K\Y
-NÈÜ]\]YOÜÜ[ÝÝOÝÝÛÏÝYÚXY\Ú\YÛÜXXÝ]NÏÜÝÛÏÝ\ÛIYÜ]NÝH
-	XXÝ]NÙKÙXÙH\\ËØ\ÈÛY[ÈÛ[	XXÝ]NÙÜXXÝ]NÜÈ[È\ÈÉXXÝ]NÜ]Y[Ù\ËÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K[Ü[ÙKXÊNØÛÛÜ\K[Ü[ÙJNÈXZ]\ÜÜ[ÝÝÝÝÛÏ	ØÚ\ÎÛ\ÈØ[ÈØ[\YÛ\ÏÜÝÛÏÝÛÜÜÜXÙH][ÜH	[\È[ÙÜX][ÛÛÛ\ÈHÉXXÝ]NÜ]Y[Ù\È	XXÝ]NÙIXXÝ]NÙ\ËÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K[Ü[ÙKXÊNØÛÛÜ\K[Ü[ÙJNÈXZ]\ÜÜ[ÝÝÏÝÝÛÏ	XXÝ]NÜ[IYÜ]NÝHÛ]IXXÝ]NÏÜÝÛÏÝ\][ÎÉÜÐ\X]^XYØ\Ú[Ë	ØÚ\ÎÝ[Ë\Ý]\[ÉÜÉ\][ÎÈÛY	XXÝ]NÝ	XXÝ]NÈ[ÈHÚXYÙKÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K[Ü[ÙKXÊNØÛÛÜ\K[Ü[ÙJNÈXZ]\ÜÜ[ÝÝÝÝÛÏ\ÈHØ[X][ÛXXÝ]NÝÜÜXÝ]OÜÝÛÏÝÙ]Z[ÈHY\[È]ÚYÈÛ\Ý	XXÝ]NÜÈÛÛH\ÈX[È^\Ý[ËÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K[Ü[ÙKXÊNØÛÛÜ\K[Ü[ÙJNÈXZ]\ÜÜ[ÝÝOÝÝÛÏY\ÜØYÚ[È	\][ÎÉÜØÚÙ\ÜÉ\][ÎÏÜÝÛÏÝÉXXÝ]NÜ]Y[Ù\ÈZ[\[IÝ\ËÛÉXÚ\ÎÝËXXÝ]NÙÛØÚX][Û\ÈH[ØYÙHHH[ÙÜX][ÛÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K[Ü[ÙKXÊNØÛÛÜ\K[Ü[ÙJNÈXZ]\ÜÜ[ÝÝLÝÝÛÏ\ÈHYYXÚÈÛÜÜÝÛÏÝ]XÝ[IXXÝ]NØØ[\ÛYH	ØZ\Ý[Y[]]ÛX]\]YH	YÜ]NÈ\\\ÈXXÝ]NÜÝ[]È\Z[ÝÜ[Û\ÜÏHYÙHÝ[OHXÚÙÜÝ[\K[Ü[ÙKXÊNØÛÛÜ\K[Ü[ÙJNÈXZ]\ÜÜ[ÝÝÝÙOÝXO]Û\ÜÏHZÙX]Ø^H]Û\ÜÏHZÙX]Ø^K[X[YÙ[ÞHÚ[[ÙOÙ]	Ø\Ú]XÝ\H\ÝÛÛYKHØ	YÜ]NÛYHÙ\Ý\ÈHIXXÝ]NØØ[\]YHXZ\ÈH\[IXXÝ]NÝYÙKHØÛÜ[Ë\ÈYÙÙ\ËHØÛÜH]HÛ[YHÛ	XXÝ]NÝ	XXÝ]NÈÛÛYÝ\XXÝ]NÜÈØ[ÈXXÝ]NÙXXÝ]NÜ[ÙHÝY\Ø[H]H\Ú[\ÜÈXXÝ]NÙ[H\[KHÛÛ\	XXÝ]NÝ[ÙHXÚ\]YHH	ØYÙ[ÙHÙ\Ý\È[Ø]\ÙIÜÎÈÉÙ\Ý	Ø[YÛ[Y[Ý]	XXÝ]NÙÚ\]YH]ZHÚ]	XÚ\ÎÝH\\ËÜÙ]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓU
-È8 %UQTÕSÓÈQÑSÑHOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHX\]Y\Ý[ÛÈ]Û\ÜÏHX]]H]Y\Ý[ÛÈ	YÜ]NÈÜÙ\	YÜ]NÈ	ØYÙ[ÙOÙ]]Û\ÜÏHX\ÝX]HL]Y\Ý[ÛÈÛ	XXÝ]NÜÈÝ\HXXÝ]NÝ[[ÛÈÈYÙ[ÙOÙ]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YK\ØÛÜ[ÈØÛÜ[ÏÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HOÜÜ[Ý\]Y[H\ÙHH]]H\]Z]HK]Z[	XXÝ]NÝ	XXÝ]NÈ][HÛÛ[YHÜÙXÝ]\
-ÍLÊIÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏÉÙ\ÝH\[IYÜ]NÝHH\È[Y[H]ØÛÜK]XÝ[ÛY[HÙ\Ý\ÚXH[ÈHÜY]Z[HØÝ[Y[	XXÝ]NÈH\[KÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[H^XØ][ÛÛ	XXÝ]NÙHÝ\\ÈÛXXÝ]NÙ\È
-\[[H\[KYY[ÈÛY[
-H]\ÈÙ][[Y[Ý\[HÙÚ\]YHÉXXÝ]NÛXXÝ]NÜ\]YH
-	\][ÎÉÜÛ\ÈHÛ\ÈÜÛÜÈ]ZH	XXÝ]NÛIXXÝ]NÛYÙ[	ÜÉ\][ÎÊKÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YKXØ[X][ÛØ[X][ÛÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HÜÜ[HØÛÜ[ÈK]Z[	XXÝ]NÝ	XXÝ]NÈ\Ý	XXÝ]NÈXXÝ]NÝÜÜXÝ][Y[ÛÛH\ÈLL\Y\ÈX[ÈÚYÛXXÝ]NÜÉÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏÚH\ÈÛY[È^\Ý[ÈHÙ\ZY[\ÈÛ\ÜÉXXÝ]NÜÈKHÞ\Ý	YÜ]NÛYH	XXÝ]NÛ[Z[H\ÈÛÈÜÜXÝËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[XX]H[Û[\ÈÛY[È^\Ý[È\ÜÉXXÝ]NÜÈ[ÈH]ØÛÜK]XÈ\ÈØÛÜ\ÈØ[\È]\ÈZ\Ý[Y[ÈYXÝIXXÝ]NÜËÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YKXÛÝ\YÙHÛÝ\YÙH	ØÚ\ÎÛ\ÏÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HÏÜÜ[Ý\][ÚHÞHK]Z[\ÈHØ[\YÛ\È	XXÝ]NÙIXXÝ]NÙ\ÈÛÜÜÜXÙH][ÜH	[\È[ÙÜX][ÛÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏ]^\ÈÚ\È	ØÚ\ÎÛ\ÈIXXÝ]NÝY\ÈÛÛXÙ[ÈHÞ\Ý	YÜ]NÛYKÙ\È	ØÚ\ÎÛ\È]][	XÚ\ÎÝHXÝ]XXÝ]NÜÈØ[È	XXÝ]NÝXXÝ]NÛ[Y[[[[Ø[Y\Ù]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏÛÚ][[Ý\Ù\ÈØ[\YÛ\ËÛÚ][H^XØ][ÛÝ]	XXÝ]NÙÚ\]YHHÝ\][ÚHÛÛ[Y[Ù\\X[\Ý]HÙ][Ù]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YK]Û[YHÛ[YOÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HÜÜ[ÛÛ[Y[\ÝYY^]Ý\ÈL	ÜÌ[XZ[ËÛ[Ú\ÈÝ\[ØX[][Z][IÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏ\Ü]YHH[][ÛHX\]YH]H	XXÝ]NÛ]X[]	XXÝ]NÈÝ\[XÝ]\Û\ÜÉXXÝ]NÈ	\][ÎÉÜÒ[ÛÛÝ\XIÜÉ\][ÎËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[H[Û	XXÝ]NÙHÙÜ\ÜÚ]HØÝ[Y[	XXÝ]NÙK\È\ÝÈH	XXÝ]NÛ]X[]	XXÝ]NË[[ÚX\ÈH]^HXXÝ]NÜÛÙH\Û[YKÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YKXÛÝ\YÙHÛÝ\YÙH\ÜÙ]ÏÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HOÜÜ[H\ÛIYÜ]NÝH\[K\ÈÙXÙH\\È]\ÈØ\ÈÛY[ÈÛÛZ[È[	XXÝ]NÙÜXXÝ]NÜÈÛÛ[YH\ÜÙ]ÈH\\[ÉÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏÙHÛÛ\ÈXÝYÈHÜXXÝ]NÙX[]	XXÝ]NÈ^Ù\[Û[ËXÙ[È\ÈÉXXÝ]NÜ]Y[Ù\ËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[	XXÝ]NÙÜ][ÛXXÝ]NÝYK]XÈÜÚ][Û[Y[[ÈH[[
-]Ø\[\ÜËÛÛÚY\][ÛXÚ\Ú[ÛKÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YK]Û[YHØ\XÚ]	XXÝ]NÏÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HÜÜ[ÛÛ[Y[HÞ\Ý	YÜ]NÛYHÉYÜ]NÜK]Z[H[Û	XXÝ]NÙH[Ú\ÙHÉØÚ\ÎÝ	XXÝ]NÈXXÝ]NÜÛÙ\ÉÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏ[Ù][\ÜÛØÚIXXÝ]NÈ
-ZXÚY[Ø\[HZ]HÝ]\È\ÈXXÝ]NÜÛÙ\ÈÜÚ]]\ËÛÝ[Ý	ÉXXÝ]NÝ[Û[Y[	YÜ]NÈ	ÉXXÝ]NØÚ[HXXÝ]NÝYKÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[[H	XXÝ]NÛ	XXÝ]NÙØ][Û]XÈÙ]Z[ÈH\ØÝ[H]Ù[ÈHXXÝ]NÜÛ[ÈÛÛ\	XXÝ]NÛY[Z\\ËÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YKXØ[X][ÛØ[X][ÛÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HÏÜÜ[\ÈÙ]Z[ÈHY\[È
-IÜÉÝÉÜÍ
-MÉÜÉÉÜÍ
-HY[[Z[ÈHÛXXÝ]NÙ\ÈXXÝ]NÙ[\ÈÝHÛÛZ[È\È[]\È\	XXÝ]NÙ]]	ÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏ\ÈÙ]Z[È\]Z\\È]][^Û\HÞ\Ý	XXÝ]NÛX]\]Y[Y[HÛÈÜÜXÝËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[HIXXÝ]NÝÙÛÙÚYHHØ[X][ÛY	XXÝ]NØ[[Y[Û	XXÝ]NÙHÝ\[XÚÝ\Ý\ÈÛY[È^\Ý[ËÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YK\ÙYÛY[ÙYÛY[][ÛÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HÜÜ[]Y[H\ÝHÝ]	XXÝ]NÙÚYHÝ\\ÈÜIXXÝ]NÝZ\\Ë]][\Ø]]\È
-Ì	ÜÉHHH\ÙHÛY[
-IÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏÙHÙYÛY[\ÝÝXÝ\[[Y[ÛÝ\Ë\ØÛÜXXÝ]NÈ
-ØØ]Z\HHLËÜIXXÝ]NÝZ\HH[Ú[ÊK[Y\ÈH\Ú[\ÜÈXXÝ]NÙ[\Ý	XXÝ]NÛ[\ÉXXÝ]NËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏXÛ\ÜÙ[Y[\ÈÜIXXÝ]NÝZ\\Ë]][\Ø]]\È]HIXÚ\ÎÛYH]X]KÝH\ÝYXØ][Û\Ý[Y[	XXÝ]NÙHHHYXXÝ]NÜ[ÚX][ÛÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YK\ÙYÛY[YÙÙ\ÏÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HOÜÜ[ÛÛ[Y[Ø\\\ÈÚYÛ]^Û[[[Ø[Y\È
-I[\ÐKÝ][H\XÝ[ÛÜÚ\ÜØ[ÙKÚ\[[Ë\ÜØYÙH^
-IÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏHÞ\Ý	YÜ]NÛYHXÝY[\ÝÛZ[XXÝ]NÈ\HZ[\È	ØÚ\ÎÛ\ÈÛÜÜÜXÙH][ÜH	[\È[ÙÜX][ÛÛ\È	XXÝ]NØÛ[Ú]\ÈYXXÝ]NÜ[ËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[H\ÝHHÚYÛ]^[\]YÈ]XÈÛÝ\Ù\ÈH	XXÝ]NÝXÝ[Û
-[ÙY[\ÜÙKØØ\ÊH][	XXÝ]NÙÜ][ÛXXÝ]NÝYH[È	Ú[[ØÛÜKÙ]Ù]]Û\ÜÏHKXØ\]Ü[Û\ÜÏHK][YH[YKYYYXÚÈYYXÚÈÛÜÜÜ[Ù]]Û\ÜÏHK]^Ü[Û\ÜÏHK[[HLÜÜ[^\ÝK]Z[[IXXÝ]NØØ[\ÛYHHYYXÚÈÛÜÝ\Z\Ý\HÞ\Ý	YÜ]NÛYIÜÏÏÙ]]Û\ÜÏHK]ÚHÝÛÏÝ\][ÚIÜÎÜÝÛÏØ[ÈÝXÛHH]Ý\
-]^HXXÝ]NÜÛÙKØXÝ[ÛËÛÛ\Ú[ÛÊKHÞ\Ý	YÜ]NÛYHHÉØ[IXXÝ]NÛ[ÜH\ËÙ]]Û\ÜÏHKYÛÛÙÝÛÏÛHXXÝ]NÜÛÙH][YIÜÎÜÝÛÏ[ØÙ\ÜÝ\ÈÝXÝ\XXÝ]NÈ
-XÛXYZ\HÝHY[ÝY[
-H]XÈIXXÝ]NÝ\]Y\È	XXÝ]NÙ[Y\ËÙ]Z[È	Ø[\H]Z\Ý[Y[ÈXXÝ]NÝ\ËÙ]Ù]Ù]KKHOOOOOOOOOOOOOOOOOOOOHÓÓU8 %SÌÍÎLOOOOOOOOOOOOOOOOOOOOHKO]Û\ÜÏHXXÛÛ[YHX\[]Û\ÜÏHX]]H[	ØXÝ[ÛÌÍÎLÝ\ÏÙ]]Û\ÜÏHX\ÝX]HXØ[X][Û^[Ú[Û[ÝOÙ]]Û\ÜÏHYÙ[Ý[OHX\Ú[XÝÛNÈ]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏH]YÈ]YËYXÚYH	XXÝ]NØÚY\ÜÜ[XÝ[ÛÏÙ]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏH]YÈ]YË][Y]H[Y\ÜÜ[ÛXXÝ]NÙ\È[\\ÏÙ]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏH]YÈ]YË]\Ý\Ý\ÜÜ[[ÝH\Z[Ù]]Û\ÜÏHYÙ[Z][HÜ[Û\ÜÏH]YÈ]YËY\ÞH	XXÝ]NÜÞY\ÜÜ[Z\ÙH[ÙXÝ[ÛÙ]Ù]KKHÌÕTÈKO]Û\ÜÏH\\ÙH\\ÙKLÌÌ[ZY\ÈÝ\È	Y\ÚÈXØ[X][ÛÙ]]Û\ÜÏH[Y[[H]Û\ÜÏHZ][H[Y]H]Û\ÜÏH]]HKØ[\HXXÝ]NÜ\][ÛXXÝ]NÙ[HHÐH\	ØÚ\ÎÛH]\HHÛY[Ù]]Û\ÜÏHY\ØÈÛXXÝ]NÙHH\ÈÜ]\]YKØ[È[KHØÛÜ[È\ÝH\]Z\KÙ]]Ü[Û\ÜÏH]YÈ]YË][Y]H[Y\ÜÜ[Ù]Ù]]Û\ÜÏHZ][H[Y]H]Û\ÜÏH]]H]Y]\\ÈØ[]^	ØXÜ]Z\Ú][Û^\Ý[ÏÙ]]Û\ÜÏHY\ØÈY\[[Ý[][ËXXÝ]NÜÙX]H]Y[H\H\HY[HÚ\]YHØ[[È	ÛÝ]Ý[\Ý[ÛÛ\	XXÝ]NÛY[\È[[\XÙ[Y[Ù]]Ü[Û\ÜÏH]YÈ]YË][Y]H[Y\ÜÜ[Ù]Ù]]Û\ÜÏHZ][H[Y]H]Û\ÜÏH]]HË\Ý\HØÛÜ[ÈXXÝ]NÝÜÜXÝ][Y[Ù]]Û\ÜÏHY\ØÈ\ÜÙ\\È\Y\ÈÛY[ÈÚYÛXXÝ]NÜÈ[ÈH]ØÛÜKÚH[Ú[ÈH
-L	HÛÛKXØ[X\\ÈÚYËÙ]]Ü[Û\ÜÏH]YÈ]YË][Y]H[Y\ÜÜ[Ù]Ù]]Û\ÜÏHZ][HXÚYH]Û\ÜÏH]]H[\XÙ\HØÛÜ[ÈH\[ØÛÜ[ÈÜY]Z[HXXÝ]NÙ[Ù]]Û\ÜÏHY\ØÈÛÜÜ]KÛÛÙZ[Ñ[[ÙKXÚÔØØ[K]\XXËÒ[Ý]][Û[]Z[ÒÜÜ][]KÙ]]Ü[Û\ÜÏH]YÈ]YËYXÚYH	XXÝ]NØÚY\ÜÜ[Ù]Ù]]Û\ÜÏHZ][HXÚYH]Û\ÜÏH]]HKXÛ\ÜÙ\\ÈÜIXXÝ]NÝZ\\Ë]][\Ø]]\ÏÙ]]Û\ÜÏHY\ØÈ]HIXÚ\ÎÛYH]X]H]YH\ÈØØ]Z\\È[ÈHØÛÜ[ËÌ	HH\Ú[\ÜÈXXÝ]NÙ[Ù]]Ü[Û\ÜÏH]YÈ]YËYXÚYH	XXÝ]NØÚY\ÜÜ[Ù]Ù]Ù]KKH
-ÕTÈKO]Û\ÜÏH\\ÙH\\ÙKMÝ[OHX\Ú[]ÜLÈÝ\È	Y\ÚÈ^[Ú[ÛÙ]]Û\ÜÏH[Y[[H]Û\ÜÏHZ][HXÚYH]Û\ÜÏH]]HÜXXÝ]NÙ\\ÈÉXXÝ]NÜ]Y[Ù\ÈÛÜÜÜXÙH][ÜH	[ÙÜX][ÛÙ]]Û\ÜÏHY\ØÈYÙÙ\ÈÛ[[[Ø[Y\È^Ú[Ù[Y[H\XÝ[ÛÜÚ\ÜØ[ÙHXYÛÝ[X[[ËÚ\[[ËÙ]]Ü[Û\ÜÏH]YÈ]YËYXÚYH	XXÝ]NØÚY\ÜÜ[Ù]Ù]]Û\ÜÏHZ][H\ÞH]Û\ÜÏH]]HË[	XXÝ]NÙÜ\H\ÛIYÜ]NÝH]\ÈÙXÙH\\ÈÛÛ[YHÛÛ[HH\\[ÏÙ]]Û\ÜÏHY\ØÈXÝYÈHÜXXÝ]NÙX[]	XXÝ]NÈ^Ù\[Û[Ë	YÜ]NÈÜÚ][Û\[È\ÈÉXXÝ]NÜ]Y[Ù\ËÙ]]Ü[Û\ÜÏH]YÈ]YËY\ÞH	XXÝ]NÜÞY\ÜÜ[Ù]Ù]]Û\ÜÏHZ][HXÚYH]Û\ÜÏH]]HXXÝ]NÙZ\HHÛ[YH[]X[	YÜ]NÈLÈ[XZ[ËÛ[Ú\ÏÙ]]Û\ÜÏHY\ØÈ[Û	XXÝ]NÙHÙÜ\ÜÚ]H[ÛÝ[Û\È]^HXXÝ]NÜÛÙH]HHØ\XÚ]	XXÝ]NÈHZ][Y[Ù]]Ü[Û\ÜÏH]YÈ]YËYXÚYH	XXÝ]NØÚY\ÜÜ[Ù]Ù]]Û\ÜÏHZ][HXÚYH]Û\ÜÏH]]HK	XXÝ]NÜÚYÛ\[ÙXÛÛÚ[HÛÛXÝÝ\\ÈXXÝ]NÜÛÙ\ÏÙ]]Û\ÜÏHY\ØÈ]KY[	YÜ]NÈHZXÚY[Ø\[Ù[Ù[[ÜØ\XHH]X[YY\][ØYÙ\Ù]]Ü[Û\ÜÏH]YÈ]YËYXÚYH	XXÝ]NØÚY\ÜÜ[Ù]Ù]Ù]KKHLÕTÈKO]Û\ÜÏH\\ÙH\\ÙKNLÝ[OHX\Ú[]ÜLÈLÝ\È	Y\ÚÈ[ÝH]YYXÚÏÙ]]Û\ÜÏH[Y[[H]Û\ÜÏHZ][H\Ý]Û\ÜÏH]]HL[Ù\[[ÝHPHÝ\	ÒPÔH
-Ü[ÈØØÝ\[ÊOÙ]]Û\ÜÏHY\ØÈÙYÛY[	YÜ]NÈ\È]]HÛÛX[ÙKÝZ]HXÛXYZ\H\ÈIXXÝ]NÝ\]Y\ËÙ]]Ü[Û\ÜÏH]YÈ]YË]\Ý\Ý\ÜÜ[Ù]Ù]]Û\ÜÏHZ][H\ÞH]Û\ÜÏH]]HLKY]H[XÙHHÝXÛHHYYXÚÏÙ]]Û\ÜÏHY\ØÈ]^HXXÝ]NÜÛÙH\PÔØXÝ[ÛÈXXÝ]NØÝ\[\ËÚYÛ]^[][\ËÛÛ\Ú[ÛËZ\Ý[Y[Y[ÝY[Ù]]Ü[Û\ÜÏH]YÈ]YËY\ÞH	XXÝ]NÜÞY\ÜÜ[Ù]Ù]]Û\ÜÏHZ][H[Y]H]Û\ÜÏH]]HL[[	YÜ]NÈLÝ\È	Y\ÚÈ	XXÝ]NØÚ\Ú[ÛHÉXXÝ]NÛXXÝ]NÜ[\Ø][ÛÙ]]Û\ÜÏHY\ØÈÛXXÝ]NÙ\ÈXXÝ]NÙ[\ÈÝ\	XXÝ]NØÚY\ÉXXÝ]NÛXXÝ]NÜ[\Ù\Z\Ý\ÝH\XÚ\ÎÝ\Ù]]Ü[Û\ÜÏH]YÈ]YË][Y]H[Y\ÜÜ[Ù]Ù]Ù]]Û\ÜÏHÙXÝ[ÛZXY\Ý[OHX\Ú[]ÜÌÈÛÛ][ÛÈHÛÈÈËQÛÏÙ]XOXYÛÛ][ÛÝÛÏÝËQÛÏÝÝÝXYÙOÝÛÏÛXXÝ]NÙ\È[\\È\ÜÛX\ÏÜÝÛÏÝÐH\	ØÚ\ÎÛKØ[]^	ØXÜ]Z\Ú][Û\Y\ÈX[È\YÉXXÝ]NÜÏÝ	ÉXXÝ]NÜ]Z\HH]]ÝHH]]\ÈÝ\\\ÈÛXXÝ]NÙ\ÏÝÝÝÛÏØÛÜ[ÈXØ[XXXÝ]NÏÜÝÛÏÝH[\XÉXXÝ]NËÜIXXÝ]NÝZ\\Ë]][XÛ\Üðê\ËXÚÝ\Ý	ÝÈ
-L	HOÝ	ØYÙ[ÙHY\ÙHH[ÙYY\\ÈÚYÏÝÝÝÛÏÛ[YHZ\Ý	XXÝ]NÏÜÝÛÏÝ	XXÝ]NÛX\YÙH	YÜ]NÈLÒÈ[XZ[ËÛ[Ú\È]XÈ[Û	XXÝ]NÙHÙÜ\ÜÚ]OÝ[Ú\Ý[ÙHÝ\LÈ	YÜ]NÜÈH[Ù[Y[ÝÝÝÛÏØ\XÚ]	XXÝ]NÈHXXÝ]NÜÛÙOÜÝÛÏÝÙXÛÛXXÝ]NÜÛ[	XXÝ]NÜÚYÛXXÝ]NËØÙ\ÜÈ]X[YIXXÝ]NÏÝZXÚY[Ø\[\ÝHÙ][Ú[HÛÛXÝÝÝÝÛÏ[ÝHPÔOÜÝÛÏÝ]^HXXÝ]NÜÛÙH	ÝÈ	K]^HYY][È	ÝÈ
-H	H	YÜ]NÈLÝ\ÏÝ]^HXXÝ]NÜÛÙH	ÈH	H\YÜ]NÜÈ
-Ý\ÏÝÝÝÙOÝXO]Û\ÜÏHZÙX]Ø^H]Û\ÜÏHZÙX]Ø^K[X[ÜÝ\OÙ]Ý\ÈXÛÛZ\ÜÛÛÈH[]\H]Z[	Ø]]ÛX]\Ø][ÛXZ\ÈÝ\È[Y]ÛÈH	XXÝ]NØÚ\Ú[Û]HÛ]X]IÜÎÝÛÏ\Ú[\ÜÈ	\ÈX\Ú	XXÝ]NÈ	\ÈPÔ	\ÈYÙÙ\È	\ÈÜÚ\Ý][ÛÜÝÛÏ\È	Ú[\ÙKÜÙ]Ù]KKHÓÕTKO]Û\ÜÏHÛÝ\\[HÜÝ\	Y\ÚÈ\ÚØ\H\XÝ[Û	ZYÝÈX\È	ZYÝÈÛÝ\Ù\ÈÛÛ[][\]IXXÝ]NÈY[ÙK\[KYÜÝ\[Ý[Ë\\[K\Ù[\\ÛIYÜ]NÝH\[KÐÔÐH	ZYÝÈÛÛY[Y[Ù]ØÜ\ØÝ[Y[]Y\TÙ[XÝÜ[
-	ËXXÊKÜXXÚ
-OÂY][\Ý[\	ØÛXÚÉË
+      <p>CA par p&ocirc;le, canaux d&rsquo;acquisition actuels, 20 derniers deals sign&eacute;s. Sans cela, aucune calibration n&rsquo;est possible.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--gold);">
+      <h3>2. Valider le scope de l&rsquo;outbound</h3>
+      <p>L&rsquo;outbound couvre-t-il uniquement Real Estate, ou aussi Workspace et People &amp; Transformation&nbsp;? D&eacute;cision strat&eacute;gique du PDG.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--gold);">
+      <h3>3. Choisir l&rsquo;option de reprise</h3>
+      <p>Poursuite conditionnelle (recommand&eacute;), pilote restreint (alternative), ou reframe complet (non recommand&eacute;). Pas de statu quo.</p>
+    </div>
+  </div>
 
-HOÂØÝ[Y[]Y\TÙ[XÝÜ[
-	ËXXÊKÜXXÚ
-OÛ\ÜÓ\Ý[[ÝJ	ØXÝ]IÊJNÂØÝ[Y[]Y\TÙ[XÝÜ[
-	ËXXÛÛ[	ÊKÜXXÚ
-ÈOËÛ\ÜÓ\Ý[[ÝJ	ØXÝ]IÊJNÂÛ\ÜÓ\ÝY
-	ØXÝ]IÊNÂØÝ[Y[Ù][[Y[RY
-	ÝXIÈ
-È]\Ù]XKÛ\ÜÓ\ÝY
-	ØXÝ]IÊNÂJNÂJNÂÜØÜ\ØÙOÚ[
+  <div class="section-header">Verdict sur l&rsquo;agence</div>
+  <div class="verdict-strip">
+    <div class="verdict-box verdict-good">
+      <h4>Ce qui est bien fait</h4>
+      <ul>
+        <li>Architecture Fit + Intent coh&eacute;rente</li>
+        <li>Deux chemins (bail / scoring continu)</li>
+        <li>Int&eacute;gration Swarm (warm intros)</li>
+        <li>HubSpot comme pivot CRM</li>
+        <li>Documentation compl&egrave;te et transparente</li>
+      </ul>
+    </div>
+    <div class="verdict-box verdict-fix">
+      <h4>&Agrave; recalibrer imp&eacute;rativement</h4>
+      <ul>
+        <li>Scoring sectoriel (PE &rarr; portefeuille r&eacute;el)</li>
+        <li>Propri&eacute;taires-utilisateurs sous-pond&eacute;r&eacute;s</li>
+        <li>Volume d&rsquo;envoi (10K &rarr; 2-3K pour d&eacute;marrer)</li>
+        <li>Campagnes Workspace &amp; People manquantes</li>
+        <li>Assets de thought leadership non int&eacute;gr&eacute;s</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Recommandation</div>
+    <p><strong>Poursuite conditionnelle.</strong> Nous reconnaissons la valeur du travail d&rsquo;automatisation. L&rsquo;architecture est professionnelle. La critique porte sur l&rsquo;alignement strat&eacute;gique, pas sur la comp&eacute;tence technique. Recalibrer avant de lancer, pas apr&egrave;s.</p>
+  </div>
+</div>
+
+<!-- TAB 2 - BUSINESS REEL -->
+<div class="tab-content" id="tab-business">
+  <div class="tab-title">Ce que Parella vend r&eacute;ellement</div>
+  <div class="tab-subtitle">Core business, structure et diff&eacute;renciation &mdash; faits confirm&eacute;s</div>
+
+  <div class="section-header">D&eacute;finition</div>
+  <div class="card" style="margin-bottom:24px;">
+    <h3>Conseil en immobilier d&rsquo;exploitation et transformation des espaces de travail</h3>
+    <p style="margin-top:8px;">Parella accompagne les occupants (entreprises, institutions) dans la strat&eacute;gie, la conception et la transformation de leurs espaces de travail. Positionnement 100&nbsp;% c&ocirc;t&eacute; occupant, ind&eacute;pendant de tout propri&eacute;taire ou investisseur. Mission d&eacute;clar&eacute;e&nbsp;: &laquo;&nbsp;faire de votre immobilier et de vos espaces int&eacute;rieurs des leviers de transformation, de coh&eacute;sion et de performance.&nbsp;&raquo;</p>
+    <p style="margin-top:6px;"><span class="badge badge-fc">Fait confirm&eacute;</span> &mdash; Sources : site corporate, Interview Business Immo juin 2024</p>
+  </div>
+
+  <div class="section-header">Ce que Parella n&rsquo;est pas (ou pas uniquement)</div>
+  <div class="card-grid">
+    <div class="card"><h3>Pas un d&eacute;corateur d&rsquo;int&eacute;rieur</h3><p>L&rsquo;offre couvre la strat&eacute;gie immobili&egrave;re, les transactions, l&rsquo;expertise, l&rsquo;ing&eacute;nierie technique et le change management. Le design est un p&ocirc;le parmi d&rsquo;autres. <span class="badge badge-fc">FC</span></p></div>
+    <div class="card"><h3>Pas un broker immobilier</h3><p>Parella ne repr&eacute;sente pas de propri&eacute;taires. 70&nbsp;% de ses clients sont locataires, 30&nbsp;% propri&eacute;taires-utilisateurs. Z&eacute;ro investisseur. <span class="badge badge-fc">FC</span></p></div>
+    <div class="card"><h3>Pas uniquement &laquo;&nbsp;bureaux&nbsp;&raquo;</h3><p>Le communiqu&eacute; Bpifrance mentionne explicitement &laquo;&nbsp;bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo;. <span class="badge badge-fc">FC</span></p></div>
+  </div>
+
+  <div class="section-header">Les 3 p&ocirc;les m&eacute;tiers</div>
+  <div class="bm-poles">
+    <div class="bm-pole">
+      <h4>Real Estate Services</h4>
+      <ul>
+        <li>Strat&eacute;gie &amp; transactions immobili&egrave;res</li>
+        <li>Expertise immobili&egrave;re (RICS)</li>
+        <li>Audit &amp; ing&eacute;nierie technique</li>
+      </ul>
+      <div style="margin-top:8px;"><span class="badge badge-fc">FC</span></div>
+    </div>
+    <div class="bm-pole">
+      <h4>Workspace</h4>
+      <ul>
+        <li>Architecture &amp; design</li>
+        <li>Strat&eacute;gie workplace</li>
+        <li>Am&eacute;nagement d&rsquo;espaces</li>
+      </ul>
+      <div style="margin-top:8px;"><span class="badge badge-fc">FC</span></div>
+    </div>
+    <div class="bm-pole">
+      <h4>People &amp; Transformation</h4>
+      <ul>
+        <li>Accompagnement du changement</li>
+        <li>Formation / Parella Academy</li>
+      </ul>
+      <div style="margin-top:8px;"><span class="badge badge-fc">FC</span></div>
+    </div>
+  </div>
+
+  <div class="section-header">Cha&icirc;ne de valeur</div>
+  <div class="bm-flow">
+    <div class="bm-box"><div class="bm-label">Phase 1</div><div class="bm-name">Audit strat&eacute;gique</div></div>
+    <div class="bm-arrow">&rarr;</div>
+    <div class="bm-box"><div class="bm-label">Phase 2</div><div class="bm-name">Transaction / n&eacute;go bail</div></div>
+    <div class="bm-arrow">&rarr;</div>
+    <div class="bm-box"><div class="bm-label">Phase 3</div><div class="bm-name">Conception &amp; design</div></div>
+    <div class="bm-arrow">&rarr;</div>
+    <div class="bm-box"><div class="bm-label">Phase 4</div><div class="bm-name">Am&eacute;nagement</div></div>
+    <div class="bm-arrow">&rarr;</div>
+    <div class="bm-box"><div class="bm-label">Phase 5</div><div class="bm-name">Change &amp; formation</div></div>
+  </div>
+  <div class="alert alert-blue"><strong>Diff&eacute;renciateur cl&eacute;&nbsp;:</strong> Parella est le seul acteur ind&eacute;pendant de cette taille &agrave; couvrir l&rsquo;int&eacute;gralit&eacute; de cette cha&icirc;ne, sans conflits d&rsquo;int&eacute;r&ecirc;ts avec les propri&eacute;taires. <span class="badge badge-ip">Interpr&eacute;tation</span></div>
+
+  <div class="section-header">Faits structurants</div>
+  <table>
+    <thead><tr><th>Indicateur</th><th>Valeur</th><th>Preuve</th></tr></thead>
+    <tbody>
+      <tr><td>CA 2024</td><td><strong>~150 M&euro;</strong></td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</td></tr>
+      <tr><td>Part internationale</td><td><strong>40 %</strong></td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</td></tr>
+      <tr><td>Collaborateurs</td><td><strong>250</strong> (sept. 2025)</td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; actionnariat</td></tr>
+      <tr><td>Pr&eacute;sence</td><td><strong>7 pays, 13 villes</strong></td><td><span class="badge badge-fc">FC</span> Site corporate + communiqu&eacute;</td></tr>
+      <tr><td>Acquisitions</td><td><strong>4</strong> (Solved, TTS, Agilit&eacute;, + 1)</td><td><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</td></tr>
+      <tr><td>2nd LBO</td><td>SG Capital, BRED, Bpifrance (sept. 2025)</td><td><span class="badge badge-fc">FC</span> Page actionnariat</td></tr>
+      <tr><td>Locataires / propri&eacute;taires-util.</td><td><strong>70 / 30</strong></td><td><span class="badge badge-fc">FC</span> Interview Business Immo</td></tr>
+      <tr><td>Revenue mix par p&ocirc;le</td><td>Non connu</td><td><span class="badge badge-hv">HV</span> Estimations contradictoires</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-header">R&eacute;f&eacute;rences clients document&eacute;es</div>
+  <div class="card" style="margin-bottom:20px;">
+    <p><strong>Portfolio confirm&eacute;&nbsp;:</strong> NAOS, Edenred, Publicis, Wavestone, Sanofi, Eurostar, General Motors, NBA, LinkedIn, Evercore, Lululemon, Hogan Lovells, KPMG, Oliver Wyman, Malt, Omnes Education. <span class="badge badge-fc">FC</span></p>
+    <p style="margin-top:6px;"><strong>T&eacute;moignages confirm&eacute;s&nbsp;:</strong> APM, Airbus, Caisse des D&eacute;p&ocirc;ts, Bayard, LMFV-Pyrex. <span class="badge badge-fc">FC</span></p>
+    <p style="margin-top:6px;"><strong>Classement Leaders League&nbsp;:</strong> &laquo;&nbsp;Incontournable&nbsp;&raquo; depuis plusieurs ann&eacute;es. <span class="badge badge-fc">FC</span></p>
+  </div>
+</div>
+
+<!-- TAB 3 - MARCHE -->
+<div class="tab-content" id="tab-market">
+  <div class="tab-title">Les dynamiques de march&eacute; &agrave; surveiller</div>
+  <div class="tab-subtitle">Lecture de march&eacute; orient&eacute;e d&eacute;cision</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
+    <div class="legend-item"><span class="badge badge-ip">Interpr&eacute;tation</span></div>
+    <div class="legend-item"><span class="badge badge-hv">Hypoth&egrave;se</span></div>
+  </div>
+
+  <div class="section-header">7 dynamiques de march&eacute;</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Dynamique 1</div>
+      <h3>Hybridation g&eacute;n&eacute;ralis&eacute;e</h3>
+      <p>24&nbsp;% des collaborateurs fran&ccedil;ais en flex office. 71&nbsp;% acc&egrave;s t&eacute;l&eacute;travail (2,1 jours/semaine en moyenne). 95&nbsp;% des projets impliquent un accompagnement du changement.</p>
+      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Barom&egrave;tre Parella/CSA, site corporate</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Dynamique 2</div>
+      <h3>R&eacute;duction de surface &agrave; effectif constant</h3>
+      <p>Rationalisation des m&sup2; avec r&eacute;allocation vers des espaces collaboratifs. Moins de postes fixes, plus de flexibilit&eacute;.</p>
+      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Interview Business Immo</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Dynamique 3</div>
+      <h3>Consolidation du secteur</h3>
+      <p>Les acteurs ind&eacute;pendants cherchent la taille critique. Concurrence structurelle avec CBRE, JLL, Savills qui servent aussi le c&ocirc;t&eacute; propri&eacute;taire.</p>
+      <p style="margin-top:6px;"><span class="badge badge-ip">IP</span> D&eacute;duit du LBO et mouvements sectoriels</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Dynamique 4</div>
+      <h3>&Eacute;largissement au-del&agrave; des bureaux</h3>
+      <p>Le communiqu&eacute; Bpifrance mentionne &laquo;&nbsp;bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo;. Extension vers retail et hospitality.</p>
+      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Dynamique 5</div>
+      <h3>Exp&eacute;rience collaborateur comme enjeu RH</h3>
+      <p>Le bureau devient un outil d&rsquo;attractivit&eacute; et de r&eacute;tention. Le discours Parella (&laquo;&nbsp;bureaux pour vos talents&nbsp;&raquo;) cible cette dynamique.</p>
+      <p style="margin-top:6px;"><span class="badge badge-ip">IP</span> Coh&eacute;rent avec le positionnement</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Dynamique 6</div>
+      <h3>Internationalisation des entreprises</h3>
+      <p>Besoin de coh&eacute;rence workplace multi-pays. Parella &agrave; 40&nbsp;% international, acquisition d&rsquo;Agilit&eacute;, r&eacute;seau Exis Global.</p>
+      <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Communiqu&eacute; Bpifrance, site corporate</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Dynamique 7</div>
+      <h3>Contraintes budg&eacute;taires et RSE</h3>
+      <p>Pression sur les co&ucirc;ts immobiliers et exigences environnementales. Parella propose audit technique et RSE &eacute;nerg&eacute;tique.</p>
+      <p style="margin-top:6px;"><span class="badge badge-ip">IP</span> Coh&eacute;rent avec l&rsquo;offre</p>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Ce que cela change pour le GTM</div>
+    <p>Le march&eacute; n&rsquo;est pas seulement &laquo;&nbsp;fins de bail&nbsp;&raquo;. Les d&eacute;clencheurs sont multiples&nbsp;: hybridation, croissance, M&amp;A, attractivit&eacute; talents, RSE, internationalisation. Un syst&egrave;me outbound construit uniquement autour du bail ne capte qu&rsquo;une fraction de la demande. Le GTM doit &ecirc;tre &laquo;&nbsp;business-led&nbsp;&raquo;, pas &laquo;&nbsp;real-estate-led&nbsp;&raquo;.</p>
+  </div>
+
+  <div class="section-header">Ce que nous ne savons pas</div>
+  <div class="card-grid">
+    <div class="card" style="border-left:3px solid var(--red);">
+      <h3>Pas d&rsquo;analyse concurrentielle structur&eacute;e</h3>
+      <p>Concurrents frontaux par p&ocirc;le non document&eacute;s. Parts de march&eacute;, taux de win/loss, raisons de perte d&rsquo;affaires&nbsp;: inconnus.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red);">
+      <h3>Pas de donn&eacute;es sur les canaux d&rsquo;acquisition</h3>
+      <p>Quelle part vient du referral, de l&rsquo;inbound, des events&nbsp;? Sans cela, impossible de positionner l&rsquo;outbound.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red);">
+      <h3>Cycle de vente inconnu</h3>
+      <p>Le syst&egrave;me calibre l&rsquo;intent score sur 90 jours. Si le cycle r&eacute;el est 12-18 mois, le nurturing est sous-dimensionn&eacute;.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4 - ICPs -->
+<div class="tab-content" id="tab-icp">
+  <div class="tab-title">Les ICPs les plus plausibles aujourd&rsquo;hui</div>
+  <div class="tab-subtitle">Priorit&eacute;s de ciblage et niveau de confiance &mdash; construits &agrave; partir du portfolio public</div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="badge badge-fc">Fait confirm&eacute;</span></div>
+    <div class="legend-item"><span class="badge badge-ip">Interpr&eacute;tation</span></div>
+    <div class="legend-item"><span class="badge badge-hv">Hypoth&egrave;se</span></div>
+  </div>
+
+  <div class="alert alert-orange"><strong>Avertissement m&eacute;thodologique&nbsp;:</strong> la hi&eacute;rarchie ci-dessous est construite &laquo;&nbsp;de l&rsquo;ext&eacute;rieur&nbsp;&raquo; (portfolio visible, presse, site). Elle n&eacute;cessite une validation par les donn&eacute;es internes (CA par segment, deals clos&eacute;s, taux de conversion).</div>
+
+  <div class="icp-tier-label icp-priority">Prioritaires &mdash; Confiance &eacute;lev&eacute;e</div>
+  <table>
+    <thead><tr><th style="width:22%">ICP</th><th>Confiance</th><th>D&eacute;clencheurs</th><th>D&eacute;cideurs</th><th>Int&eacute;r&ecirc;t outbound</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Grands occupants en transformation</strong><br><span style="font-size:12px;color:var(--text-muted)">Relocation, consolidation, campus</span></td>
+        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">4/5</span></td>
+        <td>Annonce nouveau si&egrave;ge, consolidation, communication campus</td>
+        <td>DG, Dir. Immobilier, COO</td>
+        <td><span class="badge badge-fc">FC</span> Wavestone, Edenred, Publicis, Sanofi.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Conseil, finance, professions premium</strong><br><span style="font-size:12px;color:var(--text-muted)">Espaces &agrave; forte exigence d&rsquo;image</span></td>
+        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">4/5</span></td>
+        <td>Entr&eacute;e immeuble premium, refonte image</td>
+        <td>Partners, Head of Office, Marketing</td>
+        <td><span class="badge badge-fc">FC</span> Evercore, KPMG, Oliver Wyman, Hogan Lovells.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="icp-tier-label icp-test">&Agrave; tester &mdash; Confiance mod&eacute;r&eacute;e</div>
+  <table>
+    <thead><tr><th style="width:22%">ICP</th><th>Confiance</th><th>D&eacute;clencheurs</th><th>D&eacute;cideurs</th><th>Int&eacute;r&ecirc;t outbound</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>3. Transformation modes de travail</strong><br><span style="font-size:12px;color:var(--text-muted)">Flex, hybride, bien-&ecirc;tre</span></td>
+        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">3/5</span></td>
+        <td>Passage flex office, r&eacute;duction surface</td>
+        <td>DRH, Dir. Transformation, DG</td>
+        <td><span class="badge badge-ip">IP</span> Barom&egrave;tre, p&ocirc;le d&eacute;di&eacute;.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Scale-ups en forte croissance</strong><br><span style="font-size:12px;color:var(--text-muted)">Premier &laquo;&nbsp;vrai&nbsp;&raquo; bureau</span></td>
+        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">3/5</span></td>
+        <td>Lev&eacute;e de fonds, ouverture bureau</td>
+        <td>CEO/Fondateur, COO, People</td>
+        <td><span class="badge badge-ip">IP</span> Lululemon, Malt, NBA.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Internationaux multi-pays</strong><br><span style="font-size:12px;color:var(--text-muted)">Standards workplace paneurop&eacute;ens</span></td>
+        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">3/5</span></td>
+        <td>Ouverture si&egrave;ge EMEA, harmonisation</td>
+        <td>Real Estate Dir. EMEA, Corporate Services</td>
+        <td><span class="badge badge-ip">IP</span> Capacit&eacute; confirm&eacute;e par acquisitions.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="icp-tier-label icp-unproven">S&eacute;duisant mais non prouv&eacute;</div>
+  <table>
+    <thead><tr><th style="width:22%">ICP</th><th>Confiance</th><th>D&eacute;clencheurs</th><th>D&eacute;cideurs</th><th>Int&eacute;r&ecirc;t outbound</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>6. Entreprises US en expansion Europe</strong><br><span style="font-size:12px;color:var(--text-muted)">Hypoth&egrave;se strat&eacute;gique</span></td>
+        <td><div class="conf-bar"><span class="conf-dot filled"></span><span class="conf-dot filled"></span><span class="conf-dot"></span><span class="conf-dot"></span><span class="conf-dot"></span></div><span style="font-size:11px;color:var(--text-muted)">2/5</span></td>
+        <td>Arriv&eacute;e en Europe, ouverture hub</td>
+        <td>VP Real Estate, COO Europe</td>
+        <td><span class="badge badge-hv">HV</span> Logique coh&eacute;rente, z&eacute;ro preuve directe.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway" style="margin-top:24px;">
+    <div class="takeaway-label">Ce qui manque pour finaliser</div>
+    <p>R&eacute;partition du CA par type de client, deals clos&eacute;s par segment (24 derniers mois), taux de conversion par ICP, deal size moyen. Sans ces donn&eacute;es, la hi&eacute;rarchie reste indicative.</p>
+  </div>
+</div>
+
+<!-- TAB 5 - OPPORTUNITES -->
+<div class="tab-content" id="tab-opportunities">
+  <div class="tab-title">O&ugrave; sont les meilleures opportunit&eacute;s</div>
+  <div class="tab-subtitle">Matrice confiance &times; potentiel et lecture par p&ocirc;le</div>
+
+  <div class="alert alert-orange"><strong>Avertissement&nbsp;:</strong> cette lecture est qualitative. Aucun TAM chiffr&eacute; n&rsquo;est disponible. Les conclusions reposent sur le portefeuille visible.</div>
+
+  <div class="section-header">Matrice confiance &times; potentiel</div>
+  <div class="matrix-2x2">
+    <div class="matrix-header-y">Confiance de preuve &rarr; &Eacute;lev&eacute;e &nbsp;&nbsp;|&nbsp;&nbsp; Potentiel business &darr;</div>
+    <div class="matrix-cell mc-green">
+      <h4>Quick wins &mdash; Fort &times; Prouv&eacute;</h4>
+      <ul>
+        <li><strong>Grands occupants / si&egrave;ge</strong> &mdash; C&oelig;ur du portfolio. Outbound ABM cibl&eacute; tr&egrave;s pertinent.</li>
+        <li><strong>Conseil / finance premium</strong> &mdash; Evercore, KPMG, Hogan Lovells. Haut ticket.</li>
+      </ul>
+    </div>
+    <div class="matrix-cell mc-blue">
+      <h4>Strat&eacute;giques &mdash; Fort &times; &Agrave; tester</h4>
+      <ul>
+        <li><strong>Multi-pays / harmonisation</strong> &mdash; Agilit&eacute; donne la capacit&eacute;. Volume &agrave; valider.</li>
+        <li><strong>Transformation modes de travail</strong> &mdash; Barom&egrave;tre = actif unique.</li>
+      </ul>
+    </div>
+    <div class="matrix-cell mc-orange">
+      <h4>Sous-p&eacute;n&eacute;tr&eacute;s &mdash; Mod&eacute;r&eacute; &times; Prouv&eacute;</h4>
+      <ul>
+        <li><strong>Retail / hospitality</strong> &mdash; Confirm&eacute; (Bpifrance), invisible dans l&rsquo;outbound.</li>
+        <li><strong>Propri&eacute;taires-utilisateurs</strong> &mdash; 30&nbsp;% des clients, p&eacute;nalis&eacute;s par le scoring.</li>
+      </ul>
+    </div>
+    <div class="matrix-cell mc-purple">
+      <h4>Exploratoires &mdash; &Agrave; valider</h4>
+      <ul>
+        <li><strong>US-to-Europe</strong> &mdash; Z&eacute;ro preuve directe. Pilote possible.</li>
+        <li><strong>Scale-ups</strong> &mdash; Quelques cas. Ticket plus petit.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-header">Opportunit&eacute;s par p&ocirc;le</div>
+  <table>
+    <thead><tr><th>P&ocirc;le</th><th>Force actuelle</th><th>Sous-p&eacute;n&eacute;tration</th><th>Action outbound</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Real Estate Services</strong></td>
+        <td>Bien couvert (trigger bail)</td>
+        <td>Propri&eacute;taires-utilisateurs exclus</td>
+        <td>Reclasser propri&eacute;taires, &eacute;largir triggers</td>
+      </tr>
+      <tr>
+        <td><strong>Workspace</strong></td>
+        <td>C&oelig;ur visible du portfolio</td>
+        <td>Aucune campagne d&eacute;di&eacute;e Youno</td>
+        <td>S&eacute;quences sur triggers non-immo</td>
+      </tr>
+      <tr>
+        <td><strong>People &amp; Transformation</strong></td>
+        <td>Barom&egrave;tre = actif unique</td>
+        <td>P&ocirc;le invisible dans l&rsquo;outbound</td>
+        <td>Exploiter le Barom&egrave;tre comme nurturing</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway">
+    <div class="takeaway-label">O&ugrave; concentrer les efforts</div>
+    <p><strong>Court terme&nbsp;:</strong> ICP 1 et 2 en ABM cibl&eacute;. <strong>Moyen terme&nbsp;:</strong> ouvrir Workspace et People avec des triggers non immobiliers. <strong>Long terme&nbsp;:</strong> tester US-to-Europe et multi-pays si les donn&eacute;es valident.</p>
+  </div>
+</div>
+
+<!-- TAB 6 - AUDIT YOUNO -->
+<div class="tab-content" id="tab-audit">
+  <div class="tab-title">Ce que l&rsquo;agence a bien construit &mdash; et ce qu&rsquo;elle doit corriger</div>
+  <div class="tab-subtitle">Architecture, forces, d&eacute;salignements, score par dimension</div>
+
+  <div class="section-header">Architecture r&eacute;sum&eacute;e</div>
+  <div class="card" style="margin-bottom:24px;">
+    <p>Syst&egrave;me en <strong>13 sections</strong>&nbsp;: Fit Score (0-1000), Intent Score (0-500, fen&ecirc;tre 90j), Tiering (T1/T2/T3), Segments HubSpot, Personas, Orchestration (2 chemins), Swarm (warm intros), 8+ campagnes, HubSpot fields, gestion r&eacute;ponses, stack technique.</p>
+    <p style="margin-top:6px;"><strong>Stack&nbsp;:</strong> Cargo ($990/m), Icypeas+Enrow (&euro;124/m), Lemlist ($99/m), Swarm ($99/m), Explore API (~&euro;150/m), HubSpot. <strong>Total ~1&nbsp;354&nbsp;&euro;/mois.</strong></p>
+    <p style="margin-top:6px;"><strong>Volume pr&eacute;vu&nbsp;:</strong> 10&nbsp;000 emails/mois. <strong>R&eacute;pondant unique&nbsp;:</strong> Michael Kaplan (associ&eacute;).</p>
+    <p style="margin-top:6px;"><span class="badge badge-fc">FC</span> Source : youno-parella.vercel.app</p>
+  </div>
+
+  <div class="section-header">Score par dimension</div>
+  <div class="score-grid">
+    <div class="score-card"><div class="label">Alignement business</div><div class="score score-low">3/10</div><div class="note">PE en top scorer, 1 p&ocirc;le sur 3</div></div>
+    <div class="score-card"><div class="label">ICP</div><div class="score score-low">3/10</div><div class="note">Non calibr&eacute; sur portefeuille r&eacute;el</div></div>
+    <div class="score-card"><div class="label">Segmentation</div><div class="score score-mid">5/10</div><div class="note">Surface OK mais insuffisant</div></div>
+    <div class="score-card"><div class="label">Triggers</div><div class="score score-low">3/10</div><div class="note">Mono-trigger bail (300 pts)</div></div>
+    <div class="score-card"><div class="label">Personas</div><div class="score score-mid">5/10</div><div class="note">D&eacute;finis mais non test&eacute;s</div></div>
+    <div class="score-card"><div class="label">Messaging</div><div class="score score-low">4/10</div><div class="note">Langage broker, pas transformateur</div></div>
+    <div class="score-card"><div class="label">Orchestration</div><div class="score score-high">7/10</div><div class="note">2 chemins + Swarm bien pens&eacute;s</div></div>
+    <div class="score-card"><div class="label">RevOps / Data</div><div class="score score-mid">5/10</div><div class="note">HubSpot OK, pas de feedback loop</div></div>
+    <div class="score-card"><div class="label">Image de marque</div><div class="score score-low">3/10</div><div class="note">10K emails/mois = risque premium</div></div>
+  </div>
+
+  <div class="section-header">Les 10 critiques majeures</div>
+  <table>
+    <thead><tr><th style="width:5%">#</th><th style="width:30%">Critique</th><th>D&eacute;tail</th><th style="width:12%">S&eacute;v&eacute;rit&eacute;</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>PE en top scorer</strong></td><td>350 pts pour le Private Equity, z&eacute;ro client PE dans le portefeuille.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
+      <tr><td>2</td><td><strong>Mono-trigger bail</strong></td><td>Bail expiry = +300 pts = 60 % du max intent. Ignore M&amp;A, croissance, hybridation.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
+      <tr><td>3</td><td><strong>Volume vs premium</strong></td><td>10K emails/mois pour un cabinet &laquo;&nbsp;Incontournable&nbsp;&raquo;. Risque de dilution.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
+      <tr><td>4</td><td><strong>Goulot Michael Kaplan</strong></td><td>Seul r&eacute;pondant. 100-200 conversations/mois potentielles.</td><td><span class="badge" style="background:var(--red-bg);color:var(--red);">Critique</span></td></tr>
+      <tr><td>5</td><td><strong>Thought leadership ignor&eacute;</strong></td><td>Barom&egrave;tre (8 &eacute;d.), Office Papers, cas clients non int&eacute;gr&eacute;s.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
+      <tr><td>6</td><td><strong>2 p&ocirc;les sans campagnes</strong></td><td>Workspace et People &amp; Transformation absents du syst&egrave;me.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
+      <tr><td>7</td><td><strong>P&eacute;rim&egrave;tre tronqu&eacute;</strong></td><td>&laquo;&nbsp;Bureaux, magasins, h&ocirc;tels, restaurants&nbsp;&raquo; non refl&eacute;t&eacute; dans le ciblage.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
+      <tr><td>8</td><td><strong>Pas de calibration r&eacute;trospective</strong></td><td>Seuils de tiering et poids non test&eacute;s contre les deals existants.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
+      <tr><td>9</td><td><strong>Messaging &laquo;&nbsp;broker&nbsp;&raquo;</strong></td><td>S&eacute;quences bail parlent m&sup2;, co&ucirc;ts, pas le langage de la transformation.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
+      <tr><td>10</td><td><strong>Pas de feedback loop</strong></td><td>Aucun m&eacute;canisme d&rsquo;ajustement automatique.</td><td><span class="badge" style="background:var(--orange-bg);color:var(--orange);">Majeur</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Agency Challenge</div>
+    <p>L&rsquo;architecture est solide. Le probl&egrave;me n&rsquo;est pas la m&eacute;canique mais le param&eacute;trage. Le scoring, les triggers, le scope et le volume ont &eacute;t&eacute; configur&eacute;s sans r&eacute;f&eacute;rence suffisante au business r&eacute;el de Parella. La comp&eacute;tence technique de l&rsquo;agence n&rsquo;est pas en cause&nbsp;; c&rsquo;est l&rsquo;alignement strat&eacute;gique qui doit &ecirc;tre repris.</p>
+  </div>
+</div>
+
+<!-- TAB 7 - QUESTIONS AGENCE -->
+<div class="tab-content" id="tab-questions">
+  <div class="tab-title">Les 10 questions &agrave; poser &agrave; l&rsquo;agence</div>
+  <div class="tab-subtitle">Conditions de poursuite du dispositif outbound</div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-scoring">Scoring</span></div>
+    <div class="q-text"><span class="q-num">1</span>Sur quelle base le Private Equity a-t-il &eacute;t&eacute; retenu comme top secteur (350 pts)&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> C&rsquo;est le param&egrave;tre le plus influent du Fit Score. Aucun client PE n&rsquo;est visible dans le portefeuille.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> explication fond&eacute;e sur des donn&eacute;es (pipeline Parella, briefing client), pas sur une logique g&eacute;n&eacute;rique.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-calibration">Calibration</span></div>
+    <div class="q-text"><span class="q-num">2</span>Le scoring a-t-il &eacute;t&eacute; test&eacute; r&eacute;trospectivement contre les 10-20 derniers deals&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Si les clients existants ne seraient pas class&eacute;s T1, le syst&egrave;me &eacute;limine les bons prospects.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> tableau montrant les clients existants pass&eacute;s dans le Fit Score.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-coverage">Coverage p&ocirc;les</span></div>
+    <div class="q-text"><span class="q-num">3</span>Pourquoi n&rsquo;y a-t-il pas de campagnes Workspace et People &amp; Transformation&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Deux des trois p&ocirc;les m&eacute;tiers sont absents du syst&egrave;me.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> plan pour ces campagnes, ou explication strat&eacute;gique du choix Real Estate seul.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-volume">Volume</span></div>
+    <div class="q-text"><span class="q-num">4</span>Comment justifiez-vous 10&nbsp;000 emails/mois pour un cabinet premium&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Risque de dilution de marque et de d&eacute;livrabilit&eacute;.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> mont&eacute;e progressive, tests de d&eacute;livrabilit&eacute;, benchmark par volume.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-coverage">Coverage assets</span></div>
+    <div class="q-text"><span class="q-num">5</span>Le Barom&egrave;tre, les Office Papers et les cas clients sont-ils int&eacute;gr&eacute;s comme nurturing&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Actifs de cr&eacute;dibilit&eacute; exceptionnels, absents des s&eacute;quences.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> int&eacute;gration pr&eacute;vue avec positionnement dans le funnel.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-volume">Capacit&eacute;</span></div>
+    <div class="q-text"><span class="q-num">6</span>Comment le syst&egrave;me g&egrave;re-t-il la mont&eacute;e en charge c&ocirc;t&eacute; r&eacute;ponses&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Michael Kaplan est seul pour toutes les r&eacute;ponses positives.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> plan de d&eacute;l&eacute;gation avec seuils et profils compl&eacute;mentaires.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-calibration">Calibration</span></div>
+    <div class="q-text"><span class="q-num">7</span>Les seuils de tiering (T1 &gt; 600, T2 400-600, T3 &lt; 400) viennent-ils de donn&eacute;es r&eacute;elles&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Des seuils arbitraires excluent de bons prospects.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> m&eacute;thodologie de calibration, id&eacute;alement backtest.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-segment">Segmentation</span></div>
+    <div class="q-text"><span class="q-num">8</span>Quelle strat&eacute;gie pour les propri&eacute;taires-utilisateurs (30&nbsp;% de la base)&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Ce segment est sous-scor&eacute;. Un tiers du business est p&eacute;nalis&eacute;.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> reclassement ou justification argument&eacute;e.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-segment">Triggers</span></div>
+    <div class="q-text"><span class="q-num">9</span>Comment capter les signaux non immobiliers (M&amp;A, direction, croissance, flex)&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Le syst&egrave;me est domin&eacute; par le bail. Les autres p&ocirc;les ont d&rsquo;autres d&eacute;clencheurs.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> liste de signaux alternatifs avec sources et int&eacute;gration.</div>
+  </div>
+
+  <div class="q-card">
+    <div><span class="q-theme theme-feedback">Feedback loop</span></div>
+    <div class="q-text"><span class="q-num">10</span>Existe-t-il un m&eacute;canisme de feedback loop&nbsp;?</div>
+    <div class="q-why"><strong>Pourquoi&nbsp;:</strong> Sans boucle de retour, le syst&egrave;me ne s&rsquo;am&eacute;liore pas.</div>
+    <div class="q-good"><strong>Bonne r&eacute;ponse attendue&nbsp;:</strong> processus structur&eacute; avec m&eacute;triques, seuils d&rsquo;alerte et ajustements.</div>
+  </div>
+</div>
+
+<!-- TAB 8 - PLAN 30/60/90 -->
+<div class="tab-content" id="tab-plan">
+  <div class="tab-title">Ce qu&rsquo;il faut valider dans les 90 prochains jours</div>
+  <div class="tab-subtitle">Recalibration, extension et pilote &mdash; conditions de Go / No-Go</div>
+
+  <div class="legend" style="margin-bottom:24px;">
+    <div class="legend-item"><span class="tl-tag tl-tag-decide">D&eacute;cider</span> Action PDG</div>
+    <div class="legend-item"><span class="tl-tag tl-tag-validate">Valider</span> Donn&eacute;es internes</div>
+    <div class="legend-item"><span class="tl-tag tl-tag-test">Tester</span> Pilote terrain</div>
+    <div class="legend-item"><span class="tl-tag tl-tag-deploy">D&eacute;ployer</span> Mise en production</div>
+  </div>
+
+  <div class="tl-phase tl-phase-30">30 premiers jours &mdash; Recalibration</div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-title">1. Obtenir la r&eacute;partition r&eacute;elle du CA par p&ocirc;le</div><div class="tl-desc">Donn&eacute;e la plus critique. Sans elle, le scoring reste arbitraire.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
+    <div class="tl-item"><div class="tl-title">2. Auditer les canaux d&rsquo;acquisition existants</div><div class="tl-desc">Referral, inbound, events, r&eacute;seau. L&rsquo;outbound est un compl&eacute;ment, pas un remplacement.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
+    <div class="tl-item"><div class="tl-title">3. Tester le scoring r&eacute;trospectivement</div><div class="tl-desc">Passer les 20 derniers clients dans le Fit Score. Si moins de 50 % sont T1, recalibrer.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
+    <div class="tl-item"><div class="tl-title">4. Remplacer le scoring PE par un scoring portefeuille r&eacute;el</div><div class="tl-desc">Corporate, Conseil/Finance, Tech/Scale-up, Public/Institutionnel, Retail/Hospitality.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
+    <div class="tl-item"><div class="tl-title">5. Reclasser les propri&eacute;taires-utilisateurs</div><div class="tl-desc">Au m&ecirc;me niveau que les locataires. 30 % du business r&eacute;el.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
+  </div>
+
+  <div class="tl-phase tl-phase-60" style="margin-top:12px;">60 jours &mdash; Extension</div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-title">6. Cr&eacute;er des s&eacute;quences Workspace et People</div><div class="tl-desc">Triggers non immobiliers : flex, changement direction, rebranding, churn talents.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
+    <div class="tl-item"><div class="tl-title">7. Int&eacute;grer le Barom&egrave;tre et Office Papers comme nurturing</div><div class="tl-desc">Actifs de cr&eacute;dibilit&eacute; exceptionnels, &agrave; positionner dans les s&eacute;quences.</div><div><span class="tl-tag tl-tag-deploy">D&eacute;ployer</span></div></div>
+    <div class="tl-item"><div class="tl-title">8. R&eacute;duire le volume initial &agrave; 2-3K emails/mois</div><div class="tl-desc">Mont&eacute;e progressive en fonction des r&eacute;sultats.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
+    <div class="tl-item"><div class="tl-title">9. D&eacute;signer un second point de contact</div><div class="tl-desc">Au-del&agrave; de Michael Kaplan. Profil senior, capable de qualifier et engager.</div><div><span class="tl-tag tl-tag-decide">D&eacute;cider</span></div></div>
+  </div>
+
+  <div class="tl-phase tl-phase-90" style="margin-top:12px;">90 jours &mdash; Pilote et feedback</div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-title">10. Lancer un pilote ABM sur l&rsquo;ICP 1 (Grands occupants)</div><div class="tl-desc">Segment &agrave; plus haute confiance. Suivi hebdomadaire.</div><div><span class="tl-tag tl-tag-test">Tester</span></div></div>
+    <div class="tl-item"><div class="tl-title">11. Mettre en place la boucle de feedback</div><div class="tl-desc">Taux de r&eacute;ponse par ICP, objections, signaux, conversions. Ajustement mensuel.</div><div><span class="tl-tag tl-tag-deploy">D&eacute;ployer</span></div></div>
+    <div class="tl-item"><div class="tl-title">12. Bilan &agrave; 90 jours &mdash; D&eacute;cision de g&eacute;n&eacute;ralisation</div><div class="tl-desc">Donn&eacute;es r&eacute;elles pour d&eacute;cider : g&eacute;n&eacute;raliser, ajuster ou arr&ecirc;ter.</div><div><span class="tl-tag tl-tag-validate">Valider</span></div></div>
+  </div>
+
+  <div class="section-header" style="margin-top:32px;">Conditions de Go / No-Go</div>
+  <table>
+    <thead><tr><th>Condition</th><th>Go</th><th>No-Go</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Donn&eacute;es internes</strong></td><td>CA par p&ocirc;le, canaux, 20 derniers deals partag&eacute;s</td><td>Donn&eacute;es non fournies</td></tr>
+      <tr><td><strong>Scoring recalibr&eacute;</strong></td><td>PE remplac&eacute;, propri&eacute;taires reclass&eacute;s, backtest &gt; 50 % T1</td><td>Agence refuse de modifier</td></tr>
+      <tr><td><strong>Volume ajust&eacute;</strong></td><td>D&eacute;marrage 2-3K avec mont&eacute;e progressive</td><td>Insistance sur 10K</td></tr>
+      <tr><td><strong>Capacit&eacute; r&eacute;ponse</strong></td><td>Second r&eacute;pondant d&eacute;sign&eacute;</td><td>Michael Kaplan reste seul</td></tr>
+      <tr><td><strong>Pilote ICP 1</strong></td><td>Taux r&eacute;ponse &gt; 2 %, meeting &gt; 0,5 % &agrave; 90j</td><td>Taux r&eacute;ponse &lt; 1 % apr&egrave;s 60j</td></tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Posture</div>
+    <p>Nous reconnaissons la valeur du travail d&rsquo;automatisation, mais nous remettons la d&eacute;cision au bon niveau&nbsp;: <strong>business &rarr; march&eacute; &rarr; ICP &rarr; triggers &rarr; orchestration</strong>. Pas l&rsquo;inverse.</p>
+  </div>
+</div>
+
+<div class="footer">
+  Parella Group &mdash; Dashboard Strat&eacute;gique de Direction &middot; Mars 2026 &middot; Sources : communiqu&eacute; Bpifrance, parella-group.fr, youno-parella.vercel.app, Barom&egrave;tre Parella/CSA &middot; Confidentiel
+</div>
+
+<script>
+function switchTab(tabId) {
+  var btns = document.querySelectorAll('.tab-btn');
+  var tabs = document.querySelectorAll('.tab-content');
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
+  var clickedBtn = document.querySelector('[data-tab="' + tabId + '"]');
+  var targetTab = document.getElementById('tab-' + tabId);
+  if (clickedBtn) { clickedBtn.classList.add('active'); }
+  if (targetTab) { targetTab.classList.add('active'); }
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
